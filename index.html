@@ -224,13 +224,37 @@
   }
   @media(prefers-reduced-motion:reduce) {.audience-item,.cta-large,.book-top {transition:none;}}
 
+
+/* Mobile header stays accessible during scroll, with safe-area and compact one-row controls. */
+@media (max-width:700px) {
+  html {scroll-padding-top:calc(90px + env(safe-area-inset-top,0px));}
+  .topbar {
+    position:fixed;inset:0 0 auto;z-index:100;max-width:100vw;width:100%;
+    min-height:calc(68px + env(safe-area-inset-top,0px));
+    padding:calc(10px + env(safe-area-inset-top,0px)) 16px 10px;
+    gap:12px;
+    background:linear-gradient(180deg,rgba(6,6,7,.98),rgba(6,6,7,.86));
+    border-bottom:1px solid rgba(189,161,110,.17);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  }
+  .brand {flex:1 1 auto;min-width:0;gap:8px;}
+  .mark {width:42px;height:44px;}
+  .brand-text {font-size:clamp(10px,2.65vw,12px);min-width:0;line-height:1.2;white-space:nowrap;}
+  .top-controls {flex:0 0 auto;gap:0;}
+  .book-top {display:none;}
+  .menu-lines {width:44px;min-width:44px;height:44px;min-height:44px;align-items:center;justify-content:center;gap:6px;}
+  .menu-lines span {display:block;width:30px;height:2px;flex:none;}
+  .site-nav {inset-inline-end:16px;max-height:calc(100dvh - 100px);overflow-y:auto;}
+}
+@media (max-width:365px) {
+  .topbar {padding:calc(10px + env(safe-area-inset-top,0px)) 12px 10px;}
+  .brand-text {font-size:10px;}
+  .menu-lines {width:42px;min-width:42px;}
+}
+
 </style>
 </head>
 <body>
-<main>
-<!-- This entire background remains a client-media placeholder, not a stand-in photo of performers. -->
-<section class="visual-hero" aria-label="מעל ומעבר – המנטליסטים" data-pending-asset="hero-photo-and-showreel">
-  <div class="hero-media-space" aria-hidden="true"><div class="beam one"></div><div class="beam two"></div><div class="stage-horizon"></div></div>
   <header class="topbar">
     <div class="brand" aria-label="מעל ומעבר – המנטליסטים">
       <span class="mark" aria-hidden="true"></span>
@@ -239,7 +263,7 @@
     <div class="top-controls">
       
       <a class="book-top" href="#contact">להזמנת המופע</a>
-      <button class="menu-lines" type="button" aria-label="תפריט" aria-expanded="false" aria-controls="site-nav"><span></span><span></span></button>
+      <button class="menu-lines" type="button" aria-label="תפריט" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
     </div>
     <nav id="site-nav" class="site-nav" aria-label="ניווט באתר" hidden>
       <a href="#about-show">הרבה מעבר למופע מנטליזם</a>
@@ -249,6 +273,11 @@
       <a href="#contact">להזמנת המופע</a>
     </nav>
   </header>
+<main>
+<!-- This entire background remains a client-media placeholder, not a stand-in photo of performers. -->
+<section class="visual-hero" aria-label="מעל ומעבר – המנטליסטים" data-pending-asset="hero-photo-and-showreel">
+  <div class="hero-media-space" aria-hidden="true"><div class="beam one"></div><div class="beam two"></div><div class="stage-horizon"></div></div>
+
   <div class="hero-footer" aria-hidden="true"></div>
 </section>
 <section class="intro" aria-labelledby="hero-title">
