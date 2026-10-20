@@ -34,7 +34,7 @@
   .mark {width:65px;height:65px;position:relative;display:grid;place-items:center;flex:none;}
   .mark:before {content:"";width:44px;height:44px;display:block;border:4px solid var(--paper);border-inline-start-width:1px;transform:rotate(45deg);}
   .mark:after {content:"";position:absolute;width:9px;height:9px;transform:rotate(45deg);background:var(--red);box-shadow:0 0 0 5px rgba(6,6,6,.8);}
-  .brand-text {font-size:clamp(14px,1.65vw,22px);font-weight:800;letter-spacing:-.02em;line-height:1.3;}
+  .brand-text {font-size:clamp(14px,1.65vw,22px);font-weight:800;letter-spacing:-.02em;line-height:1.3;white-space:nowrap;}
   .top-controls {display:flex;align-items:center;gap:clamp(20px,2vw,34px);}
   .book-top {border:1.4px solid #fff;background:rgba(0,0,0,.16);color:white; padding:14px 25px;font-size:clamp(12px,1.1vw,15px);font-weight:750;letter-spacing:.04em;white-space:nowrap; opacity:.92;cursor:default;}
   .menu-lines {width:50px;height:38px;border:0;padding:0;background:transparent;display:flex;flex-direction:column;justify-content:space-evenly;gap:4px;opacity:.92;cursor:default;}
@@ -44,7 +44,7 @@
   .hero-footer {position:absolute;z-index:1;inset:auto 0 0;height:70px;background:linear-gradient(180deg,transparent,#030303);}
   .intro {position:relative;background:#030303;text-align:center;padding:clamp(72px,8.4vw,130px) 26px 86px;}
   .intro-inner {max-width:1020px;margin:0 auto;}
-  h1 {max-width:980px;margin:0 auto 40px;font-size:clamp(54px,6.4vw,104px);letter-spacing:-.042em;line-height:1.09;font-weight:900;text-wrap:balance;}
+  h1 {max-width:980px;margin:0 auto 40px;font-size:clamp(21px,6.2vw,74px);letter-spacing:-.042em;line-height:1.09;font-weight:900;white-space:nowrap;}
   .subheading {margin:0 auto 28px;max-width:760px;color:#f0eeee;font-size:clamp(22px,2.1vw,31px);font-weight:400;line-height:1.58;}
   .description {margin:0 auto 43px;max-width:775px;color:#c5c4c4;font-size:clamp(16px,1.4vw,20px);line-height:1.85;}
   .cta-large {min-width:225px;display:inline-flex;align-items:center;justify-content:center;border:1.6px solid #dedede;padding:18px 30px;font-weight:750;font-size:16px;letter-spacing:.01em;background:transparent;color:white;cursor:default;}
@@ -59,7 +59,7 @@
     .mark {width:46px;height:50px;}
     .mark:before {width:28px;height:28px;border-width:3px;border-inline-start-width:1px;}
     .mark:after {width:7px;height:7px;}
-    .brand-text {font-size:14px;line-height:1.2;max-width:125px;}
+    .brand-text {font-size:clamp(9px,2.8vw,12px);line-height:1.2;max-width:none;}
     .top-controls {gap:17px;}
     .book-top {font-size:12px;min-height:42px;padding:10px 12px;}
     .menu-lines {width:34px;height:28px;}
@@ -67,7 +67,7 @@
     .beam.one {right:-5%;width:50%;}
     .beam.two {left:-12%;width:55%;}
     .intro {padding:67px 24px 47px;}
-    h1 {font-size:clamp(40px,9.5vw,67px);margin-bottom:32px;line-height:1.13;}
+    h1 {font-size:clamp(21px,6.2vw,43px);margin-bottom:32px;line-height:1.13;}
     .subheading {font-size:clamp(18px,4.6vw,23px);line-height:1.6;margin-bottom:25px;}
     .description {font-size:15px;line-height:1.8;margin-bottom:32px;}
     .cta-large {width:100%;max-width:290px;min-height:56px;font-size:15px;}
@@ -79,11 +79,11 @@
   @media(max-width:365px) {
     .topbar {padding:20px 14px;}
     .top-controls {gap:11px;}
-    .brand-text {font-size:12px;max-width:99px;}
+    .brand-text {font-size:9px;max-width:none;}
     .book-top {font-size:10px;min-height:37px;padding:9px;}
     .menu-lines {width:29px;}
     .visual-hero {height:440px;}
-    h1 {font-size:38px;}
+    h1 {font-size:21px;}
   }
   @media(prefers-reduced-motion:reduce) {html {scroll-behavior:auto;}}
 </style>
