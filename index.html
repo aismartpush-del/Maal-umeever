@@ -126,11 +126,12 @@
   .audiences .section-header {max-width:880px;margin:0 auto 46px;text-align:center;}
   .audiences .section-kicker {margin-inline:auto;}
   .audience-grid {display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
-  .audience-item {min-height:166px;padding:25px 18px;background:rgba(255,255,255,.56);border:1px solid rgba(0,0,0,.075);display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;transition:transform .22s,box-shadow .22s;}
+  .audience-item {min-height:166px;padding:25px 18px;background:rgba(255,255,255,.6);border:1px solid rgba(0,0,0,.085);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:20px;text-align:center;transition:transform .22s,box-shadow .22s;}
   .audience-item:hover {transform:translateY(-3px);box-shadow:0 11px 24px rgba(0,0,0,.065);}
-  .audience-item .glyph {width:37px;height:37px;border:1.5px solid #ad2634;transform:rotate(45deg);margin:7px 11px 20px;position:relative;}
-  .audience-item .glyph::after {content:"";position:absolute;inset:8px;border:1px solid #bba07b;}
-  .audience-item span:last-child {font-size:clamp(18px,2vw,23px);font-weight:780;line-height:1.35;}
+  .audience-icon {width:53px;height:53px;display:grid;place-items:center;color:#a71e29;position:relative;flex:none;}
+  .audience-icon svg {width:43px;height:43px;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none;}
+  .audience-icon::after {content:"";position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);width:23px;height:1px;background:#ae8e60;}
+  .audience-label {font-size:clamp(18px,2vw,23px);font-weight:780;line-height:1.35;}
   .age-line {margin:38px auto 0!important;text-align:center;font-size:19px;font-weight:750;}
   .unique {background:radial-gradient(ellipse at 11% 40%,#30131d 0%,transparent 40%),#08080a;}
   .unique>div:first-child {max-width:960px;}
@@ -199,8 +200,10 @@
     .about-content {gap:21px;}
     .manifesto {margin-top:26px;padding:23px 20px;font-size:27px;}
     .audience-grid {grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
-    .audience-item {min-height:145px;padding:21px 17px;}
-    .audience-item span:last-child {font-size:17px;}
+    .audience-item {min-height:144px;padding:19px 13px;gap:16px;}
+    .audience-icon {width:47px;height:47px;}
+    .audience-icon svg {width:39px;height:39px;}
+    .audience-label {font-size:17px;}
     .feature-grid {grid-template-columns:1fr;gap:11px;margin:40px 0 54px;}
     .feature {min-height:0;padding:27px 23px;}
     .trust-strip {grid-template-columns:1fr;}
@@ -268,7 +271,7 @@
 </section>
 <section id="events" class="section audiences light-section" aria-labelledby="audiences-title">
 <div class="section-header"><div class="section-kicker"></div><h2 id="audiences-title">למי מתאים „מעל ומעבר – המנטליסטים”?</h2><p class="lead">המופע מתאים למגוון רחב של אירועים וניתן להתאים אותו לאופי הקהל, למסגרת ולאורך האירוע.</p></div>
-<div class="audience-grid"><div class="audience-item"><span class="glyph" aria-hidden="true"></span><span>אירועי חברה</span></div><div class="audience-item"><span class="glyph" aria-hidden="true"></span><span>כנסים ואירועים עסקיים</span></div><div class="audience-item"><span class="glyph" aria-hidden="true"></span><span>ערבי גיבוש</span></div><div class="audience-item"><span class="glyph" aria-hidden="true"></span><span>ארגונים ומוסדות</span></div><div class="audience-item"><span class="glyph" aria-hidden="true"></span><span>אירועי רווחה</span></div><div class="audience-item"><span class="glyph" aria-hidden="true"></span><span>אירועים פרטיים</span></div></div><p class="age-line">מתאים לקהל מגיל 13 ומעלה.</p></section>
+<div class="audience-grid"><div class="audience-item"><span class="audience-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><rect x="3" y="7" width="18" height="13" rx="1.5"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18M10 13v2h4v-2"/></svg></span><span class="audience-label">אירועי חברה</span></div><div class="audience-item"><span class="audience-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><rect x="3" y="3.5" width="18" height="13" rx="1.5"/><path d="M12 16.5V21M8.5 21h7M7 12.5l3-3 2.5 2 4-4"/></svg></span><span class="audience-label">כנסים ואירועים עסקיים</span></div><div class="audience-item"><span class="audience-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><circle cx="9" cy="7.5" r="3"/><path d="M3.5 20v-2.2a5.5 5.5 0 0 1 11 0V20M17 10.5a3 3 0 1 0-1.1-5.8M17 14a4.5 4.5 0 0 1 3.5 4.4V20"/></svg></span><span class="audience-label">ערבי גיבוש</span></div><div class="audience-item"><span class="audience-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="m2 9 10-6 10 6M3 9h18M5.5 10.5v8M10 10.5v8M14 10.5v8M18.5 10.5v8M3 21h18M4 19h16"/></svg></span><span class="audience-label">ארגונים ומוסדות</span></div><div class="audience-item"><span class="audience-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 13.5 6.5 8.4a3.1 3.1 0 0 1 4.4-4.4L12 5.1l1.1-1.1a3.1 3.1 0 0 1 4.4 4.4L12 13.5Z"/><path d="m2.5 15 3.7-1.5 3.3 2.3 2.5.7 2.5-.7 3.3-2.3 3.7 1.5M3.5 18.2 8.5 21h7l5-2.8"/></svg></span><span class="audience-label">אירועי רווחה</span></div><div class="audience-item"><span class="audience-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><rect x="3.5" y="10" width="17" height="11" rx="1"/><path d="M2.5 7h19v3h-19zM12 7v14M12 7H8a2.5 2.5 0 1 1 2.1-3.9L12 7Zm0 0h4a2.5 2.5 0 1 0-2.1-3.9L12 7Z"/></svg></span><span class="audience-label">אירועים פרטיים</span></div></div><p class="age-line">מתאים לקהל מגיל 13 ומעלה.</p></section>
 <section id="why" class="section unique dark-section" aria-labelledby="unique-title"><div class="section-kicker"></div><h2 id="unique-title">מה הופך את „מעל ומעבר – המנטליסטים” לחוויה אחרת?</h2>
 <div class="feature-grid"><div class="feature"><p><strong>שני מנטליסטים על במה אחת</strong> — החיבור בין יוריני לד״ר אור פינטו יוצר דינמיקה ייחודית של תקשורת, השפעה מנטלית ועבודה משותפת בזמן אמת.</p></div><div class="feature"><p><strong>חוויה תיאטרלית</strong> — המופע בנוי כחוויה בימתית שלמה ולא כרצף קטעים נפרדים.</p></div><div class="feature"><p><strong>הקהל הוא חלק מהמתרחש</strong> — האינטראקציה עם הקהל יוצרת בכל פעם חוויה שונה וחיה.</p></div><div class="feature"><p><strong>משהו שנשאר גם אחרי</strong> — מעבר לרגעי ההפתעה, הקהל יוצא עם רעיונות, כלים ושיטות שאפשר לחבר לחיי היום־יום. הכוח של יוריני וד״ר אור פינטו עובר אל הקהל, שחוזר הביתה עם כוחות חדשים ועם טיפים מנטליים שאפשר ליישם באינטראקציות חברתיות ואישיות בחיי היום־יום.</p></div></div><div class="trust-strip"><div>50+ שנות ניסיון של יוריני</div><div>עשרות מיליוני צופים לאורך הקריירה של יוריני</div><div>הופעות בארץ ובעולם לאורך הקריירה של יוריני</div></div>
 <div class="pending-video" data-pending-asset="historic-footage-from-Hong-Kong-and-Israeli-TV" role="img" aria-label="סרטונים של יורני מהונג קונג וטלוויזיה ישראלית"></div></section>
