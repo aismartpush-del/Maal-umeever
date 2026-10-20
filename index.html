@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#070707">
+<link rel="icon" type="image/webp" href="assets/official-logo.webp">
 <meta name="description" content="מופע תיאטרלי שחוצה את הגבול בין תודעה למציאות  ומשאיר אתכם עם כלים לחשוב, לתקשר ולהשפיע אחרת.">
 <title>מעל ומעבר – המנטליסטים</title>
 <style>
@@ -252,12 +253,79 @@
   .menu-lines {width:42px;min-width:42px;}
 }
 
+
+  /* Approved split-face logo palette: keep red CTAs and monochrome base.
+     Cyan and warm gold are controlled stage-light accents, not new primary backgrounds. */
+  :root {--brand-cyan:#28b5d9;--brand-cyan-strong:#0ea5e9;--brand-gold:#d4a36c;}
+  .brand-logo {
+    display:block;width:56px;height:56px;flex:none;object-fit:contain;
+    filter:drop-shadow(0 0 7px rgba(15,168,213,.14));
+  }
+  .hero-media-space::after {
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(ellipse 44% 55% at 82% 37%,rgba(14,165,233,.12),transparent 75%),
+      radial-gradient(ellipse 37% 45% at 18% 57%,rgba(212,163,108,.085),transparent 78%);
+  }
+  .section-kicker {
+    background:linear-gradient(90deg,#a71e29 0%,var(--brand-gold) 52%,var(--brand-cyan) 100%);
+    box-shadow:0 0 12px rgba(14,165,233,.06);
+  }
+  .site-nav {border-color:rgba(40,181,217,.25);}
+  .site-nav a:focus-visible,.menu-lines:focus-visible {outline:2px solid var(--brand-cyan);outline-offset:4px;}
+  .audience-item:nth-child(2) .audience-icon,
+  .audience-item:nth-child(5) .audience-icon {color:#148ca9;}
+  .audience-icon::after {background:var(--brand-gold);}
+  .audience-item:hover {box-shadow:0 12px 28px rgba(8,83,111,.08);}
+  .feature:nth-child(2),.feature:nth-child(4) {border-top-color:rgba(44,162,194,.66);}
+  .feature:nth-child(2) {background:linear-gradient(145deg,#222328,#111315);}
+  .pending-video {
+    background:
+      radial-gradient(ellipse at 80% 25%,rgba(14,165,233,.115),transparent 53%),
+      radial-gradient(ellipse at 24% 52%,rgba(212,163,108,.09),transparent 54%),
+      linear-gradient(140deg,#181719,#09090b);
+    border-color:rgba(40,181,217,.26);
+  }
+  .media-stage {
+    background:
+      radial-gradient(ellipse at 72% 29%,rgba(14,165,233,.14),transparent 52%),
+      radial-gradient(ellipse at 21% 58%,rgba(212,163,108,.10),transparent 55%),
+      linear-gradient(130deg,#292629,#060607 67%);
+    border-color:rgba(40,181,217,.23);
+  }
+  .media-thumb:nth-child(2) {border-color:rgba(40,181,217,.27);}
+  .portrait {background:
+    radial-gradient(ellipse at 77% 26%,rgba(14,165,233,.10),transparent 38%),
+    radial-gradient(ellipse at 27% 34%,rgba(212,163,108,.08),transparent 40%),
+    linear-gradient(125deg,#545055,#18181a 47%,#343034);}
+  .faq details:nth-child(3n+2) summary::after {color:var(--brand-cyan);}
+  .contact {background:
+    radial-gradient(ellipse at 12% 72%,rgba(14,165,233,.10),transparent 42%),
+    radial-gradient(ellipse at 90% 15%,rgba(121,27,39,.21),transparent 43%),
+    #141114;}
+  .form-field input:focus,.form-field textarea:focus {border-color:var(--brand-cyan);box-shadow:0 0 0 2px rgba(40,181,217,.14);}
+  .site-footer {border-top-color:rgba(40,181,217,.24);}
+  .site-footer .footer-brand::after {
+    content:"";display:block;margin:16px auto 0;height:2px;width:64px;
+    background:linear-gradient(90deg,var(--brand-gold),var(--brand-cyan));opacity:.8;
+  }
+  @media(max-width:700px) {
+    .brand-logo {width:43px;height:43px;}
+    .topbar {border-bottom-color:rgba(40,181,217,.21);}
+    .hero-media-space::after {
+      background:
+        radial-gradient(ellipse 60% 45% at 82% 35%,rgba(14,165,233,.13),transparent 78%),
+        radial-gradient(ellipse 52% 42% at 18% 56%,rgba(212,163,108,.065),transparent 78%);
+    }
+  }
+  @media(max-width:365px) {.brand-logo {width:40px;height:40px;}}
+
 </style>
 </head>
 <body>
   <header class="topbar">
     <div class="brand" aria-label="מעל ומעבר – המנטליסטים">
-      <span class="mark" aria-hidden="true"></span>
+      <img class="brand-logo" src="assets/official-logo.webp" width="56" height="56" alt="" aria-hidden="true">
       <span class="brand-text">מעל ומעבר – המנטליסטים</span>
     </div>
     <div class="top-controls">
