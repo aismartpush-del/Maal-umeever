@@ -437,6 +437,28 @@
   .trust-highlight {font-size:22px;}
   .trust-caption {font-size:16px;}
 }
+
+/* Contact icon placeholders: no phone or WhatsApp number supplied yet. */
+.contact-icon-rail {
+  position:fixed;inset-inline-end:clamp(14px,2vw,28px);bottom:24px;
+  z-index:19;display:flex;flex-direction:column;gap:10px;
+  pointer-events:none;
+}
+.contact-icon-placeholder {
+  width:49px;height:49px;display:grid;place-items:center;flex:none;
+  border-radius:50%;color:#e8e4e0;
+  background:rgba(19,19,22,.94);
+  border:1px solid rgba(190,160,117,.48);
+  box-shadow:0 7px 18px rgba(0,0,0,.25);
+  opacity:.87;
+}
+.contact-icon-placeholder svg {width:23px;height:23px;display:block;}
+@media (max-width:760px) {
+  .contact-icon-rail {inset-inline-end:13px;bottom:calc(74px + env(safe-area-inset-bottom,0px));gap:9px;}
+  .contact-icon-placeholder {width:44px;height:44px;}
+  .contact-icon-placeholder svg {width:22px;height:22px;}
+}
+
 </style>
 </head>
 <body>
@@ -504,6 +526,18 @@
 <div class="form-actions"><label class="consent-line"><input type="checkbox" disabled aria-disabled="true">מדיניות פרטיות</label><button class="contact-submit" type="button" disabled aria-disabled="true">חזרו אליי</button></div></form></section>
 </main>
 <footer class="site-footer"><div class="footer-brand">מעל ומעבר – המנטליסטים</div></footer>
+<div class="contact-icon-rail" aria-label="סמלי קשר — פרטים יתווספו בהמשך">
+  <span class="contact-icon-placeholder" role="img" aria-label="טלפון — פרטים בקרוב" title="טלפון — בקרוב">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.96.35 1.9.68 2.79a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.89.33 1.83.56 2.79.68A2 2 0 0 1 22 16.92z"/>
+    </svg>
+  </span>
+  <span class="contact-icon-placeholder" role="img" aria-label="וואטסאפ — פרטים בקרוב" title="וואטסאפ — בקרוב">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.149-.67.15-.198.297-.768.966-.941 1.164-.174.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.787-1.48-1.758-1.653-2.055-.173-.297-.019-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.297-.496.099-.198.05-.372-.025-.52-.074-.15-.669-1.612-.916-2.205-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01s-.52.074-.792.371c-.272.298-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.075c.149.198 2.096 3.2 5.078 4.487.709.306 1.262.489 1.693.626.711.226 1.358.194 1.869.118.57-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.791 9.791 0 0 1-4.951-1.355l-.355-.211-3.682.964.983-3.59-.231-.368a9.794 9.794 0 0 1-1.498-5.228C2.315 6.58 6.721 2.175 12.052 2.175a9.73 9.73 0 0 1 6.937 2.872 9.73 9.73 0 0 1 2.87 6.938c-.002 5.33-4.406 9.734-9.807 9.8m8.32-18.117A11.7 11.7 0 0 0 12.05.2C5.556.2.27 5.486.267 11.982a11.74 11.74 0 0 0 1.572 5.874L.168 23.96l6.243-1.637a11.78 11.78 0 0 0 5.634 1.435h.005c6.494 0 11.78-5.286 11.783-11.783a11.71 11.71 0 0 0-3.464-8.31"/>
+    </svg>
+  </span>
+</div>
 <a href="#contact" class="mobile-booking">להזמנת המופע</a>
 <script>
 (()=>{
