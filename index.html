@@ -259,6 +259,7 @@
   .brand-logo {
     display:block;
     width:56px;height:56px;flex:none;object-fit:contain;
+    border-radius:50%;
   }
   .hero-media-space::after {
     content:"";position:absolute;inset:0;pointer-events:none;
@@ -461,9 +462,21 @@
 (()=>{
   const trigger=document.querySelector('.menu-lines'),nav=document.getElementById('site-nav');
   if(trigger&&nav){
-    trigger.addEventListener('click',()=>{const open=trigger.getAttribute('aria-expanded')==='true';trigger.setAttribute('aria-expanded',String(!open));nav.hidden=open;});
-    nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.hidden=true;trigger.setAttribute('aria-expanded','false');}));
-    document.addEventListener('keydown',e=>{if(e.key==='Escape'){nav.hidden=true;trigger.setAttribute('aria-expanded','false');}});
+    const closeMenu=()=>{
+      nav.hidden=true;
+      trigger.setAttribute('aria-expanded','false');
+    };
+    trigger.addEventListener('click',()=>{
+      const open=trigger.getAttribute('aria-expanded')==='true';
+      if(open){closeMenu();}else{nav.hidden=false;trigger.setAttribute('aria-expanded','true');}
+    });
+    nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
+    document.addEventListener('click',event=>{
+      if(!nav.hidden && !nav.contains(event.target) && !trigger.contains(event.target)) closeMenu();
+    });
+    document.addEventListener('keydown',event=>{
+      if(event.key==='Escape') closeMenu();
+    });
   }
 })();
 </script>
