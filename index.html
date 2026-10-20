@@ -390,13 +390,60 @@
   .first-screen .quote-section blockquote {font-size:14px;line-height:1.42;margin-bottom:5px;}
 }
 
+
+/* Fixed desktop/tablet navigation: keep approved mobile header intact. */
+@media (min-width:701px) {
+  html {scroll-padding-top:104px;}
+  .section {scroll-margin-top:104px;}
+  .topbar {
+    position:fixed;
+    inset:0 0 auto;
+    z-index:120;
+    min-height:86px;
+    padding:10px clamp(24px,4vw,72px);
+    background:rgba(7,7,9,.93);
+    border-bottom:1px solid rgba(189,161,110,.18);
+    -webkit-backdrop-filter:blur(14px);
+    backdrop-filter:blur(14px);
+  }
+}
+/* Hebrew typography: preserve each hyphenated expression as one word. */
+.no-break {white-space:nowrap;}
+/* All three proof points share a layout; only two dividing lines between them. */
+.trust-strip {grid-template-columns:repeat(3,minmax(0,1fr));border-block:1px solid rgba(189,161,110,.32);}
+.trust-strip > div {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  padding:clamp(24px,3vw,38px) clamp(12px,2vw,28px);
+  min-width:0;
+  border:0;
+  border-inline-end:1px solid rgba(189,161,110,.33);
+  text-align:center;
+}
+.trust-strip > div:last-child {border-inline-end:0;}
+.trust-highlight {color:#cbb08d;font-size:clamp(20px,2.05vw,28px);font-weight:800;line-height:1.33;}
+.trust-caption {color:#e0dcda;font-size:clamp(15px,1.26vw,18px);font-weight:500;line-height:1.5;}
+@media (max-width:700px) {
+  .trust-strip {grid-template-columns:1fr;}
+  .trust-strip > div {
+    border:0;
+    border-bottom:1px solid rgba(189,161,110,.29);
+    padding:22px 16px;
+  }
+  .trust-strip > div:last-child {border-bottom:0;}
+  .trust-highlight {font-size:22px;}
+  .trust-caption {font-size:16px;}
+}
 </style>
 </head>
 <body>
   <header class="topbar">
     <div class="brand" aria-label="מעל ומעבר – המנטליסטים">
       <img class="brand-logo" src="assets/official-logo.webp" width="56" height="56" alt="" aria-hidden="true">
-      <span class="brand-text">מעל ומעבר – המנטליסטים</span>
+      <span class="brand-text">מעל ומעבר – המנטליסטים</span>
     </div>
     <div class="top-controls">
       
@@ -421,42 +468,42 @@
 </section>
 <section class="intro" aria-labelledby="hero-title">
  <div class="intro-inner">
-  <h1 id="hero-title">מעל ומעבר – המנטליסטים</h1>
+  <h1 id="hero-title">מעל ומעבר – המנטליסטים</h1>
   <p class="subheading">מופע תיאטרלי שחוצה את הגבול בין תודעה למציאות  ומשאיר אתכם עם כלים לחשוב, לתקשר ולהשפיע אחרת.</p>
-  <p class="description">יוריני וד״ר אור פינטו רוקדים על החבל הדק שבין פסיכולוגיה לפאראפסיכולוגיה, במופע משותף של מנטליזם, טלפתיה, סוגסטיה והשפעה מנטלית, שבו הקהל הופך לחלק מהחוויה – בהשראת היפנוזה.</p>
+  <p class="description">יוריני וד״ר אור פינטו רוקדים על החבל הדק שבין פסיכולוגיה לפאראפסיכולוגיה, במופע משותף של מנטליזם, טלפתיה, סוגסטיה והשפעה מנטלית, שבו הקהל הופך לחלק מהחוויה – בהשראת היפנוזה.</p>
   <a class="cta-large" href="#contact">להזמנת המופע</a>
   <div class="thin-line" aria-hidden="true"></div>
  </div>
 </section>
 <section class="quote-section" aria-label="מרטין בוקסדורף – מתוך הפודקאסט „הבולדוג”">
- <blockquote>„הכימיה ביניהם משוגעת. הם מעבירים מחשבות אחד לשני, מתקשרים בלי שום שפה, ולראות את זה מקרוב – זה כמעט לא שפוי. במהלך המופע הם עושים דברים מ-ט-ו-ר-פ-י-ם. חובה לראות את זוג המנטליסטים הזה!”</blockquote>
- <p class="byline">מרטין בוקסדורף – מתוך הפודקאסט „הבולדוג”</p>
+ <blockquote>„הכימיה ביניהם משוגעת. הם מעבירים מחשבות אחד לשני, מתקשרים בלי שום שפה, ולראות את זה מקרוב – זה כמעט לא שפוי. במהלך המופע הם עושים דברים <span class="no-break">מ-ט-ו-ר-פ-י-ם</span>. חובה לראות את זוג המנטליסטים הזה!”</blockquote>
+ <p class="byline">מרטין בוקסדורף – מתוך הפודקאסט „הבולדוג”</p>
 </section>
 </div>
 <section id="about-show" class="section show-about dark-section" aria-labelledby="about-title">
  <div class="about-layout"><div class="about-title"><div class="section-kicker"></div><h2 id="about-title">הרבה מעבר למופע מנטליזם</h2></div>
- <div class="about-content"><p class="copy">„מעל ומעבר – המנטליסטים” הוא מופע תיאטרלי שנבנה כהצגה ומשלב מנטליזם, טלפתיה, סוגסטיה והשפעה מנטלית בהשראת היפנוזה. הקהל אינו רק צופה במה שמתרחש – הוא חלק מהחוויה, והתגובות, הבחירות והמחשבות שלו משפיעות על מה שקורה על הבמה.</p><p class="copy">אבל המטרה היא לא רק להדהים. במהלך המופע הקהל נחשף לכלים, שיטות ורעיונות שאפשר לקחת אל החיים עצמם – למערכות יחסים, להתמודדות עם מצבים שונים, לדפוסי חשיבה ולדרך שבה אנחנו מתקשרים ומשפיעים זה על זה.</p><p class="copy">המופע יכול להיבנות באורכים שונים ולהתאים את עצמו לסוג האירוע, לקהל ולמסגרת.</p></div></div>
+ <div class="about-content"><p class="copy">„מעל ומעבר – המנטליסטים” הוא מופע תיאטרלי שנבנה כהצגה ומשלב מנטליזם, טלפתיה, סוגסטיה והשפעה מנטלית בהשראת היפנוזה. הקהל אינו רק צופה במה שמתרחש – הוא חלק מהחוויה, והתגובות, הבחירות והמחשבות שלו משפיעות על מה שקורה על הבמה.</p><p class="copy">אבל המטרה היא לא רק להדהים. במהלך המופע הקהל נחשף לכלים, שיטות ורעיונות שאפשר לקחת אל החיים עצמם – למערכות יחסים, להתמודדות עם מצבים שונים, לדפוסי חשיבה ולדרך שבה אנחנו מתקשרים ומשפיעים זה על זה.</p><p class="copy">המופע יכול להיבנות באורכים שונים ולהתאים את עצמו לסוג האירוע, לקהל ולמסגרת.</p></div></div>
  <div class="manifesto">לא רק לצאת בשוק. לצאת עם תודעה משודרגת.</div>
 </section>
 <section id="events" class="section audiences light-section" aria-labelledby="audiences-title">
-<div class="section-header"><div class="section-kicker"></div><h2 id="audiences-title">למי מתאים „מעל ומעבר – המנטליסטים”?</h2><p class="lead">המופע מתאים למגוון רחב של אירועים וניתן להתאים אותו לאופי הקהל, למסגרת ולאורך האירוע.</p></div>
+<div class="section-header"><div class="section-kicker"></div><h2 id="audiences-title">למי מתאים „מעל ומעבר – המנטליסטים”?</h2><p class="lead">המופע מתאים למגוון רחב של אירועים וניתן להתאים אותו לאופי הקהל, למסגרת ולאורך האירוע.</p></div>
 <div class="audience-grid"><div class="audience-item"><span class="audience-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><rect x="3" y="7" width="18" height="13" rx="1.5"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18M10 13v2h4v-2"/></svg></span><span class="audience-label">אירועי חברה</span></div><div class="audience-item"><span class="audience-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><rect x="3" y="3.5" width="18" height="13" rx="1.5"/><path d="M12 16.5V21M8.5 21h7M7 12.5l3-3 2.5 2 4-4"/></svg></span><span class="audience-label">כנסים ואירועים עסקיים</span></div><div class="audience-item"><span class="audience-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><circle cx="9" cy="7.5" r="3"/><path d="M3.5 20v-2.2a5.5 5.5 0 0 1 11 0V20M17 10.5a3 3 0 1 0-1.1-5.8M17 14a4.5 4.5 0 0 1 3.5 4.4V20"/></svg></span><span class="audience-label">ערבי גיבוש</span></div><div class="audience-item"><span class="audience-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="m2 9 10-6 10 6M3 9h18M5.5 10.5v8M10 10.5v8M14 10.5v8M18.5 10.5v8M3 21h18M4 19h16"/></svg></span><span class="audience-label">ארגונים ומוסדות</span></div><div class="audience-item"><span class="audience-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 13.5 6.5 8.4a3.1 3.1 0 0 1 4.4-4.4L12 5.1l1.1-1.1a3.1 3.1 0 0 1 4.4 4.4L12 13.5Z"/><path d="m2.5 15 3.7-1.5 3.3 2.3 2.5.7 2.5-.7 3.3-2.3 3.7 1.5M3.5 18.2 8.5 21h7l5-2.8"/></svg></span><span class="audience-label">אירועי רווחה</span></div><div class="audience-item"><span class="audience-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><rect x="3.5" y="10" width="17" height="11" rx="1"/><path d="M2.5 7h19v3h-19zM12 7v14M12 7H8a2.5 2.5 0 1 1 2.1-3.9L12 7Zm0 0h4a2.5 2.5 0 1 0-2.1-3.9L12 7Z"/></svg></span><span class="audience-label">אירועים פרטיים</span></div></div><p class="age-line">מתאים לקהל מגיל 13 ומעלה.</p></section>
-<section id="why" class="section unique dark-section" aria-labelledby="unique-title"><div class="section-kicker"></div><h2 id="unique-title">מה הופך את „מעל ומעבר – המנטליסטים” לחוויה אחרת?</h2>
-<div class="feature-grid"><div class="feature"><p><strong>שני מנטליסטים על במה אחת</strong> — החיבור בין יוריני לד״ר אור פינטו יוצר דינמיקה ייחודית של תקשורת, השפעה מנטלית ועבודה משותפת בזמן אמת.</p></div><div class="feature"><p><strong>חוויה תיאטרלית</strong> — המופע בנוי כחוויה בימתית שלמה ולא כרצף קטעים נפרדים.</p></div><div class="feature"><p><strong>הקהל הוא חלק מהמתרחש</strong> — האינטראקציה עם הקהל יוצרת בכל פעם חוויה שונה וחיה.</p></div><div class="feature"><p><strong>משהו שנשאר גם אחרי</strong> — מעבר לרגעי ההפתעה, הקהל יוצא עם רעיונות, כלים ושיטות שאפשר לחבר לחיי היום־יום. הכוח של יוריני וד״ר אור פינטו עובר אל הקהל, שחוזר הביתה עם כוחות חדשים ועם טיפים מנטליים שאפשר ליישם באינטראקציות חברתיות ואישיות בחיי היום־יום.</p></div></div><div class="trust-strip"><div>50+ שנות ניסיון של יוריני</div><div>עשרות מיליוני צופים לאורך הקריירה של יוריני</div><div>הופעות בארץ ובעולם לאורך הקריירה של יוריני</div></div>
+<section id="why" class="section unique dark-section" aria-labelledby="unique-title"><div class="section-kicker"></div><h2 id="unique-title">מה הופך את „מעל ומעבר – המנטליסטים” לחוויה אחרת?</h2>
+<div class="feature-grid"><div class="feature"><p><strong>שני מנטליסטים על במה אחת</strong> — החיבור בין יוריני לד״ר אור פינטו יוצר דינמיקה ייחודית של תקשורת, השפעה מנטלית ועבודה משותפת בזמן אמת.</p></div><div class="feature"><p><strong>חוויה תיאטרלית</strong> — המופע בנוי כחוויה בימתית שלמה ולא כרצף קטעים נפרדים.</p></div><div class="feature"><p><strong>הקהל הוא חלק מהמתרחש</strong> — האינטראקציה עם הקהל יוצרת בכל פעם חוויה שונה וחיה.</p></div><div class="feature"><p><strong>משהו שנשאר גם אחרי</strong> — מעבר לרגעי ההפתעה, הקהל יוצא עם רעיונות, כלים ושיטות שאפשר לחבר לחיי <span class="no-break">היום־יום</span>. הכוח של יוריני וד״ר אור פינטו עובר אל הקהל, שחוזר הביתה עם כוחות חדשים ועם טיפים מנטליים שאפשר ליישם באינטראקציות חברתיות ואישיות בחיי <span class="no-break">היום־יום</span>.</p></div></div><div class="trust-strip"><div><strong class="trust-highlight">50+</strong> <span class="trust-caption">שנות ניסיון של יוריני</span></div><div><strong class="trust-highlight">עשרות מיליוני צופים</strong> <span class="trust-caption">לאורך הקריירה של יוריני</span></div><div><strong class="trust-highlight">הופעות בארץ ובעולם</strong> <span class="trust-caption">לאורך הקריירה של יוריני</span></div></div>
 <div class="pending-video" data-pending-asset="historic-footage-from-Hong-Kong-and-Israeli-TV" role="img" aria-label="סרטונים של יורני מהונג קונג וטלוויזיה ישראלית"></div></section>
 <section id="who-we-are" class="section people light-section" aria-labelledby="people-title"><div class="section-kicker"></div><h2 id="people-title">מי אנחנו</h2>
 <article class="person"><div class="portrait" data-pending-asset="yurini-portrait" role="img" aria-label="יוריני"></div><div><h3>יוריני</h3><div class="copy"><p>אמן החושים הראשון בישראל, מהפנט מטעם האקדמיה הבריטית להיפנוזה, אמן, פסל וצייר וחוקר קבלה. מעל 50 שנות ניסיון, הופיע על מגוון במות בארץ ובעולם, בין היתר על במות בינלאומיות ובמזרח הרחוק, ועשרות מיליוני צופים ראו אותו בלייב.</p><p class="press-quote">עורך מעריב לשעבר כתב על יוריני: „מנורה התפוצצה בנקיפת אצבע שלו, פרח טרי זקוף וגאה הרכין את ראשו וקמל כשהעביר מעליו את ידו, קש לשתייה התמוסס בין אצבעותיו כאילו בא החומר הפלסטי במגע עם אש לוהטת, כל זה היה הדרן להפגנת כוחו הטלפתי. גם אם תאמרו שהצליח לעבוד עליהם בעיניים בעזרת טריק נסתר תודו שיש בו יותר מניצוץ של גאונות”.</p></div></div></article>
-<article class="person"><div class="portrait" data-pending-asset="or-pinto-portrait" role="img" aria-label="ד״ר אור פינטו"></div><div><h3>ד״ר אור פינטו</h3><div class="copy"><p>הדור הבא של המנטליזם הישראלי. בקליניקה הוא רופא שיניים מהפנט, ועל הבמה הוא מנטליסט. שני העולמות האלה שואבים זה מזה השראה: ההיכרות היומיומית עם אנשים ברגעי לחץ ופחד מחדדת את היכולת שלו לקרוא אותם על הבמה, והבמה מעשירה את הדרך שבה הוא מרגיע ומשפיע בקליניקה. אור הוא בוגר האוניברסיטה העברית וחבר באגודת אמני החושים בישראל. הוא מתמחה בהיפנוזה רפואית ומשתמש בה בקליניקה בלבד. על הבמה הוא עובד עם סוגסטיה, השפעה מנטלית וקריאת שפת גוף; הוא קורא מחשבות, משפיע על החלטות ומשאיר את הקהל בשוק – ועם כלים אמיתיים לחיים.</p></div></div></article></section>
+<article class="person"><div class="portrait" data-pending-asset="or-pinto-portrait" role="img" aria-label="ד״ר אור פינטו"></div><div><h3>ד״ר אור פינטו</h3><div class="copy"><p>הדור הבא של המנטליזם הישראלי. בקליניקה הוא רופא שיניים מהפנט, ועל הבמה הוא מנטליסט. שני העולמות האלה שואבים זה מזה השראה: ההיכרות היומיומית עם אנשים ברגעי לחץ ופחד מחדדת את היכולת שלו לקרוא אותם על הבמה, והבמה מעשירה את הדרך שבה הוא מרגיע ומשפיע בקליניקה. אור הוא בוגר האוניברסיטה העברית וחבר באגודת אמני החושים בישראל. הוא מתמחה בהיפנוזה רפואית ומשתמש בה בקליניקה בלבד. על הבמה הוא עובד עם סוגסטיה, השפעה מנטלית וקריאת שפת גוף; הוא קורא מחשבות, משפיע על החלטות ומשאיר את הקהל בשוק – ועם כלים אמיתיים לחיים.</p></div></div></article></section>
 <section id="media" class="section media dark-section" aria-labelledby="media-title"><div class="section-kicker"></div><h2 id="media-title">מעל ומעבר בפעולה</h2>
 <div class="media-stage" data-pending-asset="showreel-podcast-interviews" role="img" aria-label="סרטונים מתוך המופע"></div>
 <div class="media-thumbs" aria-label="מדיה נוספת"><div class="media-thumb" data-pending-asset="media-1" aria-hidden="true"></div><div class="media-thumb" data-pending-asset="media-2" aria-hidden="true"></div><div class="media-thumb" data-pending-asset="media-3" aria-hidden="true"></div></div></section>
-<section id="testimonials" class="section recommendations light-section" aria-labelledby="reviews-title"><div class="section-kicker"></div><h2 id="reviews-title">מה אומרים על „מעל ומעבר – המנטליסטים”?</h2><div class="reviews-slot" data-pending-asset="approved-testimonials" aria-hidden="true"></div></section>
-<section id="questions" class="section faq dark-section" aria-labelledby="faq-title"><div class="section-kicker"></div><h2 id="faq-title">שאלות נפוצות</h2><div class="faq-list"><details><summary>לאיזה גיל המופע מתאים?</summary><p>המופע מתאים לקהל מגיל 13 ומעלה.</p></details><details><summary>לאילו סוגי אירועים ניתן להזמין את המופע?</summary><p>המופע מתאים לאירועי חברה, כנסים, ערבי גיבוש, ארגונים, מוסדות, אירועי רווחה ואירועים פרטיים.</p></details><details><summary>האם הקהל משתתף במופע?</summary><p>כן. חלק משמעותי מהמופע מבוסס על אינטראקציה עם הקהל ועל השתתפות של אנשים מתוך האירוע. מעבר לחוויה עצמה, הקהל יוצא עם כוחות ויכולות חדשים שיכולים לשמש אותו בחיי היום־יום.</p></details><details><summary>כמה זמן נמשך המופע?</summary><p>אפשר לבנות את המופע באורכים שונים בהתאם לסוג האירוע, לקהל ולמסגרת.</p></details><details><summary>האם מישהו יעלה לבמה בעל כורחו?</summary><p>לא. ההשתתפות היא בהתנדבות בלבד, באווירה מכבדת ומהנה.</p></details><details><summary>האם אתם מופיעים בכל הארץ?</summary><p>כן. אנחנו מופיעים בכל רחבי הארץ וגם בחו״ל.</p></details><details><summary>האם יש גרסה באנגלית?</summary><p>כן. אפשר לקיים את המופע גם באנגלית.</p></details><details><summary>האם ניתן להתאים את המופע לאופי האירוע?</summary><p>כן. ניתן להתאים את אופי המופע, האורך, הקצב והאינטראקציה לסוג האירוע ולקהל.</p></details><details><summary>האם נדרש ציוד מיוחד?</summary><p>הדרישות משתנות בהתאם למקום ולגודל האירוע, וכל הפרטים מתואמים מראש.</p></details></div></section>
-<section id="contact" class="section contact dark-section" aria-labelledby="contact-title"><div class="section-head"><div class="section-kicker"></div><h2 id="contact-title">רוצים להביא את „מעל ומעבר – המנטליסטים” לאירוע שלכם?</h2><p class="lead">השאירו פרטים ונחזור אליכם עם כל המידע על המופע והתאמתו לאירוע שלכם.</p></div>
+<section id="testimonials" class="section recommendations light-section" aria-labelledby="reviews-title"><div class="section-kicker"></div><h2 id="reviews-title">מה אומרים על „מעל ומעבר – המנטליסטים”?</h2><div class="reviews-slot" data-pending-asset="approved-testimonials" aria-hidden="true"></div></section>
+<section id="questions" class="section faq dark-section" aria-labelledby="faq-title"><div class="section-kicker"></div><h2 id="faq-title">שאלות נפוצות</h2><div class="faq-list"><details><summary>לאיזה גיל המופע מתאים?</summary><p>המופע מתאים לקהל מגיל 13 ומעלה.</p></details><details><summary>לאילו סוגי אירועים ניתן להזמין את המופע?</summary><p>המופע מתאים לאירועי חברה, כנסים, ערבי גיבוש, ארגונים, מוסדות, אירועי רווחה ואירועים פרטיים.</p></details><details><summary>האם הקהל משתתף במופע?</summary><p>כן. חלק משמעותי מהמופע מבוסס על אינטראקציה עם הקהל ועל השתתפות של אנשים מתוך האירוע. מעבר לחוויה עצמה, הקהל יוצא עם כוחות ויכולות חדשים שיכולים לשמש אותו בחיי <span class="no-break">היום־יום</span>.</p></details><details><summary>כמה זמן נמשך המופע?</summary><p>אפשר לבנות את המופע באורכים שונים בהתאם לסוג האירוע, לקהל ולמסגרת.</p></details><details><summary>האם מישהו יעלה לבמה בעל כורחו?</summary><p>לא. ההשתתפות היא בהתנדבות בלבד, באווירה מכבדת ומהנה.</p></details><details><summary>האם אתם מופיעים בכל הארץ?</summary><p>כן. אנחנו מופיעים בכל רחבי הארץ וגם בחו״ל.</p></details><details><summary>האם יש גרסה באנגלית?</summary><p>כן. אפשר לקיים את המופע גם באנגלית.</p></details><details><summary>האם ניתן להתאים את המופע לאופי האירוע?</summary><p>כן. ניתן להתאים את אופי המופע, האורך, הקצב והאינטראקציה לסוג האירוע ולקהל.</p></details><details><summary>האם נדרש ציוד מיוחד?</summary><p>הדרישות משתנות בהתאם למקום ולגודל האירוע, וכל הפרטים מתואמים מראש.</p></details></div></section>
+<section id="contact" class="section contact dark-section" aria-labelledby="contact-title"><div class="section-head"><div class="section-kicker"></div><h2 id="contact-title">רוצים להביא את „מעל ומעבר – המנטליסטים” לאירוע שלכם?</h2><p class="lead">השאירו פרטים ונחזור אליכם עם כל המידע על המופע והתאמתו לאירוע שלכם.</p></div>
 <form class="contact-form" action="#contact" method="get" novalidate data-pending-setup="form-backend-and-privacy-policy"><div class="form-field"><label for="lead-0">שם מלא</label><input type="text" id="lead-0" name="lead-0" required></div><div class="form-field"><label for="lead-1">טלפון</label><input type="tel" id="lead-1" name="lead-1" required></div><div class="form-field"><label for="lead-2">סוג אירוע</label><input type="text" id="lead-2" name="lead-2"></div><div class="form-field"><label for="lead-3">תאריך משוער</label><input type="date" id="lead-3" name="lead-3"></div><div class="form-field"><label for="lead-4">מספר משתתפים</label><input type="number" id="lead-4" name="lead-4" min="1"></div><div class="form-field wide"><label for="lead-5">הודעה (לא חובה)</label><textarea id="lead-5" name="lead-5" rows="3"></textarea></div>
 <div class="form-actions"><label class="consent-line"><input type="checkbox" disabled aria-disabled="true">מדיניות פרטיות</label><button class="contact-submit" type="button" disabled aria-disabled="true">חזרו אליי</button></div></form></section>
 </main>
-<footer class="site-footer"><div class="footer-brand">מעל ומעבר – המנטליסטים</div></footer>
+<footer class="site-footer"><div class="footer-brand">מעל ומעבר – המנטליסטים</div></footer>
 <a href="#contact" class="mobile-booking">להזמנת המופע</a>
 <script>
 (()=>{
