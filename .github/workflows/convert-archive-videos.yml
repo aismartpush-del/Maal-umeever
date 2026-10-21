@@ -1,0 +1,64 @@
+name: Convert approved archive videos
+on:
+  push:
+    paths:
+      - '.github/workflows/convert-archive-videos.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install conversion tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          python -m pip install --quiet gdown
+      - name: Download and convert public Drive source videos
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/yorini-source assets
+          python - <<'PY'
+          import gdown, subprocess, json, os, math
+          clips=[
+            ('1fQXI3lkmkM7HtODScpR6YGzREhzCjRXs','yorini-hongkong.mp4'),
+            ('14VnwYhVZjVxwXPw6tlItMqsSExRVQ2eB','yorini-tv.mp4')
+          ]
+          for fid,dest in clips:
+              source='/tmp/yorini-source/'+fid+'.vob'
+              print('Downloading source for',dest,flush=True)
+              downloaded=gdown.download(id=fid,output=source,quiet=False,fuzzy=False)
+              if not downloaded or not os.path.isfile(source) or os.path.getsize(source)<1024*1024:
+                  raise RuntimeError('Cannot download '+dest+'; source must be shared publicly as anyone with the link')
+              info=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration','-of','json',source]))
+              duration=float(info['format']['duration'])
+              # Keep MP4 under GitHub's single-file 100MB limit without trimming approved footage.
+              target=84_000_000
+              abr=64
+              vbr=max(110,min(1100,int(target*8/duration/1000-abr-24)))
+              out='assets/'+dest
+              print('Converting',dest,'duration',duration,'seconds, video bitrate',vbr,'kbps',flush=True)
+              subprocess.run([
+                'ffmpeg','-y','-i',source,
+                '-map','0:v:0','-map','0:a:0?',
+                '-vf','scale=640:-2:force_original_aspect_ratio=decrease,fps=25',
+                '-c:v','libx264','-preset','veryfast','-b:v',str(vbr)+'k',
+                '-maxrate',str(int(vbr*1.2))+'k','-bufsize',str(vbr*2)+'k',
+                '-pix_fmt','yuv420p','-c:a','aac','-b:a',str(abr)+'k',
+                '-movflags','+faststart',out],check=True)
+              size=os.path.getsize(out)
+              if size>=98_000_000: raise RuntimeError(f'MP4 is too large for GitHub: {dest} {size} bytes')
+              print('Encoded',out,size,'bytes',flush=True)
+              os.remove(source)
+          PY
+      - name: Publish web-ready MP4 files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/yorini-hongkong.mp4 assets/yorini-tv.mp4
+          git commit -m "Add web-playable versions of approved archival footage"
+          git push
