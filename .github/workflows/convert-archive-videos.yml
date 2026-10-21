@@ -31,7 +31,7 @@ jobs:
           for fid,dest in clips:
               source='/tmp/yorini-source/'+fid+'.vob'
               print('Downloading source for',dest,flush=True)
-              downloaded=gdown.download(id=fid,output=source,quiet=False,fuzzy=False)
+              downloaded=gdown.download(id=fid,output=source,quiet=False)
               if not downloaded or not os.path.isfile(source) or os.path.getsize(source)<1024*1024:
                   raise RuntimeError('Cannot download '+dest+'; source must be shared publicly as anyone with the link')
               info=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration','-of','json',source]))
