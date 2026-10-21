@@ -522,6 +522,19 @@
   .contact-email {gap:8px;}
 }
 
+
+/* Video archive is watchable inline, not navigational links. */
+.archive-media {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px;max-width:1100px;margin:30px auto 0;}
+.archive-video {min-width:0;background:#121214;border:1px solid rgba(190,160,117,.3);padding:0 0 13px;}
+.archive-video h3 {font-size:clamp(17px,1.6vw,21px);color:#eee9e5;margin:0;padding:17px 19px;font-weight:700;text-align:right;}
+.archive-player {aspect-ratio:16/9;position:relative;background:#0a0b0d;overflow:hidden;}
+.archive-player iframe {width:100%;height:100%;display:block;border:0;}
+.social-links {display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap;margin:22px auto 0;}
+.social-links a {display:inline-flex;align-items:center;gap:10px;padding:10px 17px;border:1px solid rgba(193,164,126,.4);background:rgba(255,255,255,.045);font-size:15px;color:#f2eeee;font-weight:650;transition:background .15s ease,border-color .15s ease;}
+.social-links a:hover,.social-links a:focus-visible {background:rgba(255,255,255,.11);border-color:#d0b089;}
+.social-f {width:24px;height:24px;display:grid;place-items:center;border-radius:50%;background:#35568c;color:white;font-family:Arial,sans-serif;font-size:20px;font-weight:800;line-height:1;}
+@media (max-width:760px) {.archive-media {grid-template-columns:1fr;gap:13px;margin-top:20px;} .archive-video h3 {padding:14px 16px;font-size:18px;}}
+
 </style>
 </head>
 <body>
@@ -585,11 +598,24 @@
   <div class="podcast-player"><iframe src="https://www.youtube-nocookie.com/embed/SaRoqLR8QxE" title="הפודקאסט עם מרטין בוקסדורף" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
 </div>
 <div class="archive-media" aria-label="קטעי ארכיון של יוריני">
-  <a class="archive-link" href="https://drive.google.com/file/d/1fQXI3lkmkM7HtODScpR6YGzREhzCjRXs/view?usp=drivesdk" target="_blank" rel="noopener noreferrer"><span class="archive-video-icon" aria-hidden="true">▶</span><span><strong>יוריני בטלוויזיה בהונג קונג</strong><small>פתיחת קובץ ארכיון</small></span><span class="archive-arrow" aria-hidden="true">↗</span></a>
-  <a class="archive-link" href="https://drive.google.com/file/d/14VnwYhVZjVxwXPw6tlItMqsSExRVQ2eB/view?usp=drivesdk" target="_blank" rel="noopener noreferrer"><span class="archive-video-icon" aria-hidden="true">▶</span><span><strong>יוריני בקטעי טלוויזיה</strong><small>פתיחת קובץ ארכיון</small></span><span class="archive-arrow" aria-hidden="true">↗</span></a>
+  <article class="archive-video">
+    <h3>יוריני בטלוויזיה בהונג קונג</h3>
+    <div class="archive-player">
+      <iframe title="יוריני בטלוויזיה בהונג קונג – וידאו מארכיון Google Drive" src="https://drive.google.com/file/d/1fQXI3lkmkM7HtODScpR6YGzREhzCjRXs/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    </div>
+  </article>
+  <article class="archive-video">
+    <h3>יוריני בקטעי טלוויזיה</h3>
+    <div class="archive-player">
+      <iframe title="יוריני בקטעי טלוויזיה – וידאו מארכיון Google Drive" src="https://drive.google.com/file/d/14VnwYhVZjVxwXPw6tlItMqsSExRVQ2eB/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    </div>
+  </article>
 </div></section>
 <section id="questions" class="section faq dark-section" aria-labelledby="faq-title"><div class="section-kicker"></div><h2 id="faq-title">שאלות נפוצות</h2><div class="faq-list"><details><summary>לאיזה גיל המופע מתאים?</summary><p>המופע מתאים לקהל מגיל 13 ומעלה.</p></details><details><summary>לאילו סוגי אירועים ניתן להזמין את המופע?</summary><p>המופע מתאים לאירועי חברה, כנסים, ערבי גיבוש, ארגונים, מוסדות, אירועי רווחה ואירועים פרטיים.</p></details><details><summary>האם הקהל משתתף במופע?</summary><p>כן. חלק משמעותי מהמופע מבוסס על אינטראקציה עם הקהל ועל השתתפות של אנשים מתוך האירוע. מעבר לחוויה עצמה, הקהל יוצא עם כוחות ויכולות חדשים שיכולים לשמש אותו בחיי <span class="no-break">היום־יום</span>.</p></details><details><summary>כמה זמן נמשך המופע?</summary><p>אפשר לבנות את המופע באורכים שונים בהתאם לסוג האירוע, לקהל ולמסגרת.</p></details><details><summary>האם מישהו יעלה לבמה בעל כורחו?</summary><p>לא. ההשתתפות היא בהתנדבות בלבד, באווירה מכבדת ומהנה.</p></details><details><summary>האם אתם מופיעים בכל הארץ?</summary><p>כן. אנחנו מופיעים בכל רחבי הארץ וגם בחו״ל.</p></details><details><summary>האם יש גרסה באנגלית?</summary><p>כן. אפשר לקיים את המופע גם באנגלית.</p></details><details><summary>האם ניתן להתאים את המופע לאופי האירוע?</summary><p>כן. ניתן להתאים את אופי המופע, האורך, הקצב והאינטראקציה לסוג האירוע ולקהל.</p></details><details><summary>האם נדרש ציוד מיוחד?</summary><p>הדרישות משתנות בהתאם למקום ולגודל האירוע, וכל הפרטים מתואמים מראש.</p></details></div></section>
-<section id="contact" class="section contact dark-section" aria-labelledby="contact-title"><div class="section-head"><div class="section-kicker"></div><h2 id="contact-title"><span class="headline-phrase">רוצים להביא את</span> <span class="brand-name-nowrap">„מעל ומעבר - המנטליסטים”</span> <span class="headline-phrase">לאירוע שלכם?</span></h2><p class="lead">השאירו פרטים ונחזור אליכם עם כל המידע על המופע והתאמתו לאירוע שלכם.</p><p class="contact-email"><span>אפשר לפנות גם במייל:</span> <a href="mailto:orpinto100@gmail.com" dir="ltr">orpinto100@gmail.com</a></p></div>
+<section id="contact" class="section contact dark-section" aria-labelledby="contact-title"><div class="section-head"><div class="section-kicker"></div><h2 id="contact-title"><span class="headline-phrase">רוצים להביא את</span> <span class="brand-name-nowrap">„מעל ומעבר - המנטליסטים”</span> <span class="headline-phrase">לאירוע שלכם?</span></h2><p class="lead">השאירו פרטים ונחזור אליכם עם כל המידע על המופע והתאמתו לאירוע שלכם.</p><p class="contact-email"><span>אפשר לפנות גם במייל:</span> <a href="mailto:orpinto100@gmail.com" dir="ltr">orpinto100@gmail.com</a></p><nav class="social-links" aria-label="קישורי פייסבוק">
+<a href="https://www.facebook.com/share/14syDE9Yshg/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="פייסבוק – קישור ראשון"><span class="social-f" aria-hidden="true">f</span><span>פייסבוק 1</span></a>
+<a href="https://www.facebook.com/share/1BqpX5RABf/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="פייסבוק – קישור שני"><span class="social-f" aria-hidden="true">f</span><span>פייסבוק 2</span></a>
+</nav></div>
 <form class="contact-form" action="#contact" method="get" novalidate data-pending-setup="form-backend-and-privacy-policy"><div class="form-field"><label for="lead-0">שם מלא</label><input type="text" id="lead-0" name="lead-0" required></div><div class="form-field"><label for="lead-1">טלפון</label><input type="tel" id="lead-1" name="lead-1" required></div><div class="form-field"><label for="lead-2">סוג אירוע</label><input type="text" id="lead-2" name="lead-2"></div><div class="form-field"><label for="lead-3">תאריך משוער</label><input type="date" id="lead-3" name="lead-3"></div><div class="form-field"><label for="lead-4">מספר משתתפים</label><input type="number" id="lead-4" name="lead-4" min="1"></div><div class="form-field wide"><label for="lead-5">הודעה (לא חובה)</label><textarea id="lead-5" name="lead-5" rows="3"></textarea></div>
 <div class="form-actions"><label class="consent-line"><input type="checkbox" disabled aria-disabled="true">מדיניות פרטיות</label><button class="contact-submit" type="button" disabled aria-disabled="true">חזרו אליי</button></div></form></section>
 </main>
