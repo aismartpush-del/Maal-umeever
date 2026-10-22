@@ -607,56 +607,36 @@
 }
 
 
-/* Portrait of Dr Or Pinto: use ONLY his real approved photograph.
-   Gentle transparency reduces the beige-gold backdrop, while a second
-   *identical crop of the original* preserves the face at full opacity.
-   Edges fade naturally into the existing light "Who we are" section. */
+/* Original Or Pinto photo, once only. No layer stacking or mask on face.
+   Soft, narrow edges tint the beige wall toward the page background. */
 .or-pinto-portrait {
-  position:relative;
-  isolation:isolate;
+  isolation:auto;
   overflow:hidden;
-  background:radial-gradient(ellipse 67% 65% at 50% 32%,
-    rgba(190,156,108,.18) 0%,
-    rgba(219,208,196,.10) 55%,
-    rgba(232,229,225,0) 88%),
-    #e8e5e1;
+  background-color:#e8e5e1;
+  background-image:
+    linear-gradient(to right,
+      #e8e5e1 0%,
+      rgba(232,229,225,.36) 8%,
+      transparent 19%,transparent 81%,
+      rgba(232,229,225,.36) 92%,
+      #e8e5e1 100%),
+    linear-gradient(to top,
+      #e8e5e1 0%,rgba(232,229,225,.30) 9%,
+      transparent 22%),
+    url("assets/or-pinto-portrait.webp");
+  background-size:100% 100%,100% 100%,cover;
+  background-repeat:no-repeat;
+  background-position:center,center,center 31%;
   border:0;
   box-shadow:none;
 }
 .or-pinto-portrait::before,
 .or-pinto-portrait::after {
-  content:"";
-  display:block;
-  position:absolute;
-  inset:0;
-  border:0;
-  pointer-events:none;
-  background-image:url("assets/or-pinto-portrait.webp");
-  background-repeat:no-repeat;
-  background-size:cover;
-  background-position:center 29%;
-}
-/* Fade gold from the actual photo into the page without a visible square. */
-.or-pinto-portrait::before {
-  opacity:.68;
-  filter:saturate(.84);
-  -webkit-mask-image:radial-gradient(ellipse 77% 80% at 50% 43%,
-    #000 35%,rgba(0,0,0,.94) 49%,
-    rgba(0,0,0,.58) 68%,transparent 96%);
-  mask-image:radial-gradient(ellipse 77% 80% at 50% 43%,
-    #000 35%,rgba(0,0,0,.94) 49%,
-    rgba(0,0,0,.58) 68%,transparent 96%);
-}
-/* Keep Or's actual facial detail, shape and skin tone untouched. */
-.or-pinto-portrait::after {
-  -webkit-mask-image:radial-gradient(ellipse 27% 31% at 50% 29%,
-    #000 52%,rgba(0,0,0,.88) 69%,transparent 100%);
-  mask-image:radial-gradient(ellipse 27% 31% at 50% 29%,
-    #000 52%,rgba(0,0,0,.88) 69%,transparent 100%);
+  display:none !important;
+  content:none !important;
 }
 @media(max-width:700px) {
-  .or-pinto-portrait::before,
-  .or-pinto-portrait::after {background-position:center 26%;}
+  .or-pinto-portrait {background-position:center,center,center 26%;}
 }
 
 </style>
