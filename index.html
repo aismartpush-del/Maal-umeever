@@ -535,6 +535,59 @@
 .social-f {width:24px;height:24px;display:grid;place-items:center;border-radius:50%;background:#35568c;color:white;font-family:Arial,sans-serif;font-size:20px;font-weight:800;line-height:1;}
 @media (max-width:760px) {.archive-media {grid-template-columns:1fr;gap:13px;margin-top:20px;} .archive-video h3 {padding:14px 16px;font-size:18px;}}
 
+
+/* Real artists' photo seamlessly integrated with stage background, without face-altering effects. */
+.hero-media-space {overflow:hidden;}
+.duo-hero-photo {
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background-image:url("assets/hero-duo.webp");
+  background-repeat:no-repeat;
+  background-position:center 34%;
+  background-size:cover;
+  filter:saturate(.88) contrast(1.05);
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 13%,#000 72%,transparent 100%);
+  mask-image:linear-gradient(to bottom,transparent 0%,#000 13%,#000 72%,transparent 100%);
+}
+.hero-media-space .beam,.hero-media-space .stage-horizon {opacity:.10;}
+@media (min-width:981px) {
+  .first-screen .visual-hero {isolation:isolate;}
+  .first-screen .duo-hero-photo {
+    inset:0 -3% 0 -9%;
+    background-position:53% 41%;
+    background-size:contain;
+    filter:saturate(.85) contrast(1.04);
+    -webkit-mask-image:
+      linear-gradient(to left,transparent 0%,#000 15%,#000 77%,transparent 100%);
+    mask-image:
+      linear-gradient(to left,transparent 0%,#000 15%,#000 77%,transparent 100%);
+  }
+  .first-screen .visual-hero::after {
+    background:linear-gradient(to right,transparent 0%,rgba(7,7,8,.03) 50%,#070708 99%),
+               linear-gradient(to top,#070708 0%,transparent 18%,transparent 79%,rgba(7,7,8,.62) 100%);
+  }
+  .first-screen .intro {
+    background:linear-gradient(270deg,#080809 0%,rgba(7,7,8,.98) 68%,rgba(7,7,8,.75) 100%);
+  }
+}
+@media (min-width:701px) and (max-width:980px) {
+  .duo-hero-photo {background-size:contain;background-position:center 50%;}
+}
+@media (max-width:700px) {
+  .visual-hero .duo-hero-photo {
+    inset:12px 0 0;
+    background-size:cover;
+    background-position:50% 34%;
+    -webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 14%,#000 73%,transparent 100%);
+    mask-image:linear-gradient(to bottom,transparent 0%,#000 14%,#000 73%,transparent 100%);
+  }
+  .visual-hero::after {
+    background:linear-gradient(to bottom,rgba(0,0,0,.50) 0%,transparent 22%,transparent 64%,#030303 100%);
+  }
+}
+
 </style>
 </head>
 <body>
@@ -560,7 +613,7 @@
 <div class="first-screen">
 <!-- This entire background remains a client-media placeholder, not a stand-in photo of performers. -->
 <section class="visual-hero" aria-label="מעל ומעבר – המנטליסטים" data-pending-asset="hero-photo-and-showreel">
-  <div class="hero-media-space" aria-hidden="true"><div class="beam one"></div><div class="beam two"></div><div class="stage-horizon"></div></div>
+  <div class="hero-media-space" aria-hidden="true"><div class="duo-hero-photo"></div><div class="beam one"></div><div class="beam two"></div><div class="stage-horizon"></div></div>
 
   <div class="hero-footer" aria-hidden="true"></div>
 </section>
