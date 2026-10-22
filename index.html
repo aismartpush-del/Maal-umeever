@@ -634,6 +634,17 @@
 @media(max-width:700px) {
   .yorini-portrait {background-position:center 23%;}
 }
+
+/* Native archive playback, no Drive wrapper/toolbar or external redirects. */
+.archive-player video {
+  display:block;
+  width:100%;height:100%;
+  aspect-ratio:16/9;
+  background:#000;
+  object-fit:contain;
+  border:0;
+}
+.archive-player {background:#000;}
 </style>
 </head>
 <body>
@@ -700,13 +711,13 @@
   <article class="archive-video">
     <h3>יוריני בטלוויזיה בהונג קונג</h3>
     <div class="archive-player">
-      <iframe title="יוריני בטלוויזיה בהונג קונג – וידאו מארכיון Google Drive" src="https://drive.google.com/file/d/1fQXI3lkmkM7HtODScpR6YGzREhzCjRXs/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      <video controls playsinline preload="metadata" controlslist="nodownload" aria-label="יוריני בטלוויזיה בהונג קונג"><source src="assets/yorini-hongkong.mp4#t=0.1" type="video/mp4">הדפדפן שלך אינו תומך בהצגת סרטון זה.</video>
     </div>
   </article>
   <article class="archive-video">
     <h3>יוריני בקטעי טלוויזיה</h3>
     <div class="archive-player">
-      <iframe title="יוריני בקטעי טלוויזיה – וידאו מארכיון Google Drive" src="https://drive.google.com/file/d/14VnwYhVZjVxwXPw6tlItMqsSExRVQ2eB/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      <video controls playsinline preload="metadata" controlslist="nodownload" aria-label="יוריני בקטעי טלוויזיה"><source src="assets/yorini-tv.mp4#t=0.1" type="video/mp4">הדפדפן שלך אינו תומך בהצגת סרטון זה.</video>
     </div>
   </article>
 </div></section>
@@ -752,6 +763,12 @@
       if(event.key==='Escape') closeMenu();
     });
   }
+  // Only one archival recording should play at a time.
+  const archiveVideos=[...document.querySelectorAll('.archive-player video')];
+  archiveVideos.forEach(active=>active.addEventListener('play',()=>{
+    archiveVideos.forEach(other=>{if(other!==active&&!other.paused)other.pause();});
+  }));
+
 })();
 </script>
 </body>
