@@ -606,6 +606,46 @@
   }
 }
 
+
+/* Or Pinto portrait integration — visually blend the supplied photo into the
+   existing warm "Who we are" section, avoiding a pasted beige rectangle.
+   The underlying source photograph and facial features remain unchanged. */
+.or-pinto-portrait {
+  isolation:isolate;
+  background:radial-gradient(ellipse 73% 70% at 50% 38%,#c5bbb5 0%,#ddd8d3 51%,#e8e5e1 82%);
+  box-shadow:none;
+  border:0;
+  overflow:hidden;
+}
+.or-pinto-portrait::before {
+  content:"";
+  display:block;
+  position:absolute;
+  inset:-1%;
+  border:0;
+  pointer-events:none;
+  background-image:url("assets/or-pinto-portrait.webp");
+  background-size:cover;
+  background-position:center 29%;
+  background-repeat:no-repeat;
+  filter:saturate(.78) contrast(1.04);
+  -webkit-mask-image:radial-gradient(ellipse 80% 88% at 50% 42%,#000 43%,rgba(0,0,0,.92) 58%,rgba(0,0,0,.35) 81%,transparent 99%);
+  mask-image:radial-gradient(ellipse 80% 88% at 50% 42%,#000 43%,rgba(0,0,0,.92) 58%,rgba(0,0,0,.35) 81%,transparent 99%);
+}
+.or-pinto-portrait::after {
+  content:"";
+  display:block;
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(0deg,#e8e5e1 0%,rgba(232,229,225,.28) 12%,transparent 34%),
+    linear-gradient(90deg,rgba(232,229,225,.46),transparent 9%,transparent 91%,rgba(232,229,225,.46));
+}
+@media(max-width:700px) {
+  .or-pinto-portrait::before {background-position:center 26%;}
+}
+
 </style>
 </head>
 <body>
