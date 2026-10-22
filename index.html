@@ -715,149 +715,182 @@
     color:#fff;
   }
 
-  /* Swap image and copy: on RTL desktop, first grid column is on the RIGHT. */
+  /* ONE CONTINUOUS CINEMATIC STAGE: no visible split between photograph and copy.
+     The image is painted once across the entire desktop first screen, then softly
+     faded into the charcoal background. Native file and Hebrew copy stay untouched. */
   .first-screen {
-    grid-template-areas:"intro visual" "quote quote";
-    grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);
-    grid-template-rows:minmax(560px,1fr) auto;
-    min-height:max(760px,100svh);
-    background:
-      radial-gradient(ellipse 60% 80% at 66% 30%,rgba(103,47,60,.35),transparent 75%),
-      linear-gradient(112deg,#111014,#24191f 53%,#0e0c10 100%);
+    position:relative;
+    isolation:isolate;
     overflow:hidden;
+    display:grid;
+    grid-template-areas:"intro visual" "quote quote";
+    grid-template-columns:minmax(0,1.07fr) minmax(0,.93fr);
+    grid-template-rows:minmax(560px,1fr) auto;
+    min-height:max(740px,100svh);
+    background:
+      radial-gradient(ellipse 50% 72% at 79% 39%,rgba(114,43,57,.25),transparent 79%),
+      radial-gradient(ellipse 36% 46% at 18% 59%,rgba(171,138,102,.12),transparent 86%),
+      radial-gradient(ellipse 28% 30% at 61% 22%,rgba(69,105,120,.075),transparent 85%),
+      linear-gradient(111deg,#121419 0%,#1a1a20 37%,#202025 65%,#121216 100%);
   }
+  .first-screen::before {
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    background-image:url("assets/hero-duo.webp");
+    background-repeat:no-repeat;
+    background-size:clamp(800px,74vw,1130px) auto;
+    background-position:-34px 38%;
+    filter:brightness(.77) contrast(1.12) saturate(.77);
+    -webkit-mask-image:linear-gradient(to right,
+      #000 0%,#000 27%,rgba(0,0,0,.98) 37%,rgba(0,0,0,.88) 44%,
+      rgba(0,0,0,.45) 56%,rgba(0,0,0,.12) 64%,transparent 74%);
+    mask-image:linear-gradient(to right,
+      #000 0%,#000 27%,rgba(0,0,0,.98) 37%,rgba(0,0,0,.88) 44%,
+      rgba(0,0,0,.45) 56%,rgba(0,0,0,.12) 64%,transparent 74%);
+  }
+  .first-screen::after {
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    background:
+      linear-gradient(to bottom,rgba(14,15,20,.69) 0%,rgba(14,15,20,.10) 17%,
+        transparent 35%,transparent 66%,rgba(18,19,24,.44) 88%,#14151a 100%),
+      radial-gradient(ellipse 70% 70% at 9% 48%,transparent 45%,rgba(15,16,20,.13) 100%);
+  }
+
+  /* Retain the grid position but stop the image panel from clipping the photograph. */
   .first-screen .visual-hero {
     grid-area:visual;
     position:relative;
     z-index:1;
-    height:auto;
     min-height:0;
+    height:auto;
     overflow:visible;
     background:transparent;
-    isolation:isolate;
   }
-  .first-screen .visual-hero::before {
-    background:radial-gradient(ellipse 65% 67% at 49% 46%,rgba(182,153,129,.2),transparent 83%);
-  }
-  .first-screen .visual-hero::after {
-    background:
-      linear-gradient(90deg,rgba(25,18,23,.36) 0%,transparent 16%,transparent 56%,#21171d 99%),
-      linear-gradient(180deg,#151116 0%,transparent 16%,transparent 75%,#1a141a 100%);
-  }
-  .first-screen .hero-media-space {overflow:visible;}
-  .first-screen .hero-media-space::after {
-    z-index:1;
-    background:
-      radial-gradient(ellipse 48% 43% at 49% 44%,rgba(215,173,146,.075),transparent 85%),
-      linear-gradient(90deg,rgba(25,19,24,.19) 0%,transparent 43%,rgba(27,19,25,.5) 100%);
-  }
-  .first-screen .duo-hero-photo {
-    inset:-4% -16% -5% -7%;
-    background-size:cover;
-    background-position:50% 45%;
-    filter:saturate(.85) contrast(1.035) brightness(.92);
-    -webkit-mask-image:radial-gradient(ellipse 83% 87% at 49% 49%,#000 44%,rgba(0,0,0,.91) 62%,rgba(0,0,0,.4) 80%,transparent 100%);
-    mask-image:radial-gradient(ellipse 83% 87% at 49% 49%,#000 44%,rgba(0,0,0,.91) 62%,rgba(0,0,0,.4) 80%,transparent 100%);
-  }
-  .first-screen .beam,.first-screen .stage-horizon {opacity:.06;}
-  .first-screen .hero-footer {height:13%;background:linear-gradient(0deg,#1a141a,transparent);}
+  .first-screen .visual-hero::before,
+  .first-screen .visual-hero::after,
+  .first-screen .hero-media-space,
+  .first-screen .hero-footer {display:none;}
 
-  /* Open and breathable typography: text remains EXACTLY the same. */
+  /* Top-aligned text; no separate opaque right-hand rectangle or harsh seam. */
   .first-screen .intro {
     grid-area:intro;
     position:relative;
-    z-index:3;
+    z-index:2;
     min-width:0;
     display:flex;
-    align-items:center;
+    align-items:flex-start;
+    justify-content:flex-start;
     text-align:right;
-    background:
-      radial-gradient(ellipse 74% 73% at 74% 40%,rgba(105,44,55,.25),transparent 78%),
-      linear-gradient(270deg,#21171d 0%,rgba(31,22,29,.97) 52%,rgba(30,22,28,.78) 82%,rgba(26,20,26,.12) 100%);
-    padding:clamp(111px,13.5vh,157px) clamp(32px,4.2vw,78px) clamp(30px,5vh,61px);
+    background:linear-gradient(270deg,
+      rgba(19,19,24,.40) 0%,rgba(18,18,23,.34) 42%,
+      rgba(18,18,23,.12) 80%,transparent 100%);
+    padding:clamp(104px,13.3vh,146px) clamp(34px,4.5vw,86px) clamp(36px,5vh,68px);
   }
-  .first-screen .intro-inner {max-width:800px;width:100%;margin:0;}
+  .first-screen .intro-inner {width:100%;max-width:790px;margin:0;}
   .first-screen h1 {
     display:block;
     max-width:100%;
     white-space:normal;
-    font-size:clamp(34px,3.45vw,60px);
+    font-size:clamp(35px,3.47vw,60px);
     font-weight:900;
     letter-spacing:-.045em;
-    line-height:1.19;
-    margin:0 0 clamp(29px,3.7vh,39px);
-    color:#fff9f3;
-    text-shadow:0 3px 23px rgba(0,0,0,.56),0 0 45px rgba(149,46,58,.22);
+    line-height:1.18;
+    margin:0 0 clamp(29px,3.6vh,39px);
+    color:#fff8f4;
+    text-shadow:0 4px 23px rgba(0,0,0,.64),0 0 38px rgba(132,43,53,.16);
   }
   .first-screen h1::after {
     right:0;left:auto;transform:none;bottom:-16px;
-    width:118px;height:3px;
+    width:113px;height:3px;
   }
   .first-screen .subheading {
-    max-width:750px;
+    max-width:745px;
     font-size:clamp(21px,1.84vw,29px);
-    font-weight:600;
-    line-height:1.55;
-    color:#fff5ef;
-    margin:0 0 clamp(18px,2.5vh,29px);
-    text-shadow:0 1px 7px rgba(0,0,0,.17);
+    font-weight:650;
+    line-height:1.58;
+    color:#faf6f4;
+    margin:0 0 clamp(16px,2.4vh,29px);
   }
   .first-screen .description {
-    max-width:735px;
+    max-width:740px;
     font-size:clamp(17px,1.36vw,22px);
     font-weight:450;
-    line-height:1.77;
-    color:#eee3df;
+    line-height:1.76;
+    color:#dddde0;
     margin:0 0 clamp(24px,3vh,39px);
   }
   .first-screen .cta-large {
-    min-width:224px;
+    min-width:220px;
     padding:16px 29px;
     font-size:17px;
     font-weight:800;
-    border:1px solid #cb6570;
+    border:1px solid #b63e4f;
     border-radius:4px;
-    background:#9c2d40;
-    box-shadow:0 8px 28px rgba(0,0,0,.21);
+    background:#a82b40;
+    box-shadow:0 8px 28px rgba(0,0,0,.24);
   }
   .first-screen .cta-large:hover,
-  .first-screen .cta-large:focus-visible {background:#bb394d;border-color:#df8491;}
+  .first-screen .cta-large:focus-visible {background:#c03d52;border-color:#df8491;}
 
-  /* Testimonial becomes an editorial light band rather than small grey-on-black type. */
+  /* Quote: a restrained cool-grey editorial card on dark stage.
+     Black text + Netflix red accent, with gold credit, rather than a huge white strip. */
   .first-screen .quote-section {
     grid-area:quote;
     z-index:4;
     position:relative;
-    padding:clamp(25px,3.3vh,39px) clamp(36px,6.5vw,100px) clamp(22px,3vh,35px);
-    background:linear-gradient(106deg,#f3eae0 0%,#ede0d3 55%,#ddcabe 100%);
-    border-top:3px solid #a77a5f;
-    box-shadow:0 -9px 42px rgba(0,0,0,.22);
+    padding:23px clamp(28px,4.6vw,78px) 22px;
+    background:linear-gradient(115deg,#15161b,#202025 53%,#111216);
+    border-top:1px solid rgba(186,147,110,.38);
+    box-shadow:0 -9px 32px rgba(0,0,0,.20);
   }
   .first-screen .quote-section::before {
     content:"";
     position:absolute;
-    top:21%;bottom:21%;right:clamp(17px,4vw,60px);
-    width:4px;
-    border-radius:4px;
-    background:linear-gradient(#a76d69,#8e283d);
+    top:0;right:7%;left:7%;
+    height:1px;
+    background:linear-gradient(90deg,transparent,rgba(186,147,110,.45),transparent);
   }
   .first-screen .quote-section blockquote {
-    position:relative;
-    max-width:1180px;
-    margin:0 auto 12px;
-    color:#2b2424;
-    font-size:clamp(18px,1.52vw,23px);
-    font-weight:650;
-    line-height:1.63;
+    max-width:1190px;
+    margin:0 auto;
+    padding:20px clamp(24px,3vw,45px);
+    border-inline-start:5px solid #a82840;
+    border-radius:5px;
+    background:linear-gradient(108deg,#e9eaec,#d6d8db 65%,#e8e6e5);
+    box-shadow:0 10px 25px rgba(0,0,0,.23);
+    color:#25262a;
     text-shadow:none;
+    font-size:clamp(18px,1.38vw,22px);
+    font-weight:650;
+    line-height:1.55;
     text-wrap:pretty;
   }
   .first-screen .quote-section .byline {
-    color:#862e40;
-    font-size:clamp(15px,1.12vw,17px);
-    font-weight:800;
-    line-height:1.45;
+    max-width:1190px;
+    margin:10px auto 0;
+    color:#d6b58d;
+    font-size:clamp(14px,1.05vw,17px);
+    font-weight:750;
+    line-height:1.5;
   }
+  /* Short desktop viewports retain legible text without moving behind the fixed nav. */
+  @media (max-height:720px) {
+    .first-screen {grid-template-rows:minmax(490px,1fr) auto;}
+    .first-screen .intro {padding-top:102px;padding-bottom:25px;}
+    .first-screen h1 {font-size:clamp(33px,3.3vw,48px);margin-bottom:28px;}
+    .first-screen .subheading {font-size:clamp(19px,1.74vw,24px);line-height:1.48;margin-bottom:13px;}
+    .first-screen .description {font-size:clamp(16px,1.26vw,19px);line-height:1.62;margin-bottom:18px;}
+    .first-screen .quote-section {padding-top:16px;padding-bottom:15px;}
+    .first-screen .quote-section blockquote {padding-top:15px;padding-bottom:15px;font-size:clamp(17px,1.3vw,20px);}
+  }
+
 }
 /* Keep all existing styles below 981px unchanged. */
 
