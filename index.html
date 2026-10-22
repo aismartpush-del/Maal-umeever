@@ -645,6 +645,222 @@
   border:0;
 }
 .archive-player {background:#000;}
+
+
+/* Desktop-only visual refinements (22 Oct 2026).
+   Leave all Hebrew copy, images and mobile/tablet compositions untouched. */
+@media (min-width:981px) {
+  /* More elegant, high-contrast desktop navigation, distinct from the dark header. */
+  .topbar .menu-lines {
+    width:54px;
+    height:46px;
+    padding:9px 10px;
+    border:1px solid rgba(226,202,169,.56);
+    border-radius:7px;
+    background:rgba(246,236,223,.09);
+    transition:background .2s ease,border-color .2s ease,box-shadow .2s ease;
+  }
+  .topbar .menu-lines span {height:2px;width:100%;background:#f7eee3;}
+  .topbar .menu-lines:hover,
+  .topbar .menu-lines[aria-expanded="true"] {
+    background:rgba(225,203,174,.22);
+    border-color:#d9b997;
+    box-shadow:0 0 0 3px rgba(208,171,128,.08);
+  }
+  .topbar .menu-lines:focus-visible {outline:2px solid #efc6a5;outline-offset:4px;}
+  .topbar .site-nav {
+    inset-block-start:calc(100% + 8px);
+    inset-inline-end:clamp(24px,4vw,72px);
+    width:min(405px,calc(100vw - 48px));
+    max-height:calc(100dvh - 120px);
+    overflow-y:auto;
+    padding:15px;
+    background:linear-gradient(145deg,#fbf4eb,#e8dbcd);
+    border:1px solid #d1baa2;
+    border-radius:11px;
+    box-shadow:0 24px 70px rgba(0,0,0,.52),0 8px 18px rgba(0,0,0,.19);
+  }
+  .topbar .site-nav a {
+    display:block;
+    padding:16px 17px;
+    border:0;
+    border-bottom:1px solid rgba(86,61,57,.16);
+    border-radius:4px;
+    text-align:right;
+    color:#302326;
+    font-size:clamp(17px,1.22vw,19px);
+    font-weight:750;
+    line-height:1.5;
+    transition:background .17s ease,color .17s ease,padding .17s ease;
+  }
+  .topbar .site-nav a:hover,
+  .topbar .site-nav a:focus-visible {
+    background:rgba(137,38,54,.10);
+    color:#812334;
+    padding-inline-start:22px;
+  }
+  .topbar .site-nav a:last-child {
+    margin-top:11px;
+    border:1px solid #8e293a;
+    border-radius:6px;
+    background:#932e3f;
+    color:#fff9f4;
+    text-align:center;
+    box-shadow:0 6px 16px rgba(98,27,40,.17);
+  }
+  .topbar .site-nav a:last-child:hover,
+  .topbar .site-nav a:last-child:focus-visible {
+    padding-inline-start:17px;
+    background:#702132;
+    color:#fff;
+  }
+
+  /* Swap image and copy: on RTL desktop, first grid column is on the RIGHT. */
+  .first-screen {
+    grid-template-areas:"intro visual" "quote quote";
+    grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);
+    grid-template-rows:minmax(560px,1fr) auto;
+    min-height:max(760px,100svh);
+    background:
+      radial-gradient(ellipse 60% 80% at 66% 30%,rgba(103,47,60,.35),transparent 75%),
+      linear-gradient(112deg,#111014,#24191f 53%,#0e0c10 100%);
+    overflow:hidden;
+  }
+  .first-screen .visual-hero {
+    grid-area:visual;
+    position:relative;
+    z-index:1;
+    height:auto;
+    min-height:0;
+    overflow:visible;
+    background:transparent;
+    isolation:isolate;
+  }
+  .first-screen .visual-hero::before {
+    background:radial-gradient(ellipse 65% 67% at 49% 46%,rgba(182,153,129,.2),transparent 83%);
+  }
+  .first-screen .visual-hero::after {
+    background:
+      linear-gradient(90deg,rgba(25,18,23,.36) 0%,transparent 16%,transparent 56%,#21171d 99%),
+      linear-gradient(180deg,#151116 0%,transparent 16%,transparent 75%,#1a141a 100%);
+  }
+  .first-screen .hero-media-space {overflow:visible;}
+  .first-screen .hero-media-space::after {
+    z-index:1;
+    background:
+      radial-gradient(ellipse 48% 43% at 49% 44%,rgba(215,173,146,.075),transparent 85%),
+      linear-gradient(90deg,rgba(25,19,24,.19) 0%,transparent 43%,rgba(27,19,25,.5) 100%);
+  }
+  .first-screen .duo-hero-photo {
+    inset:-4% -16% -5% -7%;
+    background-size:cover;
+    background-position:50% 45%;
+    filter:saturate(.85) contrast(1.035) brightness(.92);
+    -webkit-mask-image:radial-gradient(ellipse 83% 87% at 49% 49%,#000 44%,rgba(0,0,0,.91) 62%,rgba(0,0,0,.4) 80%,transparent 100%);
+    mask-image:radial-gradient(ellipse 83% 87% at 49% 49%,#000 44%,rgba(0,0,0,.91) 62%,rgba(0,0,0,.4) 80%,transparent 100%);
+  }
+  .first-screen .beam,.first-screen .stage-horizon {opacity:.06;}
+  .first-screen .hero-footer {height:13%;background:linear-gradient(0deg,#1a141a,transparent);}
+
+  /* Open and breathable typography: text remains EXACTLY the same. */
+  .first-screen .intro {
+    grid-area:intro;
+    position:relative;
+    z-index:3;
+    min-width:0;
+    display:flex;
+    align-items:center;
+    text-align:right;
+    background:
+      radial-gradient(ellipse 74% 73% at 74% 40%,rgba(105,44,55,.25),transparent 78%),
+      linear-gradient(270deg,#21171d 0%,rgba(31,22,29,.97) 52%,rgba(30,22,28,.78) 82%,rgba(26,20,26,.12) 100%);
+    padding:clamp(111px,13.5vh,157px) clamp(32px,4.2vw,78px) clamp(30px,5vh,61px);
+  }
+  .first-screen .intro-inner {max-width:800px;width:100%;margin:0;}
+  .first-screen h1 {
+    display:block;
+    max-width:100%;
+    white-space:normal;
+    font-size:clamp(34px,3.45vw,60px);
+    font-weight:900;
+    letter-spacing:-.045em;
+    line-height:1.19;
+    margin:0 0 clamp(29px,3.7vh,39px);
+    color:#fff9f3;
+    text-shadow:0 3px 23px rgba(0,0,0,.56),0 0 45px rgba(149,46,58,.22);
+  }
+  .first-screen h1::after {
+    right:0;left:auto;transform:none;bottom:-16px;
+    width:118px;height:3px;
+  }
+  .first-screen .subheading {
+    max-width:750px;
+    font-size:clamp(21px,1.84vw,29px);
+    font-weight:600;
+    line-height:1.55;
+    color:#fff5ef;
+    margin:0 0 clamp(18px,2.5vh,29px);
+    text-shadow:0 1px 7px rgba(0,0,0,.17);
+  }
+  .first-screen .description {
+    max-width:735px;
+    font-size:clamp(17px,1.36vw,22px);
+    font-weight:450;
+    line-height:1.77;
+    color:#eee3df;
+    margin:0 0 clamp(24px,3vh,39px);
+  }
+  .first-screen .cta-large {
+    min-width:224px;
+    padding:16px 29px;
+    font-size:17px;
+    font-weight:800;
+    border:1px solid #cb6570;
+    border-radius:4px;
+    background:#9c2d40;
+    box-shadow:0 8px 28px rgba(0,0,0,.21);
+  }
+  .first-screen .cta-large:hover,
+  .first-screen .cta-large:focus-visible {background:#bb394d;border-color:#df8491;}
+
+  /* Testimonial becomes an editorial light band rather than small grey-on-black type. */
+  .first-screen .quote-section {
+    grid-area:quote;
+    z-index:4;
+    position:relative;
+    padding:clamp(25px,3.3vh,39px) clamp(36px,6.5vw,100px) clamp(22px,3vh,35px);
+    background:linear-gradient(106deg,#f3eae0 0%,#ede0d3 55%,#ddcabe 100%);
+    border-top:3px solid #a77a5f;
+    box-shadow:0 -9px 42px rgba(0,0,0,.22);
+  }
+  .first-screen .quote-section::before {
+    content:"";
+    position:absolute;
+    top:21%;bottom:21%;right:clamp(17px,4vw,60px);
+    width:4px;
+    border-radius:4px;
+    background:linear-gradient(#a76d69,#8e283d);
+  }
+  .first-screen .quote-section blockquote {
+    position:relative;
+    max-width:1180px;
+    margin:0 auto 12px;
+    color:#2b2424;
+    font-size:clamp(18px,1.52vw,23px);
+    font-weight:650;
+    line-height:1.63;
+    text-shadow:none;
+    text-wrap:pretty;
+  }
+  .first-screen .quote-section .byline {
+    color:#862e40;
+    font-size:clamp(15px,1.12vw,17px);
+    font-weight:800;
+    line-height:1.45;
+  }
+}
+/* Keep all existing styles below 981px unchanged. */
+
 </style>
 </head>
 <body>
