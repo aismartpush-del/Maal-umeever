@@ -784,50 +784,79 @@
   .first-screen .cta-large:hover,.first-screen .cta-large:focus-visible {
     background:#c43c50;border-color:#df8491;
   }
-  /* One refined cinematic pull quote, in the same graphite / gold / red language. */
+  /* Premium single testimonial inspired by editorial stage/performer sites.
+     Quote and credit are one centered composition, never two separate pieces. */
   .first-screen .quote-section {
-    grid-area:quote;z-index:4;position:relative;
-    padding:clamp(28px,4.1vh,48px) clamp(32px,6vw,88px) clamp(25px,3.8vh,40px);
+    grid-area:quote;
+    z-index:4;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:0;
+    padding:clamp(31px,4.8vh,53px) clamp(38px,6vw,92px) clamp(29px,4.3vh,47px);
     background:
-      radial-gradient(ellipse 70% 180% at 88% -20%,rgba(126,35,51,.22),transparent 77%),
-      linear-gradient(110deg,#1b1c21 0%,#1d1e24 58%,#101116 100%);
-    border-top:1px solid rgba(209,170,120,.39);
-    text-align:right;
-    box-shadow:0 -8px 30px rgba(0,0,0,.16);
+      radial-gradient(ellipse 58% 85% at 50% 10%,rgba(79,42,51,.14),transparent 100%),
+      linear-gradient(180deg,#1c1d23 0%,#15161b 100%);
+    border-top:1px solid rgba(202,169,123,.24);
+    box-shadow:0 -14px 38px rgba(0,0,0,.13);
+    text-align:center;
   }
   .first-screen .quote-section::before {
-    content:"";position:absolute;top:0;left:8%;right:8%;height:2px;
-    background:linear-gradient(90deg,transparent 0%,rgba(177,48,66,.68) 43%,rgba(198,158,103,.72) 63%,transparent 100%);
+    content:"";
+    position:static;
+    display:block;
+    flex:0 0 auto;
+    width:clamp(54px,5vw,74px);
+    height:3px;
+    margin:0 auto clamp(20px,2.4vh,28px);
+    border-radius:2px;
+    background:linear-gradient(90deg,#a82c42 0%,#ce4256 75%,#d0a273 100%);
   }
   .first-screen .quote-section blockquote {
-    position:relative;max-width:1030px;width:100%;
-    margin:0 auto;padding:0 clamp(58px,6.4vw,95px) 0 0;
-    border:0;background:transparent;box-shadow:none;
-    color:#f8f5f4;font-size:clamp(21px,1.85vw,27px);
-    font-weight:550;line-height:1.75;text-align:right;
-    text-shadow:none;text-wrap:pretty;
+    position:static;
+    width:100%;
+    max-width:1120px;
+    margin:0 auto;
+    padding:0;
+    border:0;
+    background:transparent;
+    box-shadow:none;
+    color:#f6f4f3;
+    font-size:clamp(20px,1.63vw,25px);
+    font-weight:580;
+    line-height:1.72;
+    text-align:center;
+    text-shadow:none;
+    text-wrap:pretty;
   }
   .first-screen .quote-section blockquote::before {
-    content:"“";position:absolute;right:0;top:-13px;
-    font-family:Georgia,serif;font-size:clamp(62px,6vw,83px);
-    font-weight:400;line-height:1;color:#d5aa72;opacity:.88;
-    pointer-events:none;
+    display:none;
+    content:none;
   }
   .first-screen .quote-section .quote-finale {
-    color:#f1c5a1;
+    color:#ecd1ae;
     font-weight:850;
     text-decoration:none;
   }
   .first-screen .quote-section .byline {
-    max-width:1030px;width:100%;margin:15px auto 0;
-    padding:0 clamp(58px,6.4vw,95px) 0 0;
-    color:#d7b88b;font-size:clamp(16px,1.18vw,18px);
-    font-weight:750;line-height:1.55;text-align:right;
+    position:static;
+    display:block;
+    width:100%;
+    max-width:1120px;
+    margin:clamp(13px,2vh,22px) auto 0;
+    padding:0;
+    border:0;
+    color:#d4b38b;
+    font-size:clamp(15px,1.13vw,18px);
+    font-weight:750;
+    line-height:1.5;
+    text-align:center;
   }
   .first-screen .quote-section .byline::before {
-    content:"";display:inline-block;vertical-align:middle;
-    width:clamp(28px,3vw,44px);height:2px;
-    margin-inline-end:11px;background:#aa3044;
+    display:none;
+    content:none;
   }
 
   /* Balance only the audience intro paragraph; prevent "האירוע." orphaning.
@@ -853,10 +882,10 @@
     .first-screen h1 {font-size:clamp(32px,3.2vw,48px);margin-bottom:28px;}
     .first-screen .subheading {font-size:clamp(19px,1.8vw,24px);line-height:1.46;margin-bottom:13px;}
     .first-screen .description {font-size:clamp(16px,1.32vw,19px);line-height:1.57;margin-bottom:18px;}
-    .first-screen .quote-section {padding-top:26px;padding-bottom:23px;}
-    .first-screen .quote-section blockquote {font-size:clamp(19px,1.58vw,23px);line-height:1.62;padding-inline-start:63px;}
-    .first-screen .quote-section blockquote::before {font-size:65px;top:-7px;}
-    .first-screen .quote-section .byline {font-size:16px;margin-top:12px;padding-inline-start:63px;}
+    .first-screen .quote-section {padding-top:24px;padding-bottom:25px;}
+    .first-screen .quote-section::before {margin-bottom:15px;}
+    .first-screen .quote-section blockquote {font-size:clamp(18px,1.5vw,21px);line-height:1.57;padding:0;}
+    .first-screen .quote-section .byline {font-size:15px;margin-top:12px;padding:0;}
   }
 
 }
