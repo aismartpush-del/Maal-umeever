@@ -346,3 +346,29 @@ img,svg{max-width:100%}
     background:linear-gradient(180deg,rgba(9,11,14,.20),transparent 34%,rgba(9,11,14,.08) 58%,#090b0e 100%)!important;
   }
 }
+
+
+/* 2026-10-26 — mobile hero uncropped and positioned below fixed navigation.
+   Keep the exact approved photograph, show all four edges, and stop scaling
+   the 960×720 source into a taller portrait-shaped cover box. */
+@media(max-width:760px){
+  .first-screen{padding-top:90px!important;}
+  .hero-frame .visual-hero{
+    width:100%!important;
+    height:auto!important;
+    aspect-ratio:4 / 3!important;
+    min-height:0!important;
+    max-height:none!important;
+  }
+  .hero-frame .visual-hero .duo-hero-photo{
+    inset:0!important;
+    width:100%!important;
+    height:100%!important;
+    background-size:contain!important;
+    background-position:center top!important;
+    background-repeat:no-repeat!important;
+  }
+}
+@media(max-width:365px){
+  .first-screen{padding-top:79px!important;}
+}
