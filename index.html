@@ -9,7 +9,7 @@
 <title>מעל ומעבר – המנטליסטים | מופע מנטליזם לאירועי חברה וערבי גיבוש</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="premium.css?v=20261026-hero-return-final-clean">
+<link rel="stylesheet" href="premium.css?v=20261026-photo-return-touchend-fixed">
 
 </head>
 <body>
@@ -221,8 +221,22 @@
       if(idleCheck)clearTimeout(idleCheck);
       if(animating)cancelReturn();
     },{passive:true});
-    window.addEventListener('touchend',()=>{fingerDown=false;},{passive:true});
-    window.addEventListener('touchcancel',()=>{fingerDown=false;},{passive:true});
+    window.addEventListener('touchend',()=>{
+      fingerDown=false;
+      // Touch can finish after the last scroll event: always re-check
+      // the partially hidden photo when an upward gesture has ended.
+      if(lastDirection===-1){
+        if(idleCheck)clearTimeout(idleCheck);
+        idleCheck=setTimeout(finishUpwardReturn,280);
+      }
+    },{passive:true});
+    window.addEventListener('touchcancel',()=>{
+      fingerDown=false;
+      if(lastDirection===-1){
+        if(idleCheck)clearTimeout(idleCheck);
+        idleCheck=setTimeout(finishUpwardReturn,280);
+      }
+    },{passive:true});
 
     window.addEventListener('scroll',()=>{
       if(!isMobile()||animating)return;
