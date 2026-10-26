@@ -9,7 +9,7 @@
 <title>מעל ומעבר – המנטליסטים | מופע מנטליזם לאירועי חברה וערבי גיבוש</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="premium.css?v=20261026-photo-return-verified">
+<link rel="stylesheet" href="premium.css?v=20261026-native-return-snap-tested">
 
 </head>
 <body>
@@ -167,97 +167,60 @@
   }));
 
 
-  // Restore full hero photo as the visitor scrolls BACK from the site.
-  // Track that the first screen was actually left; detect upward scrolling
-  // and the returning finger gesture independently, without scrollend.
-  // The header alone is sticky. The photo and text scroll normally.
-  const returnPhoto=document.querySelector('.hero-frame .visual-hero');
-  if(returnPhoto){
-    let previousY=window.scrollY;
-    let visitedBelowPhoto=false;
-    let returningToPhoto=false;
+  // Native direction-aware photo return. No scrollTo, no custom easing,
+  // no sticky photograph and no interception of the touch gesture.
+  const heroPhoto=document.querySelector('.hero-frame .visual-hero');
+  if(heroPhoto){
+    const root=document.documentElement;
+    const enabledClass='hero-return-align';
+    let lastY=window.scrollY;
+    let touchStartY=0;
+    let returning=false;
     let fingerDown=false;
-    let initialFingerY=0;
-    let previousFingerY=0;
-    let restoring=false;
-    let restoreFrame=0;
-    const mobile=()=>window.innerWidth<=760;
-    const photoReturnLimit=()=>Math.min(500,returnPhoto.offsetTop+returnPhoto.offsetHeight+95);
 
-    const restorePhoto=()=>{
-      if(!mobile()||!visitedBelowPhoto||!returningToPhoto||fingerDown||restoring)return;
-      if(window.scrollY<=2){
-        visitedBelowPhoto=false;
-        returningToPhoto=false;
-        return;
+    const isMobile=()=>window.innerWidth<=760;
+    const photoZone=()=>window.scrollY>1 &&
+      window.scrollY<=heroPhoto.offsetHeight+110;
+    const stopSnap=()=>root.classList.remove(enabledClass);
+    const alignPhoto=()=>{
+      if(isMobile() && returning && !fingerDown && photoZone()){
+        root.classList.add(enabledClass);
       }
-      if(window.scrollY>photoReturnLimit())return;
-      const originalY=window.scrollY;
-      visitedBelowPhoto=false;
-      returningToPhoto=false;
-      restoring=true;
-      document.documentElement.style.setProperty('scroll-behavior','auto','important');
-      const started=performance.now();
-      const duration=Math.min(540,Math.max(310,originalY*.95));
-      const move=now=>{
-        if(!restoring)return;
-        const p=Math.min(1,(now-started)/duration);
-        const eased=1-(1-p)*(1-p)*(1-p);
-        window.scrollTo(0,Math.round(originalY*(1-eased)));
-        if(p<1){
-          restoreFrame=requestAnimationFrame(move);
-        }else{
-          window.scrollTo(0,0);
-          restoring=false;
-          previousY=0;
-          document.documentElement.style.removeProperty('scroll-behavior');
-        }
-      };
-      restoreFrame=requestAnimationFrame(move);
     };
 
-    window.addEventListener('touchstart',e=>{
-      if(!mobile())return;
+    window.addEventListener('touchstart',event=>{
+      if(!isMobile()||!event.touches.length)return;
       fingerDown=true;
-      const finger=e.touches[0]?.clientY||0;
-      initialFingerY=previousFingerY=finger;
-      if(restoring){
-        cancelAnimationFrame(restoreFrame);
-        restoring=false;
-        document.documentElement.style.removeProperty('scroll-behavior');
-      }
+      touchStartY=event.touches[0].clientY;
+      returning=false;
+      stopSnap(); // Downward scrolling must always remain free.
     },{passive:true});
 
-    window.addEventListener('touchmove',e=>{
-      if(!mobile()||!fingerDown||!e.touches.length)return;
-      const finger=e.touches[0].clientY;
-      if(finger>previousFingerY+2&&finger>initialFingerY+12&&visitedBelowPhoto)
-        returningToPhoto=true;
-      else if(finger<previousFingerY-3&&finger<initialFingerY-12)
-        returningToPhoto=false;
-      previousFingerY=finger;
+    window.addEventListener('touchmove',event=>{
+      if(!fingerDown||!event.touches.length)return;
+      const movement=event.touches[0].clientY-touchStartY;
+      if(movement>14)returning=true; // Finger down = page returning upward.
+      if(movement<-14){returning=false;stopSnap();}
     },{passive:true});
 
     window.addEventListener('touchend',()=>{
       fingerDown=false;
-      if(returningToPhoto)requestAnimationFrame(restorePhoto);
+      alignPhoto();
     },{passive:true});
     window.addEventListener('touchcancel',()=>{fingerDown=false;},{passive:true});
 
     window.addEventListener('scroll',()=>{
-      if(!mobile()||restoring)return;
+      if(!isMobile()){stopSnap();return;}
       const y=window.scrollY;
-      const delta=y-previousY;
-      previousY=y;
-      if(y>photoReturnLimit()+110)visitedBelowPhoto=true;
-      if(visitedBelowPhoto&&delta<-1)returningToPhoto=true;
-      if(delta>5&&!fingerDown)returningToPhoto=false;
-      if(y<=1){
-        visitedBelowPhoto=false;
-        returningToPhoto=false;
-        return;
+      const delta=y-lastY;
+      lastY=y;
+      if(delta<-1) returning=true;
+      else if(delta>1 && !fingerDown){
+        returning=false;
+        stopSnap();
       }
-      if(returningToPhoto&&!fingerDown&&y<=photoReturnLimit())restorePhoto();
+      // Also catches inertial motion which reaches the photo after release.
+      alignPhoto();
     },{passive:true});
   }
 
