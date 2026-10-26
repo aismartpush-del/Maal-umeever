@@ -1,0 +1,61 @@
+name: Design QA desktop and mobile
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/design-qa.yml'
+permissions:
+  contents: read
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser automation
+        run: npm install --no-save playwright && npx playwright install chromium
+      - name: Run responsive screenshot and layout review
+        run: |
+          python3 -m http.server 8765 > /tmp/site-server.log 2>&1 &
+          sleep 2
+          mkdir -p /tmp/design-qa
+          node <<'JS'
+          const fs=require('fs');
+          const {chromium}=require('playwright');
+          (async()=>{
+            const browser=await chromium.launch({headless:true});
+            const output={};
+            for(const [label,width,height] of [['mobile',390,844],['tablet',768,1024],['desktop',1440,900]]){
+              const page=await browser.newPage({viewport:{width,height},deviceScaleFactor:1});
+              const errors=[];
+              page.on('pageerror',e=>errors.push(e.message));
+              await page.goto('http://127.0.0.1:8765/',{waitUntil:'networkidle'});
+              await page.evaluate(()=>document.fonts.ready);
+              await page.screenshot({path:`/tmp/design-qa/${label}-full.jpg`,fullPage:true,type:'jpeg',quality:74});
+              const measurements=await page.evaluate(()=>{
+                const selector=['.topbar','.hero-frame','.duo-hero-photo','.intro','.intro h1','.quote-section','#about-show','#events','#why','.trust-strip','#who-we-are','.profiles-grid','#media','.archive-media','#contact'];
+                const get=s=>{const e=document.querySelector(s);if(!e)return null;const b=e.getBoundingClientRect();return {x:Math.round(b.x),y:Math.round(b.y),w:Math.round(b.width),h:Math.round(b.height),fontSize:getComputedStyle(e).fontSize,background:getComputedStyle(e).backgroundImage.slice(0,150)}};
+                return {viewWidth:innerWidth,scrollWidth:document.documentElement.scrollWidth,selectors:Object.fromEntries(selector.map(s=>[s,get(s)]))};
+              });
+              for(const sel of ['.hero-frame','.quote-section','#about-show','#events','#why','#who-we-are','#media']){
+                const element=page.locator(sel);
+                if(await element.count()){
+                  await element.screenshot({path:`/tmp/design-qa/${label}-${sel.replace(/[^a-z]/gi,'')}.jpg`,type:'jpeg',quality:76});
+                }
+              }
+              output[label]={measurements,errors};
+              await page.close();
+            }
+            fs.writeFileSync('/tmp/design-qa/layout-report.json',JSON.stringify(output,null,2));
+            await browser.close();
+          })().catch(e=>{console.error(e);process.exit(1)})
+          JS
+          cat /tmp/design-qa/layout-report.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: design-qa-screenshots
+          path: /tmp/design-qa/*
+          retention-days: 2
