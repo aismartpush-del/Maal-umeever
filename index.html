@@ -9,7 +9,7 @@
 <title>מעל ומעבר – המנטליסטים | מופע מנטליזם לאירועי חברה וערבי גיבוש</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="premium.css?v=20261026-minimal-center-v2">
+<link rel="stylesheet" href="premium.css?v=20261026-play-triangle-v3">
 
 </head>
 <body>
@@ -74,19 +74,19 @@
 <section id="media" class="section media dark-section" aria-labelledby="media-title"><div class="section-kicker"></div><h2 id="media-title">מעל ומעבר בפעולה</h2>
 <div class="podcast-feature">
   <div class="podcast-headline"><strong>הפודקאסט עם מרטין בוקסדורף</strong><a href="https://youtu.be/SaRoqLR8QxE?si=vpEDCAW0EsunrZTR" target="_blank" rel="noopener noreferrer">פתיחה ביוטיוב <span aria-hidden="true">↗</span></a></div>
-  <div class="podcast-player"><iframe src="https://www.youtube-nocookie.com/embed/SaRoqLR8QxE" title="הפודקאסט עם מרטין בוקסדורף" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><button class="play-overlay" type="button" data-play="podcast" aria-label="נגן את הפודקאסט"><span class="cover-kicker" aria-hidden="true">פודקאסט</span><span class="play-caption">הפודקאסט עם מרטין בוקסדורף</span><span class="play-symbol" aria-hidden="true">▶</span></button></div>
+  <div class="podcast-player"><iframe src="https://www.youtube-nocookie.com/embed/SaRoqLR8QxE" title="הפודקאסט עם מרטין בוקסדורף" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><button class="play-overlay" type="button" data-play="podcast" aria-label="נגן את הפודקאסט"><span class="cover-kicker" aria-hidden="true">פודקאסט</span><span class="play-caption">הפודקאסט עם מרטין בוקסדורף</span><span class="play-symbol" aria-hidden="true"></span></button></div>
 </div>
 <div class="archive-media" aria-label="קטעי ארכיון של יוריני">
   <article class="archive-video">
     <h3>יוריני בטלוויזיה בהונג קונג</h3>
     <div class="archive-player">
-      <video controls playsinline preload="none" controlslist="nodownload" aria-label="יוריני בטלוויזיה בהונג קונג"><source src="assets/yorini-hongkong.mp4" type="video/mp4">הדפדפן שלך אינו תומך בהצגת סרטון זה.</video><button class="play-overlay" type="button" data-play="archive" aria-label="נגן סרטון"><span class="cover-kicker" aria-hidden="true">ארכיון • הונג קונג</span><span class="play-caption">יוריני בטלוויזיה בהונג קונג</span><span class="play-symbol" aria-hidden="true">▶</span></button>
+      <video playsinline preload="none" controlslist="nodownload" aria-label="יוריני בטלוויזיה בהונג קונג"><source src="assets/yorini-hongkong.mp4" type="video/mp4">הדפדפן שלך אינו תומך בהצגת סרטון זה.</video><button class="play-overlay" type="button" data-play="archive" aria-label="נגן סרטון"><span class="cover-kicker" aria-hidden="true">ארכיון • הונג קונג</span><span class="play-caption">יוריני בטלוויזיה בהונג קונג</span><span class="play-symbol" aria-hidden="true"></span></button>
     </div>
   </article>
   <article class="archive-video">
     <h3>יוריני בקטעי טלוויזיה</h3>
     <div class="archive-player">
-      <video controls playsinline preload="none" controlslist="nodownload" aria-label="יוריני בקטעי טלוויזיה"><source src="assets/yorini-tv.mp4" type="video/mp4">הדפדפן שלך אינו תומך בהצגת סרטון זה.</video><button class="play-overlay" type="button" data-play="archive" aria-label="נגן סרטון"><span class="cover-kicker" aria-hidden="true">ארכיון • טלוויזיה</span><span class="play-caption">יוריני בקטעי טלוויזיה</span><span class="play-symbol" aria-hidden="true">▶</span></button>
+      <video playsinline preload="none" controlslist="nodownload" aria-label="יוריני בקטעי טלוויזיה"><source src="assets/yorini-tv.mp4" type="video/mp4">הדפדפן שלך אינו תומך בהצגת סרטון זה.</video><button class="play-overlay" type="button" data-play="archive" aria-label="נגן סרטון"><span class="cover-kicker" aria-hidden="true">ארכיון • טלוויזיה</span><span class="play-caption">יוריני בקטעי טלוויזיה</span><span class="play-symbol" aria-hidden="true"></span></button>
     </div>
   </article>
 </div></section>
@@ -153,7 +153,7 @@
       if(iframe&&!iframe.src.includes("autoplay=1")) iframe.src+=(iframe.src.includes("?")?"&":"?")+"autoplay=1";
     }else{
       const video=frame.querySelector("video");
-      if(video) video.play().catch(()=>{});
+      if(video){ video.controls=true; video.play().catch(()=>{}); }
     }
     button.remove();
   }));
