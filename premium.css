@@ -642,9 +642,9 @@ html{scroll-padding-top:132px;}
 }
 
 
-/* 2026-10-26: mobile hero consolidated. Natural scroll, no snapping or scroll scripts.
-   The complete photo remains pinned below the visible menu while scrolling
-   within the first hero block. The copy scrolls below the pinned photo. */
+/* 2026-10-26: mobile hero final natural document flow.
+   The navigation alone stays sticky. The 4:3 photo, its overlay title, and
+   the intro are ordinary flow elements, all scrolling together without overlap. */
 .first-screen>.quote-section .quote-finale{color:inherit!important}
 .hero-mobile-photo-title{display:none}
 @media(max-width:760px){
@@ -669,10 +669,10 @@ html{scroll-padding-top:132px;}
     overflow:visible!important;
   }
   .hero-frame .visual-hero{
-    position:sticky!important;
-    top:90px!important;
-    inset-block-start:90px!important;
-    z-index:5!important;
+    position:relative!important;
+    top:auto!important;
+    inset-block-start:auto!important;
+    z-index:1!important;
     width:100%!important;
     height:auto!important;
     aspect-ratio:4 / 3!important;
@@ -754,7 +754,7 @@ html{scroll-padding-top:132px;}
 @media(max-width:365px){
   html{scroll-padding-top:79px!important}
   .topbar{min-height:79px!important}
-  .hero-frame .visual-hero{top:79px!important;inset-block-start:79px!important}
+  .hero-frame .visual-hero{top:auto!important;inset-block-start:auto!important}
   .hero-mobile-photo-title{font-size:clamp(19px,6.6vw,24px);padding-inline:12px}
   .hero-frame .intro{padding-inline:18px!important}
 }
