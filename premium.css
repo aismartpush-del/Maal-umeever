@@ -570,3 +570,16 @@ html{scroll-padding-top:132px;}
   border:0!important;
 }
 #media .podcast-headline {justify-content:flex-end;}
+
+/* 2026-10-26: first client-request correction — mobile hero title on the photo. */
+@media(max-width:760px){
+  /* Photo remains entirely visible (4:3 + contain); title sits over its dark lower edge. */
+  .hero-frame .intro{
+    margin-top:calc(-1 * clamp(96px, 27vw, 116px))!important;
+  }
+  .hero-frame .intro h1{
+    position:relative;
+    z-index:2;
+    text-shadow:0 3px 20px rgba(0,0,0,.62);
+  }
+}
