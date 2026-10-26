@@ -758,3 +758,19 @@ html{scroll-padding-top:132px;}
   .hero-mobile-photo-title{font-size:clamp(19px,6.6vw,24px);padding-inline:12px}
   .hero-frame .intro{padding-inline:18px!important}
 }
+
+/* Return-only native photo alignment. No photo pinning or scrollTo animation.
+   This is enabled temporarily by an upward-return gesture near the hero. */
+@media(max-width:760px){
+  html.hero-return-align{
+    scroll-snap-type:y mandatory!important;
+    scroll-padding-top:90px!important;
+  }
+  .hero-frame .visual-hero{
+    scroll-snap-align:start;
+    scroll-snap-stop:normal;
+  }
+}
+@media(max-width:365px){
+  html.hero-return-align{scroll-padding-top:79px!important;}
+}
