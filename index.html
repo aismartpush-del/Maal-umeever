@@ -9,7 +9,7 @@
 <title>מעל ומעבר – המנטליסטים | מופע מנטליזם לאירועי חברה וערבי גיבוש</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="premium.css?v=20261026-media-neutral-palette">
+<link rel="stylesheet" href="premium.css?v=20261026-client-soft-fades">
 
 </head>
 <body>
@@ -260,6 +260,27 @@
       if (y < 2) { scrollReturning = false; fingerReturning = false; return; }
       if (!touchActive) completeReturn();
     }, {passive: true});
+  }
+
+  // Gentle viewport-entry fade: no movement, no layout shift and no
+  // hidden content when JavaScript or IntersectionObserver is unavailable.
+  if ('IntersectionObserver' in window &&
+      (!window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+    const revealTargets = document.querySelectorAll(
+      '#about-show .about-layout, #events .section-header, #events .audience-grid, '+
+      '#why .feature, #why .trust-strip, #who-we-are .person, '+
+      '#media .podcast-feature, #media .archive-video, '+
+      '#questions .faq-list, #contact .section-head'
+    );
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('soft-reveal-seen');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.07, rootMargin:'0px 0px -7% 0px'});
+    revealTargets.forEach(target => revealObserver.observe(target));
   }
 
   // Only one archival recording should play at a time.
