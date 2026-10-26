@@ -1774,6 +1774,73 @@ body{background:#090b0d;color:#f4f5f6;font-family:Heebo,Arial,sans-serif}
 }
 @media(prefers-reduced-motion:no-preference){.audience-item,.feature,.portrait{transition:opacity .25s ease}}
 
+
+/* FINAL RESPONSIVE TYPOGRAPHY AND HEADER PASS — override historical styles */
+:root{--accent:#aebfc8;--red:#aebfc8;--gold:#aebfc8;--gold2:#aebfc8}
+.topbar .brand-logo{width:78px!important;height:78px!important;border:0!important;box-shadow:none!important;background:transparent!important;border-radius:50%!important}
+.topbar .brand-text{color:#f5f6f7!important;text-shadow:none!important;font-size:clamp(16px,1.35vw,21px)!important;font-weight:850}
+.topbar .menu-lines{border:1px solid #65737b!important;background:transparent!important;border-radius:2px!important;box-shadow:none!important}
+.topbar .menu-lines span{background:#f6f6f6!important}
+.topbar .menu-lines:hover,.topbar .menu-lines[aria-expanded="true"]{background:#252e33!important;border-color:#aebfc8!important}
+.topbar .site-nav{background:rgba(10,13,16,.97)!important;border:1px solid #47545b!important;box-shadow:0 25px 50px #0009!important}
+.topbar .site-nav a{color:#f1f3f4!important;border-color:#354048!important;background:transparent!important}
+.topbar .site-nav a:last-child{color:#aebfc8!important}
+.first-screen .intro-inner{text-align:right!important}
+.first-screen .intro h1,.first-screen .intro .hero-title-top,.first-screen .intro .hero-title-bottom,.first-screen .intro h1 span{
+  color:#fff!important;background:none!important;background-image:none!important;
+  -webkit-text-fill-color:#fff!important;text-shadow:none!important;
+}
+.first-screen .intro h1::before,.first-screen .intro h1::after{display:none!important;content:none!important}
+.first-screen .intro .brand-name-nowrap{white-space:normal!important;display:block!important}
+.first-screen .intro .hero-title-top,.first-screen .intro .hero-title-bottom{display:block!important;white-space:normal!important;line-height:1.05!important}
+.first-screen .intro .subheading,.first-screen .intro .description{color:#eceff0!important;text-align:right!important}
+.first-screen .duo-hero-photo{background-image:url("assets/hero-editorial.svg")!important;background-color:#090d10!important;background-size:cover!important;filter:contrast(1.1) brightness(.94)!important;opacity:1!important;mask-image:none!important;-webkit-mask-image:none!important}
+.first-screen .visual-hero::after{background:linear-gradient(90deg,#090b0d 0%,rgba(9,11,13,.88) 31%,rgba(9,11,13,.14) 70%,rgba(9,11,13,.18) 100%),linear-gradient(0deg,#090b0d 0%,transparent 22%,transparent 73%,rgba(9,11,13,.55))!important}
+.section h2,.section h3{color:#f4f6f7!important;text-shadow:none!important;-webkit-text-fill-color:#f4f6f7!important}
+.section-kicker{background:#aebfc8!important;box-shadow:none!important}
+.faq .faq-list details,.faq .faq-list summary{border-color:#3a464d!important}
+.faq details[open] summary{color:#f4f6f7!important}
+.faq summary::after{color:#aebfc8!important}
+.mobile-booking{background:#aebfc8!important;box-shadow:none!important;color:#0b1013!important;font-size:15px!important;font-weight:800!important;border-radius:0!important}
+.contact-icon-rail{pointer-events:none!important}
+.contact-icon-placeholder:last-child{background:#161e23!important;color:#bbcdd7!important;border:1px solid #6e818d!important}
+@media(min-width:701px){
+ .topbar{min-height:92px!important;padding:7px clamp(24px,4.5vw,80px)!important}
+ .first-screen .intro{inset:0!important;justify-content:center!important;align-items:stretch!important;max-height:100%}
+ .first-screen .intro-inner{max-width:min(1160px,100%)!important;margin:0 auto!important}
+ .first-screen .intro h1{max-width:620px!important}
+}
+@media(max-width:700px){
+ .topbar{min-height:76px!important;padding:calc(6px + env(safe-area-inset-top,0px)) 12px 6px!important;gap:8px!important}
+ .topbar .brand{gap:8px!important}
+ .topbar .brand-logo{width:61px!important;height:61px!important}
+ .topbar .brand-text{font-size:clamp(11px,2.9vw,14px)!important;white-space:normal!important;max-width:225px!important;line-height:1.27!important}
+ .topbar .menu-lines{width:44px!important;height:44px!important;min-width:44px!important}
+ .first-screen .visual-hero,.first-screen .intro{height:clamp(730px,102svh,980px)!important;min-height:0!important}
+ .first-screen .duo-hero-photo{background-position:center 13%!important;background-size:cover!important}
+ .first-screen .visual-hero::after{background:linear-gradient(0deg,#090b0d 0%,rgba(9,11,13,.99) 12%,rgba(9,11,13,.92) 34%,rgba(9,11,13,.09) 71%,rgba(9,11,13,.35) 100%)!important}
+ .first-screen .intro{position:absolute!important;inset:0 0 auto!important;justify-content:flex-end!important;align-items:stretch!important;padding:0 21px 37px!important;text-align:right!important}
+ .first-screen .intro-inner{width:100%!important;max-width:100%!important;text-align:right!important}
+ .first-screen .intro h1{font-size:clamp(35px,9.2vw,49px)!important;line-height:1.09!important;margin:0 0 15px!important;max-width:100%!important}
+ .first-screen .intro h1 .hero-title-top,.first-screen .intro h1 .hero-title-bottom{font-size:inherit!important;display:block!important;text-align:right!important}
+ .first-screen .intro .subheading{font-size:clamp(17px,4.3vw,20px)!important;line-height:1.5!important;margin-bottom:9px!important}
+ .first-screen .intro .description{font-size:clamp(13px,3.25vw,15px)!important;line-height:1.57!important;margin-bottom:19px!important}
+ .first-screen .intro .cta-large{padding:11px 22px!important;font-size:14px!important;width:auto!important;min-height:46px!important}
+ .first-screen .quote-section{padding:75px 22px 90px!important}
+ .first-screen .quote-section blockquote{font-size:clamp(24px,6.7vw,33px)!important}
+ .mobile-booking{min-height:53px!important;font-size:15px!important;border-radius:0!important}
+ .contact-icon-rail{bottom:calc(68px + env(safe-area-inset-bottom,0px))!important}
+ .contact-icon-placeholder:last-child{width:35px!important;height:35px!important}
+ .contact-icon-placeholder svg{width:19px!important;height:19px!important}
+ .section .brand-name-nowrap,.section .headline-phrase{white-space:normal!important;display:inline!important}
+}
+@media(max-width:365px){
+ .topbar .brand-logo{width:53px!important;height:53px!important}
+ .topbar .brand-text{font-size:11px!important}
+ .first-screen .intro h1{font-size:34px!important}
+ .first-screen .intro .subheading{font-size:17px!important}
+}
+
 </style>
 </head>
 <body>
