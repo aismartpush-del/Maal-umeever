@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;600;700&family=Heebo:wght@300;400;500;600;700;800;900&display=swap');
 /* MAAL UME'EVER — premium editorial system, 26 Oct 2026.
    Black, white and a single cool-silver accent. No legacy template CSS. */
 :root{color-scheme:dark;--bg:#090b0e;--bg2:#11151a;--white:#f7f8f9;--copy:#c0c8ce;--muted:#98a2aa;--accent:#c1d2da;--rule:rgba(215,226,233,.20);font-synthesis:none}
@@ -967,4 +967,510 @@ html{scroll-padding-top:132px;}
     from{opacity:.38}
     to{opacity:1}
   }
+}
+
+/* BLAINE-INSPIRED CINEMATIC EDITORIAL — approved site structure, original assets. */
+/* Visual reference: full-bleed photographs, monumental serif display,
+   fine-weight type, enormous black breathing space, zero generic cards.
+   These are original Hebrew sections and original client photographs. */
+:root{
+  --bg:#030303;
+  --bg2:#080808;
+  --white:#f6f5f3;
+  --copy:#e4e4e4;
+  --muted:#c0c0c0;
+  --accent:#c1d2da;
+  --rule:rgba(230,230,230,.25);
+  --display-font:"Frank Ruhl Libre","David",Georgia,serif;
+}
+html{background:#030303;}
+body{background:#030303;color:#f6f5f3;}
+.topbar{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  min-height:112px;
+  background:rgba(0,0,0,.91);
+  border-bottom:0;
+  box-shadow:none;
+}
+.topbar .brand{
+  grid-column:2;
+  grid-row:1;
+  justify-self:center;
+  gap:12px;
+}
+.topbar .brand-text{font-size:clamp(14px,1.2vw,19px);font-weight:500;}
+.topbar .top-controls{
+  grid-column:1;
+  grid-row:1;
+  justify-self:start;
+  gap:0;
+}
+.topbar .menu-lines{order:-1;}
+.topbar .persistent-actions-desktop{
+  position:absolute;
+  left:clamp(22px,5.5vw,94px);
+  top:50%;
+  transform:translateY(-50%);
+  gap:13px;
+}
+.topbar .persistent-book{font-weight:650;}
+.first-screen{background:#030303;}
+/* Desktop: photographic opening with type floating over the dark side. */
+@media(min-width:761px){
+  .hero-frame{
+    min-height:min(900px,calc(100svh - 112px))!important;
+    height:min(900px,calc(100svh - 112px))!important;
+    background:#050505!important;
+  }
+  .hero-frame .visual-hero{
+    height:100%!important;
+    background:#030303!important;
+  }
+  .hero-frame .visual-hero::before{
+    background:#030303!important;
+  }
+  .hero-frame .visual-hero .duo-hero-photo{
+    inset:0 35% 0 0!important;
+    background-position:center 40%!important;
+    background-size:cover!important;
+    filter:saturate(.68) contrast(1.08) brightness(.74)!important;
+  }
+  .hero-frame .visual-hero::after{
+    background:linear-gradient(90deg,rgba(0,0,0,.04) 0%,rgba(0,0,0,.1) 35%,rgba(0,0,0,.77) 62%,#030303 90%),
+               linear-gradient(180deg,rgba(0,0,0,.28),transparent 23%,rgba(0,0,0,.16) 74%,#030303 100%)!important;
+  }
+  .hero-frame .intro{
+    position:absolute!important;
+    inset:0!important;
+    align-items:center!important;
+    padding:110px clamp(30px,8vw,150px) 50px!important;
+  }
+  .hero-frame .intro-inner{
+    width:min(720px,54vw)!important;
+    text-align:right!important;
+  }
+  .hero-frame .intro h1{
+    font-family:var(--display-font)!important;
+    font-weight:500!important;
+    font-size:clamp(66px,7.2vw,122px)!important;
+    line-height:1.04!important;
+    letter-spacing:-.02em!important;
+    margin-bottom:28px!important;
+  }
+  .hero-frame .intro .subheading{
+    font-size:clamp(21px,1.75vw,31px)!important;
+    font-weight:300!important;
+    line-height:1.7!important;
+    color:#fff!important;
+  }
+  .hero-frame .intro .description{
+    font-size:clamp(17px,1.22vw,22px)!important;
+    font-weight:300!important;
+    line-height:1.8!important;
+    color:#d6d6d6!important;
+  }
+}
+/* The original approved hero photograph stays completely visible on phones;
+   it must not be cropped or pushed underneath the sticky navigation. */
+@media(max-width:760px){
+  .topbar{
+    display:grid!important;
+    grid-template-columns:1fr auto 1fr!important;
+    gap:0!important;
+    padding:6px 16px!important;
+    background:#030303!important;
+  }
+  .topbar .brand{
+    grid-column:2!important;
+    grid-row:1!important;
+    justify-self:center!important;
+    gap:0!important;
+    margin:0!important;
+  }
+  .topbar .brand-text{display:none!important;}
+  .topbar .brand-logo{width:80px!important;height:80px!important;transform:scale(1.02)!important;}
+  .topbar .top-controls{grid-column:1!important;grid-row:1!important;justify-self:start!important;}
+  .topbar .menu-lines{order:0;}
+  .hero-frame .visual-hero{
+    background:#030303!important;
+  }
+  .hero-frame .visual-hero .duo-hero-photo{
+    filter:saturate(.68) contrast(1.08) brightness(.78)!important;
+    background-size:contain!important;
+    background-position:center top!important;
+  }
+  .hero-frame .visual-hero::after{
+    background:linear-gradient(180deg,transparent 58%,rgba(0,0,0,.12) 72%,#030303 100%)!important;
+  }
+  .hero-mobile-photo-title{
+    font-family:var(--display-font)!important;
+    font-weight:600!important;
+    font-size:clamp(22px,6.1vw,34px)!important;
+    letter-spacing:-.02em!important;
+    bottom:12px!important;
+  }
+  .hero-frame .intro{
+    background:#030303!important;
+    padding:28px 25px 72px!important;
+    text-align:center!important;
+  }
+  .hero-frame .intro-inner{text-align:center!important;}
+  .hero-frame .intro .subheading{
+    color:#f6f6f6!important;
+    font-size:clamp(19px,5vw,24px)!important;
+    font-weight:300!important;
+    line-height:1.65!important;
+    margin:0 auto 27px!important;
+  }
+  .hero-frame .intro .description{
+    color:#ddd!important;
+    font-size:clamp(16px,4vw,19px)!important;
+    line-height:1.85!important;
+    font-weight:300!important;
+    max-width:610px!important;
+    margin:0 auto!important;
+  }
+}
+.section{
+  padding:clamp(125px,13vw,220px) clamp(24px,6vw,108px);
+  background:#030303;
+}
+.section h2,
+#who-we-are .person h3,
+.quote-section blockquote,
+.manifesto{
+  font-family:var(--display-font);
+  font-weight:500;
+  letter-spacing:-.02em;
+}
+.section h2{
+  font-size:clamp(52px,6.7vw,106px);
+  line-height:1.12;
+  text-align:center;
+  margin:0 auto 60px;
+  max-width:1150px;
+}
+.section-kicker{display:none;}
+.section .copy{
+  color:#eee;
+  font-size:clamp(19px,1.7vw,29px);
+  font-weight:300;
+  line-height:1.8;
+}
+.section .lead{
+  color:#f0f0f0;
+  font-size:clamp(19px,2vw,30px);
+  font-weight:300;
+  line-height:1.8;
+}
+/* Blaine-like image-backed statement: our own approved portrait. */
+.first-screen>.quote-section{
+  position:relative!important;
+  display:flex!important;
+  flex-direction:column;
+  justify-content:center;
+  min-height:90svh;
+  padding:clamp(140px,15vw,240px) clamp(25px,8vw,145px)!important;
+  background:linear-gradient(90deg,rgba(0,0,0,.8),rgba(0,0,0,.72)),
+             url("assets/yorini-portrait-final.webp") 12% 30% /cover no-repeat,
+             #030303!important;
+  color:#fff;
+  text-align:center;
+}
+.first-screen>.quote-section blockquote{
+  max-width:1050px;
+  font-size:clamp(35px,4.5vw,73px)!important;
+  font-weight:500!important;
+  line-height:1.33!important;
+  letter-spacing:-.025em!important;
+  color:#fff;
+  text-wrap:balance;
+}
+.first-screen>.quote-section .byline{
+  color:#dedede!important;
+  letter-spacing:.02em;
+  font-size:clamp(14px,1.1vw,18px)!important;
+  font-weight:300;
+}
+/* Long editorial copy is deliberately centered with a full-bleed photo break. */
+#about-show{background:#030303;}
+#about-show .about-layout{
+  display:block;
+  max-width:1060px;
+  margin-inline:auto;
+  text-align:center;
+}
+#about-show .about-title{margin-bottom:45px;}
+#about-show .about-title h2{
+  margin:0 auto 45px;
+  max-width:990px;
+}
+#about-show .about-content{
+  display:grid;
+  gap:clamp(48px,6vw,100px);
+  justify-items:center;
+}
+#about-show .about-copy-block{
+  max-width:890px;
+  margin-inline:auto;
+  gap:clamp(22px,2.8vw,40px);
+}
+#about-show .about-content .copy{
+  max-width:850px;
+  margin-inline:auto;
+  text-align:center;
+}
+#about-show .editorial-interlude,
+#about-show .about-content .editorial-interlude{
+  display:block;
+  width:calc(100vw - 20px);
+  max-width:1400px;
+  aspect-ratio:4/3;
+  margin:20px 0;
+  border:0;
+  background:#000;
+  box-shadow:none;
+}
+#about-show .editorial-interlude img,
+#about-show .about-content .editorial-interlude img{
+  filter:saturate(.68) contrast(1.08) brightness(.8);
+  object-fit:contain;
+}
+#about-show .manifesto{
+  max-width:1100px;
+  margin:clamp(115px,12vw,200px) auto 0;
+  padding:0;
+  border:0;
+  font-size:clamp(44px,5.3vw,84px);
+  font-weight:500;
+  line-height:1.25;
+  text-align:center;
+}
+#about-show .manifesto-start,
+#about-show .manifesto-end{display:block;}
+#events{
+  position:relative;
+  background:linear-gradient(90deg,rgba(0,0,0,.83),rgba(0,0,0,.75)),
+             url("assets/or-pinto-portrait-final.webp") 92% 36% /cover no-repeat,
+             #050505;
+  min-height:90svh;
+}
+#events .section-header{margin:0 auto 70px;max-width:1000px;text-align:center;}
+#events h2{max-width:1050px;margin-bottom:46px;}
+#events .lead{margin:0 auto;max-width:800px;text-align:center;}
+#events .audience-grid{
+  max-width:970px;
+  margin-inline:auto;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  column-gap:clamp(35px,4vw,70px);
+  row-gap:clamp(30px,5vw,80px);
+}
+#events .audience-item{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:14px;
+  padding:0;
+  min-height:0;
+  border:0;
+  background:none;
+  text-align:center;
+}
+#events .audience-icon::before{
+  width:42px;
+  background:rgba(220,220,220,.7);
+}
+#events .audience-label{
+  color:#fff;
+  font-size:clamp(19px,1.65vw,25px);
+  font-weight:400;
+  line-height:1.5;
+}
+#events .age-line{text-align:center;margin-top:65px!important;color:#dadada;}
+#why{background:#050505;}
+#why>h2{max-width:1150px;}
+#why .feature-grid{
+  max-width:1100px;
+  margin:90px auto 150px;
+  gap:clamp(50px,6vw,110px);
+}
+#why .feature{text-align:center;}
+#why .feature strong{
+  font-family:var(--display-font);
+  font-size:clamp(29px,2.8vw,46px);
+  font-weight:500;
+  line-height:1.32;
+  margin-bottom:22px;
+}
+#why .feature p{
+  color:#e2e2e2;
+  font-size:clamp(18px,1.45vw,25px);
+  line-height:1.8;
+  font-weight:300;
+}
+#why .trust-strip{
+  max-width:1230px;
+  margin-inline:auto;
+  justify-items:center;
+  text-align:center;
+}
+#why .trust-highlight{
+  font-family:var(--display-font);
+  font-weight:600;
+  color:#fff;
+  letter-spacing:-.025em;
+}
+#why .trust-caption{color:#ddd;}
+#who-we-are{background:#090909;}
+#who-we-are .profiles-grid{max-width:1390px;margin-inline:auto;}
+#who-we-are .person h3{
+  font-size:clamp(44px,4.2vw,75px);
+  font-weight:500;
+}
+#who-we-are .person .copy{font-size:clamp(17px,1.3vw,22px);}
+#who-we-are .portrait{background-color:#050505;}
+#media{background:#050505;}
+#media .podcast-feature{max-width:1300px;margin-inline:auto;}
+#media .archive-media{max-width:1300px;margin:80px auto 0;gap:35px;}
+#media .podcast-player,
+#media .archive-player{
+  border:0;
+  background:#000;
+  aspect-ratio:16/9;
+}
+#media .podcast-player .play-overlay{
+  background:linear-gradient(rgba(0,0,0,.42),rgba(0,0,0,.76)),
+             url("assets/video-previews/martin-podcast-cover.webp") center / cover no-repeat #050505!important;
+}
+#media .archive-video:first-child .play-overlay{
+  background:linear-gradient(rgba(0,0,0,.4),rgba(0,0,0,.72)),
+             url("assets/video-previews/yorini-hongkong-cover.webp") center / cover no-repeat #050505!important;
+}
+#media .archive-video:last-child .play-overlay{
+  background:linear-gradient(rgba(0,0,0,.4),rgba(0,0,0,.72)),
+             url("assets/video-previews/yorini-tv-cover.webp") center / cover no-repeat #050505!important;
+}
+#media .play-overlay::before,
+#media .play-overlay::after{display:none;}
+#media .play-caption{
+  font-family:var(--display-font);
+  font-weight:500;
+  font-size:clamp(32px,4.1vw,66px);
+  line-height:1.15;
+  text-shadow:0 2px 20px rgba(0,0,0,.85);
+}
+#media .archive-player .play-caption{font-size:clamp(27px,2.8vw,42px);}
+#questions{background:#070707;}
+#questions .faq-list{margin-inline:auto;}
+#contact{
+  background:linear-gradient(90deg,rgba(0,0,0,.91),rgba(0,0,0,.88)),
+             url("assets/hero-approved-restored.webp") center 30% / cover no-repeat,#030303;
+}
+#contact .section-head{margin-inline:auto;text-align:center;}
+#contact .lead{margin-inline:auto;}
+#contact .contact-email{justify-content:center;}
+#contact .social-links{justify-content:center;}
+#contact .contact-form{margin-inline:auto;}
+.site-footer{background:#030303;}
+/* A phone layout that feels authored, never a desktop grid squeezed into 390px. */
+@media(max-width:760px){
+  .section{
+    padding:clamp(100px,22vw,150px) 25px;
+  }
+  .section h2{
+    font-family:var(--display-font)!important;
+    font-size:clamp(40px,10.2vw,58px)!important;
+    font-weight:500!important;
+    line-height:1.18!important;
+    letter-spacing:-.025em!important;
+    margin:0 auto 35px!important;
+    text-align:center!important;
+    max-width:100%;
+    text-wrap:balance;
+  }
+  .section h2 .headline-phrase,
+  .section h2 .why-heading-line{display:block;}
+  .section h2 .brand-name-nowrap{
+    font-family:var(--display-font)!important;
+    font-weight:500!important;
+    letter-spacing:-.02em!important;
+    font-size:clamp(20px,5.7vw,31px)!important;
+    line-height:1.4!important;
+  }
+  .section .lead{
+    font-size:clamp(19px,4.75vw,24px);
+    font-weight:300;
+    text-align:center;
+  }
+  .section .copy{font-size:clamp(18px,4.65vw,23px);line-height:1.76;}
+  .first-screen>.quote-section{
+    min-height:80svh!important;
+    padding:125px 27px!important;
+    background-position:center,12% center,center!important;
+  }
+  .first-screen>.quote-section blockquote{
+    font-family:var(--display-font)!important;
+    font-size:clamp(31px,7.8vw,43px)!important;
+    line-height:1.37!important;
+    font-weight:500!important;
+  }
+  #about-show .about-title{margin-bottom:30px!important;}
+  #about-show .about-content{gap:62px;}
+  #about-show .about-copy-block{gap:25px;}
+  #about-show .about-content .copy{text-align:center;}
+  #about-show .editorial-interlude,
+  #about-show .about-content .editorial-interlude{
+    width:100vw;
+    max-width:none;
+    aspect-ratio:4/3;
+    margin:0 calc(50% - 50vw);
+    background:#000;
+  }
+  #about-show .manifesto{
+    font-family:var(--display-font)!important;
+    font-size:clamp(29px,7.7vw,42px)!important;
+    line-height:1.35!important;
+    max-width:100%;
+    text-align:center!important;
+    border:0!important;
+    margin:110px auto 0!important;
+  }
+  #about-show .manifesto .manifesto-start,
+  #about-show .manifesto .manifesto-end{
+    display:block;
+    white-space:normal;
+  }
+  #events{background-position:center,75% center,center;}
+  #events .section-header{margin:0 auto 60px;}
+  #events .audience-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:36px 22px;
+  }
+  #events .audience-item{gap:11px;}
+  #events .audience-label{font-size:clamp(16px,4.4vw,20px);}
+  #events .age-line{margin-top:55px!important;}
+  #why .feature-grid{margin:65px auto 115px;gap:70px;}
+  #why .feature strong{font-size:clamp(27px,7.2vw,38px);}
+  #why .feature p{font-size:clamp(18px,4.5vw,22px);}
+  #why .trust-strip{row-gap:60px;}
+  #who-we-are .profiles-grid{gap:110px;}
+  #who-we-are .person h3{font-size:clamp(42px,11vw,59px);}
+  #who-we-are .portrait{width:100%;}
+  #media .archive-media{gap:64px;margin-top:60px;}
+  #media .play-caption{font-size:clamp(25px,7vw,36px);}
+  #media .archive-player .play-caption{font-size:clamp(20px,6vw,30px);}
+  #media .cover-kicker{font-size:12px;}
+  #contact .section-head{text-align:center;}
+  #contact h2{text-align:center!important;}
+  .site-footer{padding-bottom:110px;}
+}
+@media(max-width:365px){
+  .topbar .brand-logo{width:67px!important;height:67px!important;}
+  .section{padding-inline:19px;}
+  .section h2{font-size:clamp(36px,10vw,40px)!important;}
+  #events .audience-grid{gap:30px 13px;}
+  #events .audience-label{font-size:15px;}
+  .hero-mobile-photo-title{font-size:clamp(20px,6vw,24px)!important;}
 }
