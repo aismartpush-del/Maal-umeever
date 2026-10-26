@@ -9,7 +9,7 @@
 <title>מעל ומעבר – המנטליסטים | מופע מנטליזם לאירועי חברה וערבי גיבוש</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="premium.css?v=20261026-return-photo-directional">
+<link rel="stylesheet" href="premium.css?v=20261026-hero-return-eased">
 
 </head>
 <body>
@@ -166,44 +166,75 @@
     button.remove();
   }));
 
-  // Only during upward scrolling back into the first photo:
-  // finish the existing upward movement at the photograph's true beginning.
-  // Do not wait for scrollend (which previously caused an unnatural second jump).
-  // Do not pin the photo or affect downward scrolling.
+  // Bring the entire hero photograph back into view on a return swipe.
+  // The header remains sticky and the photo/copy remain in normal document flow.
+  // No scroll snap, sticky photo, or delayed scrollend jump.
   const firstPhoto=document.querySelector('.hero-frame .visual-hero');
   if(firstPhoto){
-    let previousScrollY=window.scrollY;
-    let returnArmed=true;
-    let returning=false;
+    let lastY=window.scrollY;
+    let movingUp=false;
+    let touching=false;
+    let aligning=false;
+    let animationFrame=0;
+
+    const stopAlignment=()=>{
+      if(animationFrame)window.cancelAnimationFrame(animationFrame);
+      animationFrame=0;
+      aligning=false;
+      document.documentElement.style.removeProperty('scroll-behavior');
+    };
+
+    const alignWholePhoto=()=>{
+      if(window.innerWidth>760||touching||aligning)return;
+      const from=window.scrollY;
+      if(from<=2)return;
+      aligning=true;
+      // Safari's kinetic scrolling can interrupt a single scrollTo(smooth).
+      // A single eased, frame-controlled continuation reliably reaches the top.
+      document.documentElement.style.setProperty('scroll-behavior','auto','important');
+      const begin=performance.now();
+      const duration=Math.max(270,Math.min(470,from*1.05));
+      const tick=now=>{
+        if(!aligning)return;
+        const progress=Math.min(1,(now-begin)/duration);
+        const eased=1-Math.pow(1-progress,3);
+        window.scrollTo(0,Math.round(from*(1-eased)));
+        if(progress<1){
+          animationFrame=window.requestAnimationFrame(tick);
+        }else{
+          window.scrollTo(0,0);
+          lastY=0;
+          movingUp=false;
+          stopAlignment();
+        }
+      };
+      animationFrame=window.requestAnimationFrame(tick);
+    };
+
+    const inPhotoReturnZone=()=>window.scrollY>2 &&
+      window.scrollY<Math.min(460,Math.max(390,firstPhoto.offsetHeight+110));
+
+    window.addEventListener('touchstart',()=>{
+      touching=true;
+      if(aligning)stopAlignment();
+    },{passive:true});
+    window.addEventListener('touchend',()=>{
+      touching=false;
+      if(movingUp&&inPhotoReturnZone())
+        window.requestAnimationFrame(alignWholePhoto);
+    },{passive:true});
+    window.addEventListener('touchcancel',()=>{touching=false;},{passive:true});
 
     window.addEventListener('scroll',()=>{
       const y=window.scrollY;
-      const movingUp=y<previousScrollY-1;
-      previousScrollY=y;
-      if(window.innerWidth>760) return;
-
-      const photoHeight=firstPhoto.getBoundingClientRect().height;
-      // Rearm only once the visitor has genuinely left the photo region.
-      if(y>photoHeight+170){
-        returnArmed=true;
-        returning=false;
-      }
-      if(y<=2){
-        returnArmed=true;
-        returning=false;
-        return;
-      }
-      const returnThreshold=Math.min(370,Math.max(240,photoHeight*1.08));
-      if(returnArmed && !returning && movingUp && y<returnThreshold){
-        returnArmed=false;
-        returning=true;
-        window.requestAnimationFrame(()=>{
-          window.scrollTo({
-            top:0,
-            behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'
-          });
-        });
-      }
+      if(aligning){lastY=y;return;}
+      if(y<lastY-1)movingUp=true;
+      else if(y>lastY+1)movingUp=false;
+      lastY=y;
+      if(y<=2){movingUp=false;return;}
+      // Covers momentum scrolling after release and non-touch scrolling.
+      if(movingUp&&!touching&&inPhotoReturnZone())
+        alignWholePhoto();
     },{passive:true});
   }
 
