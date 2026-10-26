@@ -1909,3 +1909,35 @@ body{background:#030303;color:#f6f5f3;}
   .hero-frame .intro .subheading{font-size:clamp(21px,2.13vw,26px)!important;}
   .hero-frame .intro .description{font-size:clamp(17px,1.7vw,20px)!important;}
 }
+
+/* Desktop H1 correction: the complete show name must remain on ONE line. */
+@media(min-width:761px){
+  .hero-frame .intro-inner{
+    width:min(1020px,53vw)!important;
+    max-width:100%!important;
+  }
+  .hero-frame .intro h1{
+    font-size:clamp(33px,4.2vw,80px)!important;
+    line-height:1.16!important;
+    letter-spacing:-.025em!important;
+    white-space:nowrap!important;
+    text-wrap:nowrap!important;
+    max-width:100%!important;
+    margin-bottom:25px!important;
+    text-shadow:0 2px 16px rgba(0,0,0,.38);
+  }
+  .hero-frame .intro h1 .brand-name-nowrap{
+    display:block!important;
+    white-space:nowrap!important;
+  }
+  .hero-frame .intro h1 .hero-title-top,
+  .hero-frame .intro h1 .hero-title-bottom{
+    display:inline!important;
+    white-space:nowrap!important;
+    max-width:none!important;
+  }
+}
+/* Preserve space for all words at compact laptop widths. */
+@media(min-width:761px) and (max-width:979px){
+  .hero-frame .intro h1{font-size:clamp(32px,4.1vw,41px)!important;}
+}
