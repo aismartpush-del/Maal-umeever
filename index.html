@@ -9,7 +9,7 @@
 <title>מעל ומעבר – המנטליסטים | מופע מנטליזם לאירועי חברה וערבי גיבוש</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="premium.css?v=20261026-native-return-snap-tested">
+<link rel="stylesheet" href="premium.css?v=20261026-hero-scroll-return-stable">
 
 </head>
 <body>
@@ -167,61 +167,81 @@
   }));
 
 
-  // Native direction-aware photo return. No scrollTo, no custom easing,
-  // no sticky photograph and no interception of the touch gesture.
-  const heroPhoto=document.querySelector('.hero-frame .visual-hero');
-  if(heroPhoto){
-    const root=document.documentElement;
-    const enabledClass='hero-return-align';
-    let lastY=window.scrollY;
-    let touchStartY=0;
-    let returning=false;
-    let fingerDown=false;
-
-    const isMobile=()=>window.innerWidth<=760;
-    const photoZone=()=>window.scrollY>1 &&
-      window.scrollY<=heroPhoto.offsetHeight+110;
-    const stopSnap=()=>root.classList.remove(enabledClass);
-    const alignPhoto=()=>{
-      if(isMobile() && returning && !fingerDown && photoZone()){
-        root.classList.add(enabledClass);
-      }
+  // Return to the COMPLETE photo only when scrolling UP into its visible area.
+  // Photo and text stay in normal flow; the header alone remains sticky.
+  const firstPhoto = document.querySelector('.hero-frame .visual-hero');
+  const topHeader = document.querySelector('.topbar');
+  if (firstPhoto && topHeader) {
+    let lastY = window.scrollY;
+    let touchStartY = 0;
+    let touchActive = false;
+    let fingerReturning = false;
+    let scrollReturning = false;
+    let returning = false;
+    let animationFrame = 0;
+    const mobile = () => window.innerWidth <= 760;
+    const nearPhoto = () => {
+      const p = firstPhoto.getBoundingClientRect();
+      const h = topHeader.getBoundingClientRect();
+      return window.scrollY > 2 && p.top < h.bottom - 8 && p.bottom > h.bottom + 12;
     };
-
-    window.addEventListener('touchstart',event=>{
-      if(!isMobile()||!event.touches.length)return;
-      fingerDown=true;
-      touchStartY=event.touches[0].clientY;
-      returning=false;
-      stopSnap(); // Downward scrolling must always remain free.
-    },{passive:true});
-
-    window.addEventListener('touchmove',event=>{
-      if(!fingerDown||!event.touches.length)return;
-      const movement=event.touches[0].clientY-touchStartY;
-      if(movement>14)returning=true; // Finger down = page returning upward.
-      if(movement<-14){returning=false;stopSnap();}
-    },{passive:true});
-
-    window.addEventListener('touchend',()=>{
-      fingerDown=false;
-      alignPhoto();
-    },{passive:true});
-    window.addEventListener('touchcancel',()=>{fingerDown=false;},{passive:true});
-
-    window.addEventListener('scroll',()=>{
-      if(!isMobile()){stopSnap();return;}
-      const y=window.scrollY;
-      const delta=y-lastY;
-      lastY=y;
-      if(delta<-1) returning=true;
-      else if(delta>1 && !fingerDown){
-        returning=false;
-        stopSnap();
-      }
-      // Also catches inertial motion which reaches the photo after release.
-      alignPhoto();
-    },{passive:true});
+    const stopReturn = () => {
+      if (animationFrame) cancelAnimationFrame(animationFrame);
+      animationFrame = 0;
+      returning = false;
+      document.documentElement.style.removeProperty('scroll-behavior');
+    };
+    const completeReturn = () => {
+      if (!mobile() || returning || touchActive || !nearPhoto() || !(fingerReturning || scrollReturning)) return;
+      returning = true;
+      const from = window.scrollY;
+      const started = performance.now();
+      const duration = Math.min(500, Math.max(290, from * 1.3));
+      document.documentElement.style.setProperty('scroll-behavior', 'auto', 'important');
+      const step = (now) => {
+        if (!returning) return;
+        const t = Math.min(1, (now - started) / duration);
+        const ease = 1 - Math.pow(1 - t, 3);
+        window.scrollTo(0, Math.round(from * (1 - ease)));
+        if (t < 1) animationFrame = requestAnimationFrame(step);
+        else {
+          window.scrollTo(0, 0);
+          fingerReturning = false;
+          scrollReturning = false;
+          lastY = 0;
+          stopReturn();
+        }
+      };
+      animationFrame = requestAnimationFrame(step);
+    };
+    window.addEventListener('touchstart', (event) => {
+      if (!mobile() || !event.touches.length) return;
+      if (returning) stopReturn();
+      touchActive = true;
+      fingerReturning = false;
+      touchStartY = event.touches[0].clientY;
+    }, {passive: true});
+    window.addEventListener('touchmove', (event) => {
+      if (!mobile() || !touchActive || !event.touches.length) return;
+      const delta = event.touches[0].clientY - touchStartY;
+      if (delta > 12) fingerReturning = true;
+      else if (delta < -12) fingerReturning = false;
+    }, {passive: true});
+    window.addEventListener('touchend', () => {
+      touchActive = false;
+      completeReturn();
+    }, {passive: true});
+    window.addEventListener('touchcancel', () => { touchActive = false; }, {passive: true});
+    window.addEventListener('scroll', () => {
+      if (!mobile() || returning) return;
+      const y = window.scrollY;
+      const delta = y - lastY;
+      lastY = y;
+      if (delta < -1) scrollReturning = true;
+      else if (delta > 1) scrollReturning = false;
+      if (y < 2) { scrollReturning = false; fingerReturning = false; return; }
+      if (!touchActive) completeReturn();
+    }, {passive: true});
   }
 
   // Only one archival recording should play at a time.
