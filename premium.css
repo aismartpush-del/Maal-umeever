@@ -937,3 +937,23 @@ html{scroll-padding-top:132px;}
 @media(max-width:760px){
   .topbar .brand-logo{transform:scale(1.06);}
 }
+
+/* Mobile manifesto: two intentional, optically balanced RTL lines. */
+@media(max-width:760px){
+  #about-show .manifesto{
+    text-align:right;
+    font-size:clamp(21px,5.95vw,29px);
+    line-height:1.48;
+    letter-spacing:-.035em;
+    padding-top:30px;
+  }
+  #about-show .manifesto .manifesto-start,
+  #about-show .manifesto .manifesto-end{
+    display:block;
+    white-space:nowrap;
+  }
+  #about-show .manifesto .manifesto-end{margin-top:5px;}
+}
+@media(max-width:365px){
+  #about-show .manifesto{font-size:clamp(18px,5.85vw,21px);}
+}
