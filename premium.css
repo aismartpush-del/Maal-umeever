@@ -1819,3 +1819,93 @@ body{background:#030303;color:#f6f5f3;}
     padding-top:145px!important;
   }
 }
+
+/* Desktop hero correction: keep both heads visible beneath the fixed navigation. */
+/* The fixed top bar previously covered the upper part of the hero image.
+   Make room for it only on desktop, with a full-height editorial hero below. */
+@media(min-width:761px){
+  .first-screen{
+    --desktop-header-offset:120px;
+    padding-top:var(--desktop-header-offset)!important;
+  }
+  .hero-frame{
+    height:clamp(600px,calc(100svh - var(--desktop-header-offset)),900px)!important;
+    min-height:600px!important;
+  }
+  .hero-frame .visual-hero{
+    height:100%!important;
+  }
+  .hero-frame .visual-hero .duo-hero-photo{
+    background-image:url("assets/hero-approved-restored.webp")!important;
+    background-position:center 18%!important;
+    background-size:cover!important;
+  }
+  .hero-frame .intro{
+    height:100%!important;
+    padding:50px clamp(28px,5.5vw,112px) 45px!important;
+    align-items:center!important;
+  }
+  .hero-frame .intro-inner{
+    width:min(705px,49.5vw)!important;
+    max-width:100%!important;
+  }
+  .hero-frame .intro h1{
+    font-family:var(--display-font)!important;
+    font-size:clamp(59px,5.65vw,98px)!important;
+    font-weight:500!important;
+    line-height:1.11!important;
+    letter-spacing:-.01em!important;
+    margin-bottom:26px!important;
+    white-space:normal!important;
+  }
+  /* Exactly two intentional lines, never an accidental third line. */
+  .hero-frame .intro h1 .brand-name-nowrap{
+    display:block!important;
+    white-space:normal!important;
+  }
+  .hero-frame .intro h1 .hero-title-top,
+  .hero-frame .intro h1 .hero-title-bottom{
+    display:block!important;
+    white-space:nowrap!important;
+    max-width:100%;
+  }
+  .hero-frame .intro .subheading{
+    font-size:clamp(22px,2.02vw,31px)!important;
+    font-weight:400!important;
+    line-height:1.54!important;
+    letter-spacing:-.012em;
+    margin:0 0 22px!important;
+    max-width:690px!important;
+    text-wrap:balance;
+  }
+  .hero-frame .intro .description{
+    font-size:clamp(18px,1.47vw,22px)!important;
+    line-height:1.71!important;
+    font-weight:350!important;
+    max-width:690px!important;
+    margin:0!important;
+    text-wrap:pretty;
+  }
+}
+@media(min-width:980px){
+  .first-screen{--desktop-header-offset:130px;}
+}
+@media(min-width:1200px){
+  .first-screen{
+    --desktop-header-offset:clamp(154px,calc(9.6vw + 16px),162px);
+  }
+}
+@media(min-width:761px) and (max-width:979px){
+  .topbar{min-height:120px;}
+  .hero-frame .intro h1{font-size:clamp(45px,5.7vw,58px)!important;}
+  .hero-frame .intro .subheading{font-size:clamp(19px,2.25vw,23px)!important;}
+  .hero-frame .intro .description{font-size:clamp(16px,1.8vw,18px)!important;}
+}
+@media(min-width:980px) and (max-width:1199px){
+  .hero-frame .intro{
+    padding-inline:clamp(28px,4.4vw,55px)!important;
+  }
+  .hero-frame .intro h1{font-size:clamp(57px,5.45vw,67px)!important;}
+  .hero-frame .intro .subheading{font-size:clamp(21px,2.13vw,26px)!important;}
+  .hero-frame .intro .description{font-size:clamp(17px,1.7vw,20px)!important;}
+}
