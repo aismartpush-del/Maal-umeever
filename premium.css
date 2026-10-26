@@ -747,17 +747,19 @@ html{scroll-padding-top:132px;}
   .hero-frame .intro h1{font-size:clamp(19px,6.6vw,24px)!important;}
 }
 
-/* 2026-10-26: mobile header in page flow — no photo obscured during touch scroll. */
+/* 2026-10-26: mobile sticky header — visible during scroll without hiding photo at top. */
 @media (max-width:760px) {
-  /* On phones, the header is part of the page, not a fixed overlay.
-     Scrolling up naturally reveals it, then the entire photograph. */
+  /* Sticky header keeps the logo and menu visible, but still reserves
+     space in normal flow so the photo is fully visible at scroll top. */
+  body {overflow-x:clip!important;}
   .topbar {
-    position:relative!important;
-    top:auto!important;
-    inset-block-start:auto!important;
+    position:sticky!important;
+    top:0!important;
+    inset-block-start:0!important;
     inset-inline:auto!important;
     width:100%!important;
     min-height:90px!important;
+    z-index:1000!important;
   }
   .first-screen {
     padding-top:0!important;
