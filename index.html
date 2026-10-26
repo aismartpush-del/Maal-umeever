@@ -1923,6 +1923,62 @@ body{background:#090b0d;color:#f4f5f6;font-family:Heebo,Arial,sans-serif}
 .people .or-pinto-portrait{
   filter:none!important;
 }
+
+/* Client-media correction — display the ACTUAL supplied, unretouched photographs.
+   Do not use the previously generated SVG figure-mask in the homepage hero. */
+.first-screen .visual-hero .hero-media-space {display:block!important;inset:0!important;overflow:hidden!important}
+.first-screen .duo-hero-photo {
+  background-image:url("assets/hero-duo.webp")!important;
+  background-repeat:no-repeat!important;
+  background-color:#090b0d!important;
+  opacity:1!important;
+  filter:none!important;
+  -webkit-mask-image:none!important;
+  mask-image:none!important;
+}
+.first-screen .visual-hero::after {
+  display:block!important;
+  content:""!important;
+  pointer-events:none!important;
+  background:
+    linear-gradient(90deg,rgba(9,11,13,.03) 0%,rgba(9,11,13,.14) 28%,rgba(9,11,13,.85) 65%,#090b0d 100%),
+    linear-gradient(180deg,rgba(9,11,13,.55) 0%,transparent 19%,transparent 72%,#090b0d 100%)!important;
+}
+.people .portrait,.people .yorini-portrait,.people .or-pinto-portrait {
+  background-repeat:no-repeat!important;
+  background-size:cover!important;
+  background-position:center 26%!important;
+  filter:none!important;
+  opacity:1!important;
+}
+.people .yorini-portrait {background-image:url("assets/yorini-portrait-approved.webp")!important}
+.people .or-pinto-portrait {background-image:url("assets/or-pinto-approved.webp")!important}
+@media (min-width:981px) {
+  .first-screen .duo-hero-photo {
+    background-size:auto 91%!important;
+    background-position:left -8px center!important;
+  }
+}
+@media (min-width:701px) and (max-width:980px) {
+  .first-screen .duo-hero-photo {
+    background-size:auto 66%!important;
+    background-position:left center!important;
+  }
+}
+@media (max-width:700px) {
+  .first-screen .duo-hero-photo {
+    background-size:auto 55%!important;
+    background-position:center 10%!important;
+    -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 34%,rgba(0,0,0,.85) 46%,transparent 65%)!important;
+    mask-image:linear-gradient(to bottom,#000 0%,#000 34%,rgba(0,0,0,.85) 46%,transparent 65%)!important;
+  }
+  .first-screen .visual-hero::after {
+    background:
+      linear-gradient(to bottom,rgba(9,11,13,.18) 0%,transparent 28%,rgba(9,11,13,.08) 41%,rgba(9,11,13,.90) 69%,#090b0d 88%)!important;
+  }
+  .people .portrait {background-size:cover!important;background-position:center 25%!important}
+}
+
 </style>
 </head>
 <body>
