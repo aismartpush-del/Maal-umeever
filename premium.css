@@ -1498,3 +1498,181 @@ body{background:#030303;color:#f6f5f3;}
   .topbar .brand-logo{width:65px!important;height:65px!important;transform:scale(1.12)!important;}
   .topbar .brand-text{font-size:clamp(10px,3.2vw,11.6px)!important;max-width:none!important;}
 }
+
+/* 2026-10-26 DESKTOP PASS: real horizontal navigation + deliberate typographic line breaks. */
+/* Mobile styles remain exactly as approved; these rules begin above 760px. */
+.desktop-nav{display:none;}
+@media(min-width:980px){
+  .topbar{
+    padding-inline:clamp(22px,3.2vw,64px);
+    gap:clamp(15px,2.2vw,38px);
+    background:rgba(0,0,0,.96);
+  }
+  .topbar .brand{
+    flex:0 1 auto;
+    gap:clamp(14px,1.4vw,24px);
+    min-width:0;
+    white-space:nowrap;
+  }
+  .topbar .brand-text{
+    flex:0 1 auto;
+    font-size:clamp(13px,1.15vw,17px);
+    line-height:1.28;
+    white-space:nowrap!important;
+    letter-spacing:-.01em;
+  }
+  .topbar .brand-text .brand-name-nowrap{
+    white-space:nowrap!important;
+  }
+  .topbar .desktop-nav{
+    display:flex;
+    flex:1 1 auto;
+    align-items:center;
+    justify-content:center;
+    gap:clamp(12px,1.8vw,32px);
+    min-width:0;
+  }
+  .topbar .desktop-nav a{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:12px 0;
+    font-family:Heebo,Arial,sans-serif;
+    font-size:clamp(13px,1.12vw,16px);
+    font-weight:550;
+    line-height:1.2;
+    white-space:nowrap;
+    color:#f1f1f1;
+    transition:color .2s ease;
+  }
+  .topbar .desktop-nav a:hover,
+  .topbar .desktop-nav a:focus-visible{color:var(--accent);}
+  .topbar .top-controls{flex:0 0 auto;}
+  .topbar .menu-lines{display:none!important;}
+  .topbar .persistent-actions-desktop{display:inline-flex!important;}
+}
+/* Clear separation of image and copy on large screens, with the
+   client's approved high-resolution photograph — no extra pictures. */
+@media(min-width:761px){
+  .hero-frame{
+    height:clamp(670px,calc(100svh - 112px),980px)!important;
+    min-height:670px!important;
+    background:#030303!important;
+  }
+  .hero-frame .visual-hero{
+    height:100%!important;
+    min-height:0!important;
+  }
+  .hero-frame .visual-hero .duo-hero-photo{
+    inset:0 31% 0 0!important;
+    background-size:cover!important;
+    background-position:center 41%!important;
+    filter:saturate(.84) contrast(1.06) brightness(.91)!important;
+    opacity:1!important;
+  }
+  .hero-frame .visual-hero::after{
+    background:
+      linear-gradient(90deg,rgba(0,0,0,.04) 0%,rgba(0,0,0,.09) 33%,rgba(0,0,0,.73) 59%,#030303 91%),
+      linear-gradient(180deg,rgba(0,0,0,.24) 0%,transparent 25%,rgba(0,0,0,.12) 72%,#030303 100%)!important;
+  }
+  .hero-frame .intro{
+    position:absolute!important;
+    inset:0!important;
+    padding:112px clamp(38px,6vw,125px) 60px!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+    text-align:right!important;
+  }
+  .hero-frame .intro-inner{
+    width:min(680px,48vw)!important;
+    min-width:0!important;
+    max-width:100%!important;
+    margin:0!important;
+  }
+  .hero-frame .intro h1{
+    font-family:var(--display-font)!important;
+    font-size:clamp(49px,5.15vw,94px)!important;
+    font-weight:500!important;
+    line-height:1.07!important;
+    letter-spacing:-.015em!important;
+    margin:0 0 24px!important;
+    text-wrap:nowrap;
+  }
+  .hero-frame .intro h1 .hero-title-top,
+  .hero-frame .intro h1 .hero-title-bottom{
+    display:block!important;
+    white-space:nowrap!important;
+  }
+  .hero-frame .intro .subheading{
+    display:block!important;
+    max-width:630px!important;
+    font-size:clamp(19px,1.85vw,28px)!important;
+    line-height:1.55!important;
+    font-weight:300!important;
+    margin:0 0 23px!important;
+    text-wrap:balance;
+  }
+  .hero-frame .intro .description{
+    display:block!important;
+    max-width:610px!important;
+    font-size:clamp(15px,1.16vw,20px)!important;
+    line-height:1.76!important;
+    font-weight:300!important;
+    margin:0!important;
+    text-wrap:pretty;
+  }
+  /* Intentional RTL line grouping for the most complex H2 headings. */
+  .section h2{
+    font-family:var(--display-font)!important;
+    font-size:clamp(49px,5.2vw,86px)!important;
+    font-weight:500!important;
+    line-height:1.16!important;
+    letter-spacing:-.018em!important;
+    max-width:1090px;
+    text-align:center;
+    text-wrap:balance;
+    margin-inline:auto;
+  }
+  .section h2 .headline-phrase,
+  .section h2 .why-heading-line{display:block;}
+  .section h2 .brand-name-nowrap{
+    display:block;
+    font-family:var(--display-font)!important;
+    font-size:clamp(27px,3.25vw,52px)!important;
+    line-height:1.38!important;
+    letter-spacing:-.014em!important;
+    white-space:nowrap!important;
+    margin-block:8px;
+  }
+  #about-show .about-title h2{
+    font-size:clamp(49px,4.9vw,80px)!important;
+    max-width:1010px;
+    margin-inline:auto!important;
+  }
+  #about-show .about-copy-block{
+    max-width:850px;
+  }
+  #about-show .about-content .copy{
+    font-size:clamp(18px,1.43vw,24px);
+    line-height:1.86;
+    text-wrap:pretty;
+  }
+  #why>h2,
+  #events h2,
+  #contact h2{
+    max-width:1080px;
+    text-align:center;
+  }
+  #media .podcast-feature,
+  #media .archive-media{width:100%;max-width:1280px;}
+  #media .podcast-player,
+  #media .archive-player{aspect-ratio:16/9;}
+}
+@media(min-width:761px) and (max-width:1100px){
+  .hero-frame .intro{padding-inline:clamp(26px,4vw,52px)!important;}
+  .hero-frame .intro-inner{width:min(590px,51vw)!important;}
+  .hero-frame .intro h1{font-size:clamp(43px,5.1vw,58px)!important;}
+  .hero-frame .intro .subheading{font-size:clamp(18px,1.82vw,22px)!important;}
+  .hero-frame .intro .description{font-size:clamp(14px,1.42vw,17px)!important;}
+  .topbar .brand-text{font-size:13px;}
+}
