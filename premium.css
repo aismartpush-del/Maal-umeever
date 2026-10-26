@@ -929,13 +929,13 @@ html{scroll-padding-top:132px;}
   body{padding-bottom:calc(85px + env(safe-area-inset-bottom,0px));}
 }
 
-/* Client revision #7: visually enlarge the logo without changing sticky header geometry. */
+/* Client revision #7: stronger logo presence; keep existing sticky header geometry. */
 .topbar .brand-logo{
-  transform:scale(1.1);
+  transform:scale(1.27);
   transform-origin:center;
 }
 @media(max-width:760px){
-  .topbar .brand-logo{transform:scale(1.06);}
+  .topbar .brand-logo{transform:scale(1.20);}
 }
 
 /* Mobile manifesto: two intentional, optically balanced RTL lines. */
@@ -994,7 +994,7 @@ body{background:#030303;color:#f6f5f3;}
   border-bottom:0;
   box-shadow:none;
 }
-.topbar .brand{gap:12px;}
+.topbar .brand{gap:30px;}
 .topbar .brand-text{font-size:clamp(14px,1.2vw,19px);font-weight:500;}
 .topbar .top-controls{display:flex;align-items:center;gap:17px;}
 .topbar .persistent-actions-desktop{position:static;transform:none;gap:13px;}
@@ -1067,7 +1067,7 @@ body{background:#030303;color:#f6f5f3;}
   }
   .topbar .brand{gap:0!important;}
   .topbar .brand-text{display:none!important;}
-  .topbar .brand-logo{width:80px!important;height:80px!important;transform:scale(1.02)!important;}
+  .topbar .brand-logo{width:80px!important;height:80px!important;transform:scale(1.20)!important;}
   .topbar .top-controls{gap:0!important;}
   .hero-frame .visual-hero{
     background:#030303!important;
