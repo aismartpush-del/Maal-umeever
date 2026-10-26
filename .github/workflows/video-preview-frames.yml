@@ -1,0 +1,48 @@
+name: Generate authentic archive video preview frames
+on:
+  push:
+    paths:
+      - '.github/workflows/video-preview-frames.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  frames:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build one contact sheet for each archive recording
+        run: |
+          set -e
+          mkdir -p assets/video-previews
+          python3 -m pip install --quiet Pillow
+          python3 - <<'PY'
+          import subprocess,os,math
+          from PIL import Image,ImageOps,ImageDraw
+          videos={'hongkong':'assets/yorini-hongkong.mp4','tv':'assets/yorini-tv.mp4'}
+          os.makedirs('assets/video-previews',exist_ok=True)
+          for key,path in videos.items():
+              meta=subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration','-of','default=noprint_wrappers=1:nokey=1',path],text=True).strip()
+              duration=float(meta)
+              print(key,'duration',duration)
+              times=[max(0,duration*f) for f in (.04,.14,.28,.48,.72,.88)]
+              sheet=Image.new('RGB',(3*480,2*306),(18,22,27))
+              draw=ImageDraw.Draw(sheet)
+              for i,t in enumerate(times):
+                  outfile=f'/tmp/{key}{i}.jpg'
+                  subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-y','-ss',str(t),'-i',path,'-frames:v','1','-vf','scale=480:270:force_original_aspect_ratio=decrease,pad=480:270:(ow-iw)/2:(oh-ih)/2:color=black','-q:v','3',outfile],check=True)
+                  im=Image.open(outfile).convert('RGB')
+                  sheet.paste(im,((i%3)*480,(i//3)*306))
+                  draw.text(((i%3)*480+10,(i//3)*306+274),f'{key} {i}: {t:.1f}s',fill='white')
+              sheet.save(f'assets/video-previews/{key}-contact-sheet.jpg',quality=83,optimize=True)
+          PY
+      - name: Commit low-size proof sheets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/video-previews/*.jpg
+          if ! git diff --cached --quiet; then
+            git commit -m "Add proof sheets to select authentic archive cover frames"
+            git push
+          fi
