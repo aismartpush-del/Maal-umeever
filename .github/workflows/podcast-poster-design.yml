@@ -1,0 +1,39 @@
+name: Finish podcast cover for unified video gallery
+on:
+  push:
+    paths:
+      - '.github/workflows/podcast-poster-design.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  poster:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preserve podcast faces and create a clean dark caption area
+        run: |
+          python3 -m pip install --quiet Pillow
+          python3 - <<'PY'
+          from PIL import Image,ImageDraw
+          base=Image.open('assets/video-previews/martin-podcast-cover.webp').convert('RGBA')
+          w,h=base.size
+          darkness=Image.new('RGBA',base.size,(0,0,0,0))
+          draw=ImageDraw.Draw(darkness)
+          for y in range(h):
+              if y < 330: opacity=0
+              elif y < 420: opacity=int(250*(y-330)/90)
+              else: opacity=250
+              draw.line([(0,y),(w,y)],fill=(9,12,16,opacity))
+          base=Image.alpha_composite(base,darkness)
+          base.convert('RGB').save('assets/video-previews/martin-podcast-styled.webp','WEBP',quality=93,method=6)
+          PY
+      - name: Commit artwork
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/video-previews/martin-podcast-styled.webp
+          if ! git diff --cached --quiet; then
+            git commit -m "Create matching podcast poster from actual guest thumbnail"
+            git push
+          fi
