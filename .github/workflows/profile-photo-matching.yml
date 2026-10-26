@@ -1,0 +1,89 @@
+name: Prepare matching original-face profile portraits
+on:
+  push:
+    paths:
+      - '.github/workflows/profile-photo-matching.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  portraits:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install photo editing tools
+        run: |
+          python -m pip install --quiet "rembg[cpu]" Pillow "numpy<2" opencv-python-headless
+      - name: Edit clothing and match backgrounds without replacing faces
+        run: |
+          python - <<'PY'
+          import numpy as np
+          from PIL import Image, ImageFilter, ImageDraw
+          from rembg import remove, new_session
+          import cv2, os
+          os.makedirs('assets',exist_ok=True)
+          W,H=900,1024
+          # Matching cool graphite backdrop used by the site's black and silver palette.
+          def backdrop():
+              yy,xx=np.mgrid[0:H,0:W].astype('float32')
+              glow=np.exp(-(((xx-W*.46)/(W*.84))**2+((yy-H*.29)/(H*.85))**2)*1.5)
+              edge=np.maximum(abs(xx-W/2)/(W/2),abs(yy-H*.45)/(H*.9))
+              array=np.zeros((H,W,3),dtype='uint8')
+              for c,base in enumerate([9,13,18]):
+                  val=base+[27,32,36][c]*glow-5*edge
+                  array[:,:,c]=np.clip(val,0,255).astype('uint8')
+              return Image.fromarray(array,'RGB').convert('RGBA')
+          session=new_session('u2netp')
+          configs=[
+              ('yorini','assets/yorini-portrait-approved.webp','assets/yorini-portrait-matched.webp'),
+              ('or','assets/or-pinto-approved.webp','assets/or-pinto-portrait-matched.webp')
+          ]
+          for who,source,target in configs:
+              photo=Image.open(source).convert('RGB')
+              if who=='yorini':
+                  # Only recolor highly saturated orange garment pixels, no face edits.
+                  arr=np.asarray(photo).copy()
+                  hsv=cv2.cvtColor(arr,cv2.COLOR_RGB2HSV)
+                  y=np.indices(hsv.shape[:2])[0]
+                  orange=(hsv[:,:,0]>=3)&(hsv[:,:,0]<=21)&(hsv[:,:,1]>133)&(hsv[:,:,2]>75)&(y>160)
+                  # Gentle feather at mask edges to preserve knit detail.
+                  mask=cv2.GaussianBlur((orange.astype('uint8')*255),(5,5),.9).astype('float32')/255.
+                  # Keep natural knit shading, replace only hue/chroma with cool charcoal.
+                  luminance=cv2.cvtColor(arr,cv2.COLOR_RGB2GRAY).astype('float32')
+                  neutral=np.stack([12+.19*luminance,16+.2*luminance,21+.22*luminance],axis=-1)
+                  arr=np.uint8(np.clip(arr*(1-mask[:,:,None])+neutral*mask[:,:,None],0,255))
+                  photo=Image.fromarray(arr,'RGB')
+              # Remove studio backdrop, keep the original photographic pixels for face and hair.
+              foreground=remove(photo,session=session,alpha_matting=False,post_process_mask=True).convert('RGBA')
+              # Frame both on a consistent professional vertical portrait.
+              if who=='yorini':
+                  scaled_w=950
+                  offset_y=18
+              else:
+                  scaled_w=880
+                  offset_y=-40
+              scaled_h=round(photo.height*scaled_w/photo.width)
+              fore=foreground.resize((scaled_w,scaled_h),Image.Resampling.LANCZOS)
+              # Prevent black color halos from old backgrounds, feather alpha minimally.
+              alpha=fore.getchannel('A').filter(ImageFilter.GaussianBlur(.65))
+              fore.putalpha(alpha)
+              canvas=backdrop()
+              x=(W-scaled_w)//2
+              canvas.alpha_composite(fore,(x,offset_y))
+              img=canvas.convert('RGB')
+              img.save(target,'WEBP',quality=93,method=6)
+              print(who, photo.size, '->',target,img.size,os.stat(target).st_size)
+          PY
+      - name: Commit the individual matched photographs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/yorini-portrait-matched.webp assets/or-pinto-portrait-matched.webp
+          if ! git diff --cached --quiet; then
+            git commit -m "Create matching graphite portraits using the existing real faces"
+            git push
+          fi
