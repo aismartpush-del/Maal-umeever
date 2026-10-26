@@ -20,7 +20,7 @@ img,svg{max-width:100%}
 .brand-text{font-size:clamp(17px,1.45vw,21px);font-weight:800;letter-spacing:-.035em;line-height:1.32;color:var(--white)}
 .top-controls{display:flex;align-items:center;gap:21px}
 .book-top,.cta-large,.contact-submit{display:inline-flex;justify-content:center;align-items:center;gap:8px;min-height:47px;padding:12px 26px;background:var(--accent);border:1px solid var(--accent);color:#0b0f12;font-size:15px;font-weight:800;line-height:1.4;transition:background .2s ease,transform .2s ease}
-.book-top:hover,.cta-large:hover,.contact-submit:hover{background:#e0e9ed;border-color:#e0e9ed;transform:translateY(-1px)}
+.book-top:hover,.cta-large:hover,.contact-submit:hover{background:#e0e9ed;border-color:#e0e9ed;transform:none}
 .menu-lines{border:0;background:transparent;width:43px;height:43px;padding:10px 4px;display:flex;flex-direction:column;justify-content:center;gap:7px;flex:none}
 .menu-lines span{height:2px;width:100%;background:var(--white);display:block;transition:transform .2s ease,opacity .2s ease}
 .menu-lines[aria-expanded=true] span:first-child{transform:translateY(9px) rotate(45deg)}
@@ -82,6 +82,7 @@ img,svg{max-width:100%}
 .feature-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:clamp(45px,7vw,120px);row-gap:65px;margin:70px 0 106px}
 .feature{border:0;background:none;padding:0;box-shadow:none;min-height:0}
 .feature p{font-size:clamp(16px,1.28vw,19px);line-height:1.9;color:var(--copy)}
+.feature p+p{margin-top:17px}
 .feature strong{display:block;font-size:clamp(22px,2vw,28px);line-height:1.35;font-weight:800;color:#fff;margin-bottom:17px}
 .trust-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);gap:0}
 .trust-strip>div{padding:42px 26px;border-inline-end:1px solid var(--rule);min-width:0}
@@ -155,7 +156,7 @@ img,svg{max-width:100%}
 @media(prefers-reduced-motion:no-preference){
  .intro-inner{animation:soft-rise .75s ease both}
  .quote-section blockquote{animation:soft-fade .95s ease both}
- @keyframes soft-rise{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+ @keyframes soft-rise{from{opacity:0}to{opacity:1}}
  @keyframes soft-fade{from{opacity:.15}to{opacity:1}}
 }
 @media(max-width:1100px){
@@ -533,3 +534,22 @@ img,svg{max-width:100%}
 #media .play-overlay:hover .play-symbol {
   background-color:#f20e1a!important;
 }
+
+
+/* 2026-10-26 audited design details: calm transitions and reliable anchor alignment.
+   Fixed header height is 117px desktop and 90px mobile. */
+html{scroll-padding-top:132px;}
+.section[id]{scroll-margin-top:132px;}
+@media(max-width:760px){
+  html{scroll-padding-top:107px;}
+  .section[id]{scroll-margin-top:107px;}
+}
+.intro-inner{animation:soft-rise .7s ease both;}
+.quote-section blockquote{animation:soft-fade .85s ease both;}
+@keyframes soft-rise{from{opacity:0}to{opacity:1}}
+@keyframes soft-fade{from{opacity:0}to{opacity:1}}
+/* Avoid upward drifting on hover: understated color changes only. */
+.book-top,.cta-large,.contact-submit{transition:background .2s ease,border-color .2s ease;}
+.book-top:hover,.cta-large:hover,.contact-submit:hover{transform:none!important;}
+#media .play-overlay .play-symbol{transition:background-color .2s ease!important;}
+#media .play-overlay:hover .play-symbol{scale:1!important;transform:none!important;}
