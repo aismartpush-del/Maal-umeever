@@ -9,7 +9,7 @@
 <title>מעל ומעבר – המנטליסטים | מופע מנטליזם לאירועי חברה וערבי גיבוש</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="premium.css?v=20261026-gesture-return-photo">
+<link rel="stylesheet" href="premium.css?v=20261026-hero-return-final-clean">
 
 </head>
 <body>
@@ -166,96 +166,81 @@
     button.remove();
   }));
 
-  // Restore the COMPLETE photo when the visitor returns with an upward
-  // page swipe (finger moves down). The header stays sticky; the entire
-  // photograph and description otherwise scroll in normal document flow.
-  // Detect the actual finger gesture, not just scrollY deltas, which can
-  // flip during iOS momentum / rubber-band scrolling.
-  const returnPhoto=document.querySelector('.hero-frame .visual-hero');
-  const returnHeader=document.querySelector('.topbar');
-  if(returnPhoto&&returnHeader){
-    let touchStartY=0, lastTouchY=0, upwardReturnGesture=false;
-    let touchActive=false, returningPhoto=false, returnFrame=0;
-    let scrollIdle=0;
-    const mobilePhoto=()=>window.innerWidth<=760;
-    const photoPartlyUnderHeader=()=>{
-      const p=returnPhoto.getBoundingClientRect();
-      const h=returnHeader.getBoundingClientRect();
-      return p.top<h.bottom-5 && p.bottom>h.bottom+25;
+
+  // Mobile return-to-hero: complete an UPWARD scroll once it has naturally
+  // finished inside the image. No snap, no touchmove interception, no pinned photo.
+  // Do not call scrollTo while iOS momentum is still active.
+  const firstPhoto=document.querySelector('.hero-frame .visual-hero');
+  const siteHeader=document.querySelector('.topbar');
+  if(firstPhoto && siteHeader){
+    let previousY=window.scrollY;
+    let lastDirection=0;
+    let fingerDown=false;
+    let animating=false;
+    let frame=0;
+    let idleCheck=0;
+    let animationStart=0;
+
+    const isMobile=()=>window.matchMedia('(max-width:760px)').matches;
+    const photoIsClipped=()=>{
+      const photo=firstPhoto.getBoundingClientRect();
+      const header=siteHeader.getBoundingClientRect();
+      return photo.top<header.bottom-3 && photo.bottom>header.bottom+28;
     };
-    const resetPhotoAnimation=()=>{
-      if(returnFrame)cancelAnimationFrame(returnFrame);
-      returnFrame=0;
-      returningPhoto=false;
+    const cancelReturn=()=>{
+      if(frame)cancelAnimationFrame(frame);
+      frame=0;
+      animating=false;
       document.documentElement.style.removeProperty('scroll-behavior');
     };
-    const restoreWholePhoto=()=>{
-      if(!mobilePhoto()||returningPhoto||window.scrollY<=1)return;
-      if(!photoPartlyUnderHeader())return;
-      returningPhoto=true;
+    const finishUpwardReturn=()=>{
+      if(!isMobile()||fingerDown||animating||lastDirection!==-1)return;
+      if(window.scrollY<=2||!photoIsClipped())return;
+      animating=true;
       const from=window.scrollY;
-      const started=performance.now();
-      const duration=Math.min(430,Math.max(240,from*.82));
+      animationStart=performance.now();
+      const duration=Math.min(530,Math.max(340,from*1.5));
       document.documentElement.style.setProperty('scroll-behavior','auto','important');
-      const step=now=>{
-        if(!returningPhoto)return;
-        const t=Math.min(1,(now-started)/duration);
-        const eased=1-Math.pow(1-t,3);
-        window.scrollTo(0,Math.max(0,Math.round(from*(1-eased))));
-        if(t<1) returnFrame=requestAnimationFrame(step);
+      const animate=now=>{
+        if(!animating)return;
+        const t=Math.min(1,(now-animationStart)/duration);
+        const progress=1-Math.pow(1-t,3);
+        window.scrollTo(0,Math.round(from*(1-progress)));
+        if(t<1)frame=requestAnimationFrame(animate);
         else{
           window.scrollTo(0,0);
-          upwardReturnGesture=false;
-          resetPhotoAnimation();
+          lastDirection=0;
+          cancelReturn();
         }
       };
-      returnFrame=requestAnimationFrame(step);
+      frame=requestAnimationFrame(animate);
     };
 
-    window.addEventListener('touchstart',event=>{
-      if(!mobilePhoto()||!event.touches.length)return;
-      touchActive=true;
-      touchStartY=event.touches[0].clientY;
-      lastTouchY=touchStartY;
-      upwardReturnGesture=false;
-      if(returningPhoto)resetPhotoAnimation();
+    window.addEventListener('touchstart',()=>{
+      fingerDown=true;
+      if(idleCheck)clearTimeout(idleCheck);
+      if(animating)cancelReturn();
     },{passive:true});
+    window.addEventListener('touchend',()=>{fingerDown=false;},{passive:true});
+    window.addEventListener('touchcancel',()=>{fingerDown=false;},{passive:true});
 
-    window.addEventListener('touchmove',event=>{
-      if(!mobilePhoto()||!event.touches.length)return;
-      if(returningPhoto){event.preventDefault();return;}
-      const y=event.touches[0].clientY;
-      const goingBackUp=y>lastTouchY+1 && y>touchStartY+16;
-      if(goingBackUp)upwardReturnGesture=true;
-      else if(y<lastTouchY-2)upwardReturnGesture=false;
-      lastTouchY=y;
-      if(upwardReturnGesture&&photoPartlyUnderHeader()){
-        // Cancel the native gesture at the photo boundary, so no inertia
-        // competes with this one continuous movement to the full frame.
-        event.preventDefault();
-        restoreWholePhoto();
-      }
-    },{passive:false});
-
-    window.addEventListener('touchend',()=>{
-      touchActive=false;
-      if(upwardReturnGesture && photoPartlyUnderHeader())
-        requestAnimationFrame(restoreWholePhoto);
-    },{passive:true});
-    window.addEventListener('touchcancel',()=>{touchActive=false;},{passive:true});
-
-    // A long, fast return swipe can coast into the photo after finger release.
-    // Complete that same upward movement if it comes to rest partway down it.
-    const finishIfNeeded=()=>{
-      if(!touchActive&&upwardReturnGesture&&photoPartlyUnderHeader())
-        restoreWholePhoto();
-    };
-    window.addEventListener('scrollend',finishIfNeeded,{passive:true});
     window.addEventListener('scroll',()=>{
-      if(touchActive||returningPhoto||!upwardReturnGesture)return;
-      if(scrollIdle)clearTimeout(scrollIdle);
-      scrollIdle=setTimeout(finishIfNeeded,120);
+      if(!isMobile()||animating)return;
+      const y=window.scrollY;
+      const delta=y-previousY;
+      previousY=y;
+      if(delta<-2)lastDirection=-1;
+      else if(delta>2)lastDirection=1;
+      if(y<=2){lastDirection=0;return;}
+      if(idleCheck)clearTimeout(idleCheck);
+      if(lastDirection===-1&&photoIsClipped()){
+        // Fallback for browsers that do not dispatch scrollend reliably.
+        idleCheck=setTimeout(finishUpwardReturn,260);
+      }
     },{passive:true});
+    if('onscrollend' in window){
+      window.addEventListener('scrollend',finishUpwardReturn,{passive:true});
+    }
   }
 
   // Only one archival recording should play at a time.
