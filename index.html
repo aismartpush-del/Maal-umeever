@@ -9,7 +9,7 @@
 <title>מעל ומעבר – המנטליסטים | מופע מנטליזם לאירועי חברה וערבי גיבוש</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="premium.css?v=20261026-natural-photo-edge">
+<link rel="stylesheet" href="premium.css?v=20261026-return-photo-directional">
 
 </head>
 <body>
@@ -165,6 +165,47 @@
     }
     button.remove();
   }));
+
+  // Only during upward scrolling back into the first photo:
+  // finish the existing upward movement at the photograph's true beginning.
+  // Do not wait for scrollend (which previously caused an unnatural second jump).
+  // Do not pin the photo or affect downward scrolling.
+  const firstPhoto=document.querySelector('.hero-frame .visual-hero');
+  if(firstPhoto){
+    let previousScrollY=window.scrollY;
+    let returnArmed=true;
+    let returning=false;
+
+    window.addEventListener('scroll',()=>{
+      const y=window.scrollY;
+      const movingUp=y<previousScrollY-1;
+      previousScrollY=y;
+      if(window.innerWidth>760) return;
+
+      const photoHeight=firstPhoto.getBoundingClientRect().height;
+      // Rearm only once the visitor has genuinely left the photo region.
+      if(y>photoHeight+170){
+        returnArmed=true;
+        returning=false;
+      }
+      if(y<=2){
+        returnArmed=true;
+        returning=false;
+        return;
+      }
+      const returnThreshold=Math.min(370,Math.max(240,photoHeight*1.08));
+      if(returnArmed && !returning && movingUp && y<returnThreshold){
+        returnArmed=false;
+        returning=true;
+        window.requestAnimationFrame(()=>{
+          window.scrollTo({
+            top:0,
+            behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'
+          });
+        });
+      }
+    },{passive:true});
+  }
 
   // Only one archival recording should play at a time.
   const archiveVideos=[...document.querySelectorAll('.archive-player video')];
