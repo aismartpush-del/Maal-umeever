@@ -641,209 +641,120 @@ html{scroll-padding-top:132px;}
   }
 }
 
-/* 2026-10-26: stable mobile hero composition. */
-@media(max-width:760px){
-  /* Fixed menu sits above a full 4:3 photograph; do not crop or zoom it. */
-  .first-screen{padding-top:90px!important;}
-  .hero-frame{height:auto!important;min-height:0!important;overflow:visible!important;}
-  .hero-frame .visual-hero{
-    width:100%!important;
-    height:auto!important;
-    aspect-ratio:4 / 3!important;
-    min-height:0!important;
-    max-height:none!important;
-    overflow:hidden!important;
-  }
-  .hero-frame .visual-hero .duo-hero-photo{
-    inset:0!important;
-    width:100%!important;
-    height:100%!important;
-    background-size:contain!important;
-    background-position:center top!important;
-    background-repeat:no-repeat!important;
-  }
-  .hero-frame .visual-hero::after{
-    background:linear-gradient(180deg,transparent 45%,rgba(9,11,14,.18) 64%,rgba(9,11,14,.78) 88%,#090b0e 100%)!important;
-  }
-  .hero-frame .intro{
-    position:relative!important;
-    inset:auto!important;
-    height:auto!important;
-    margin-top:-46px!important;
-    padding:0 22px 58px!important;
-    background:transparent!important;
-    text-align:right!important;
-  }
-  /* The complete brand remains on the dark bottom edge of the photo. */
-  .hero-frame .intro h1{
-    display:block!important;
-    position:relative!important;
-    font-size:clamp(21px,6.7vw,29px)!important;
-    font-weight:900!important;
-    line-height:1.23!important;
-    letter-spacing:-.05em!important;
-    white-space:nowrap!important;
-    margin:0 0 27px!important;
-    text-shadow:0 2px 16px rgba(0,0,0,.9)!important;
-  }
-  .hero-frame .intro .subheading{margin:0 0 17px!important;}
-  .hero-frame .intro .description{margin:0 0 27px!important;}
-}
-@media(max-width:365px){
-  .first-screen{padding-top:79px!important;}
-  .hero-frame .intro{padding-inline:18px!important;}
-  .hero-frame .intro h1{font-size:clamp(19px,6.65vw,24px)!important;}
-}
 
-/* Martin's quote uses one consistent type treatment, as requested. */
+/* 2026-10-26: mobile hero consolidated. Natural scroll, no snapping or scroll scripts.
+   The complete photo remains pinned below the visible menu while scrolling
+   within the first hero block. The copy scrolls below the pinned photo. */
 .first-screen>.quote-section .quote-finale{color:inherit!important}
-
-/* 2026-10-26: photo fully framed; title anchored to dark photo footer. */
+.hero-mobile-photo-title{display:none}
 @media(max-width:760px){
-  .first-screen{padding-top:90px!important;}
-  .hero-frame{position:relative!important;overflow:visible!important;height:auto!important;}
-  .hero-frame .visual-hero{
-    position:relative!important;
-    width:100%!important;
-    height:auto!important;
-    aspect-ratio:4 / 3!important;
-    min-height:0!important;
-    overflow:hidden!important;
-  }
-  .hero-frame .visual-hero .duo-hero-photo{
-    inset:0!important;
-    height:100%!important;
-    width:100%!important;
-    background-size:contain!important;
-    background-position:center top!important;
-  }
-  .hero-frame .visual-hero::after{
-    background:linear-gradient(180deg,transparent 55%,rgba(9,11,14,.14) 67%,rgba(9,11,14,.74) 89%,#090b0e 100%)!important;
-  }
-  .hero-frame .intro{
-    display:block!important;
-    position:relative!important;
-    inset:auto!important;
-    margin:0!important;
-    padding:1px 22px 58px!important;
-    height:auto!important;
-    overflow:visible!important;
-  }
-  .hero-frame .intro-inner{display:flow-root!important;}
-  .hero-frame .intro h1{
-    position:relative!important;
-    margin:-60px 0 32px!important;
-    font-size:clamp(21px,6.7vw,29px)!important;
-    line-height:1.2!important;
-    white-space:nowrap!important;
-    text-shadow:0 2px 15px #000!important;
-  }
-  .hero-frame .intro .subheading{margin:0 0 17px!important;}
-  .hero-frame .intro .description{margin:0 0 26px!important;}
-}
-@media(max-width:365px){
-  .first-screen{padding-top:79px!important;}
-  .hero-frame .intro{padding-inline:18px!important;}
-  .hero-frame .intro h1{font-size:clamp(19px,6.6vw,24px)!important;}
-}
-
-/* 2026-10-26: mobile sticky header — visible during scroll without hiding photo at top. */
-@media (max-width:760px) {
-  /* Sticky header keeps the logo and menu visible, but still reserves
-     space in normal flow so the photo is fully visible at scroll top. */
-  body {overflow-x:clip!important;}
-  .topbar {
+  html{scroll-snap-type:none!important;scroll-padding-top:90px!important}
+  body{overflow-x:clip!important}
+  .topbar{
     position:sticky!important;
     top:0!important;
     inset-block-start:0!important;
     inset-inline:auto!important;
+    z-index:1000!important;
     width:100%!important;
     min-height:90px!important;
-    z-index:1000!important;
   }
-  .first-screen {
-    padding-top:0!important;
-  }
-  .hero-frame {
+  .first-screen{padding-top:0!important;overflow:visible!important}
+  .hero-frame{
     position:relative!important;
+    display:block!important;
     height:auto!important;
     min-height:0!important;
+    isolation:isolate!important;
     overflow:visible!important;
   }
-  .hero-frame .visual-hero {
-    display:block!important;
+  .hero-frame .visual-hero{
+    position:sticky!important;
+    top:90px!important;
+    inset-block-start:90px!important;
+    z-index:5!important;
     width:100%!important;
     height:auto!important;
+    aspect-ratio:4 / 3!important;
     min-height:0!important;
     max-height:none!important;
-    aspect-ratio:4 / 3!important;
     overflow:hidden!important;
   }
   .hero-frame .hero-media-space,
-  .hero-frame .visual-hero .duo-hero-photo {
+  .hero-frame .visual-hero .duo-hero-photo{
     position:absolute!important;
     inset:0!important;
     width:100%!important;
     height:100%!important;
   }
-  .hero-frame .visual-hero .duo-hero-photo {
+  .hero-frame .visual-hero .duo-hero-photo{
     background-size:contain!important;
     background-position:center top!important;
     background-repeat:no-repeat!important;
   }
-  .hero-frame .intro {
-    display:block!important;
+  .hero-frame .visual-hero::after{
+    background:linear-gradient(180deg,transparent 52%,rgba(9,11,14,.12) 65%,rgba(9,11,14,.8) 92%,#090b0e 100%)!important;
+  }
+  .hero-mobile-photo-title{
+    position:absolute;
+    z-index:6;
+    display:block;
+    right:0;
+    left:0;
+    bottom:16px;
+    padding:0 15px;
+    color:#fff;
+    font-size:clamp(21px,6.7vw,29px);
+    font-weight:900;
+    line-height:1.22;
+    letter-spacing:-.05em;
+    white-space:nowrap;
+    text-align:center;
+    text-shadow:0 2px 16px rgba(0,0,0,.9);
+    pointer-events:none;
+  }
+  .hero-frame .intro{
     position:relative!important;
     inset:auto!important;
-    height:auto!important;
-    max-height:none!important;
-    margin:0!important;
-    padding:0 22px 58px!important;
-    text-align:right!important;
-  }
-  .hero-frame .intro-inner {
-    display:flow-root!important;
-    width:100%!important;
-  }
-  .hero-frame .intro h1 {
+    z-index:1!important;
     display:block!important;
-    margin:calc(-1 * clamp(32px,10vw,42px)) 0 26px!important;
-    position:relative!important;
-    font-size:clamp(21px,6.7vw,29px)!important;
-    line-height:1.2!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    overflow:visible!important;
+    background:#090b0e!important;
+    margin:0!important;
+    padding:26px 22px 58px!important;
+    text-align:right!important;
+    transform:none!important;
+    pointer-events:auto!important;
+  }
+  .hero-frame .intro-inner{
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    margin:0!important;
+  }
+  /* The real H1 remains accessible; its visible version is on the photo. */
+  .hero-frame .intro h1{
+    position:absolute!important;
+    width:1px!important;
+    height:1px!important;
+    padding:0!important;
+    margin:0!important;
+    overflow:hidden!important;
     white-space:nowrap!important;
+    clip-path:inset(50%)!important;
+    border:0!important;
   }
+  .hero-frame .intro .subheading{margin:0 0 17px!important}
+  .hero-frame .intro .description{margin:0 0 26px!important}
 }
-@media (max-width:365px) {
-  .topbar{min-height:79px!important;}
-  .first-screen{padding-top:0!important;}
-  .hero-frame .intro{padding-inline:18px!important;}
-  .hero-frame .intro h1{font-size:clamp(19px,6.6vw,24px)!important;}
-}
-
-/* Mobile photo return: native, proximity-based scroll alignment only. */
-@media(max-width:760px){
-  html{
-    scroll-snap-type:y proximity;
-  }
-  #mobile-photo-return{
-    display:block;
-    width:1px;
-    height:1px;
-    padding:0;
-    margin:0;
-    scroll-snap-align:start;
-    scroll-snap-stop:normal;
-  }
-  .topbar{
-    position:sticky!important;
-    top:0!important;
-    z-index:1000!important;
-  }
-  .first-screen{
-    padding-top:0!important;
-  }
-}
-@media(min-width:761px){
-  #mobile-photo-return{display:none;}
+@media(max-width:365px){
+  html{scroll-padding-top:79px!important}
+  .topbar{min-height:79px!important}
+  .hero-frame .visual-hero{top:79px!important;inset-block-start:79px!important}
+  .hero-mobile-photo-title{font-size:clamp(19px,6.6vw,24px);padding-inline:12px}
+  .hero-frame .intro{padding-inline:18px!important}
 }
