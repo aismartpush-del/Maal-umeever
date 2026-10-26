@@ -602,3 +602,6 @@ html{scroll-padding-top:132px;}
   pointer-events:none;
   background:linear-gradient(180deg,rgba(10,19,28,.025),rgba(10,19,28,.105));
 }
+
+/* Mobile heading layout tune */
+@media(max-width:760px){.hero-frame .intro h1{font-size:7.2vw!important;white-space:nowrap!important}.hero-frame .intro h1 .hero-title-top,.hero-frame .intro h1 .hero-title-bottom{display:inline!important}}
