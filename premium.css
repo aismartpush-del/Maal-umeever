@@ -415,7 +415,7 @@ img,svg{max-width:100%}
   position:relative;
   aspect-ratio:16/9;
   overflow:hidden;
-  background:#090f1d;
+  background:#101214;
   border:0;
 }
 
@@ -437,10 +437,10 @@ img,svg{max-width:100%}
   margin:0;
   border:0;
   border-radius:0;
-  background-color:#08101f!important;
+  background-color:#101214!important;
   background-image:
-     radial-gradient(ellipse at 3% 0%,rgba(52,87,146,.36),transparent 62%),
-     linear-gradient(118deg,#0b1426 0%,#07101f 52%,#030915 100%)!important;
+     radial-gradient(ellipse at 3% 0%,rgba(129,136,143,.13),transparent 62%),
+     linear-gradient(118deg,#1a1c1f 0%,#101214 52%,#090b0e 100%)!important;
   background-size:cover!important;
   background-position:center!important;
   background-repeat:no-repeat!important;
