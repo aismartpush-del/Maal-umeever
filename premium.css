@@ -957,3 +957,14 @@ html{scroll-padding-top:132px;}
 @media(max-width:365px){
   #about-show .manifesto{font-size:clamp(18px,5.85vw,21px);}
 }
+
+/* Client final polish: quiet scroll-enter fade, without geometry shifts. */
+@media (prefers-reduced-motion:no-preference){
+  .soft-reveal-seen{
+    animation:site-soft-enter .7s ease-out both;
+  }
+  @keyframes site-soft-enter {
+    from{opacity:.38}
+    to{opacity:1}
+  }
+}
