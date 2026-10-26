@@ -758,3 +758,52 @@ html{scroll-padding-top:132px;}
   .hero-mobile-photo-title{font-size:clamp(19px,6.6vw,24px);padding-inline:12px}
   .hero-frame .intro{padding-inline:18px!important}
 }
+
+/* Client correction #5: one understated booking CTA and a small WhatsApp visual. */
+.hero-frame .cta-row{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:15px;
+  flex-wrap:wrap;
+}
+.hero-frame .cta-large{
+  border-radius:2px;
+  min-height:51px;
+  padding:12px 30px;
+  background:var(--accent);
+  border:1px solid var(--accent);
+  color:#090b0e;
+  font-weight:800;
+  box-shadow:none;
+}
+.hero-frame .cta-large:hover,
+.hero-frame .cta-large:focus-visible{
+  background:#e0e9ed;
+  border-color:#e0e9ed;
+  transform:none!important;
+}
+.hero-frame .whatsapp-mini{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:24px;
+  height:24px;
+  color:var(--accent);
+  opacity:.72;
+  background:none;
+  border:0;
+  flex:none;
+  pointer-events:none;
+}
+.hero-frame .whatsapp-mini svg{display:block;width:22px;height:22px;}
+@media(max-width:760px){
+  .hero-frame .cta-row{gap:13px;}
+  .hero-frame .cta-large{
+    padding:11px 27px;
+    min-height:48px!important;
+    font-size:15px;
+  }
+  .hero-frame .whatsapp-mini{width:22px;height:22px;}
+  .hero-frame .whatsapp-mini svg{width:20px;height:20px;}
+}
