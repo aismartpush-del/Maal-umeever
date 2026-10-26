@@ -758,25 +758,3 @@ html{scroll-padding-top:132px;}
   .hero-mobile-photo-title{font-size:clamp(19px,6.6vw,24px);padding-inline:12px}
   .hero-frame .intro{padding-inline:18px!important}
 }
-
-/* 2026-10-26: native mobile photo start alignment (without forced JS or sticky photo). */
-@media(max-width:760px){
-  /* The scrolling itself stays natural. Only near the first image,
-     Safari can settle at its starting edge, below the persistent header. */
-  html{
-    scroll-snap-type:y proximity!important;
-    scroll-padding-top:90px!important;
-  }
-  .hero-frame .visual-hero{
-    position:relative!important;
-    top:auto!important;
-    inset-block-start:auto!important;
-    scroll-snap-align:start!important;
-    scroll-snap-stop:normal!important;
-  }
-  .hero-frame .intro{position:relative!important;}
-  .topbar{position:sticky!important;top:0!important;z-index:1000!important;}
-}
-@media(max-width:365px){
-  html{scroll-padding-top:79px!important;}
-}
