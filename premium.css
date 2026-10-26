@@ -820,3 +820,30 @@ html{scroll-padding-top:132px;}
   .hero-frame .intro{padding-inline:18px!important;}
   .hero-frame .intro h1{font-size:clamp(19px,6.6vw,24px)!important;}
 }
+
+/* Mobile photo return: native, proximity-based scroll alignment only. */
+@media(max-width:760px){
+  html{
+    scroll-snap-type:y proximity;
+  }
+  #mobile-photo-return{
+    display:block;
+    width:1px;
+    height:1px;
+    padding:0;
+    margin:0;
+    scroll-snap-align:start;
+    scroll-snap-stop:normal;
+  }
+  .topbar{
+    position:sticky!important;
+    top:0!important;
+    z-index:1000!important;
+  }
+  .first-screen{
+    padding-top:0!important;
+  }
+}
+@media(min-width:761px){
+  #mobile-photo-return{display:none;}
+}
