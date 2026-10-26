@@ -311,3 +311,38 @@ img,svg{max-width:100%}
  .hero-frame .intro{padding-inline:18px!important}
  .first-screen>.quote-section{padding-inline:19px!important}
 }
+
+
+/* 2026-10-26 Approved hero photograph — image supplied and approved for the first screen.
+   The approved stage image replaces the original interior photo on all breakpoints. */
+.hero-frame .visual-hero .duo-hero-photo{
+  background-image:url("assets/hero-approved.webp")!important;
+  background-color:#090b0e!important;
+  background-repeat:no-repeat!important;
+  background-size:cover!important;
+  background-position:center 42%!important;
+  opacity:1!important;
+  filter:none!important;
+  -webkit-mask-image:none!important;
+  mask-image:none!important;
+}
+@media(min-width:761px){
+  .hero-frame .visual-hero .duo-hero-photo{
+    inset:0 32% 0 0!important;
+    background-position:center 42%!important;
+  }
+  .hero-frame .visual-hero::after{
+    background:linear-gradient(90deg,transparent 0%,rgba(9,11,14,.09) 27%,rgba(9,11,14,.79) 65%,#090b0e 92%),linear-gradient(180deg,rgba(9,11,14,.40),transparent 24%,transparent 69%,#090b0e 100%)!important;
+  }
+}
+@media(max-width:760px){
+  .hero-frame .visual-hero .duo-hero-photo{
+    inset:0!important;
+    height:100%!important;
+    background-position:center 38%!important;
+    background-size:cover!important;
+  }
+  .hero-frame .visual-hero::after{
+    background:linear-gradient(180deg,rgba(9,11,14,.20),transparent 34%,rgba(9,11,14,.08) 58%,#090b0e 100%)!important;
+  }
+}
