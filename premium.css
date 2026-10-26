@@ -374,102 +374,133 @@ img,svg{max-width:100%}
 }
 
 
-/* 2026-10-26: cohesive documentary video covers.
-   Every poster references the corresponding real video, never a stand-in headshot. */
-.media .podcast-player,
-.media .archive-player{
-  background:#090d12;
-  border:1px solid rgba(193,210,218,.20);
+
+/* 2026-10-26: final user-approved, minimal 3-cover system.
+   All captions + red play controls are real centered HTML (no photos or AI artwork).
+   Original video links and playback remain unchanged. */
+#media .podcast-player,
+#media .archive-player {
+  position:relative;
+  aspect-ratio:16/9;
+  overflow:hidden;
+  background:#090f1d;
+  border:1px solid rgba(193,210,218,.22);
 }
-.media .play-overlay{
-  display:block;
+
+#media .play-overlay,
+#media .podcast-player .play-overlay,
+#media .archive-video:first-child .play-overlay,
+#media .archive-video:last-child .play-overlay {
   position:absolute;
   inset:0;
-  padding:0;
-  overflow:hidden;
-  background-color:#0e1318!important;
-  background-repeat:no-repeat!important;
+  z-index:2;
+  width:100%;
+  height:100%;
+  display:flex!important;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:clamp(7px,1.2vw,16px);
+  padding:clamp(13px,3vw,36px);
+  margin:0;
+  border:0;
+  border-radius:0;
+  background-color:#08101f!important;
+  background-image:
+     radial-gradient(ellipse at 3% 0%,rgba(52,87,146,.36),transparent 62%),
+     linear-gradient(118deg,#0b1426 0%,#07101f 52%,#030915 100%)!important;
   background-size:cover!important;
-  background-position:center center!important;
-  color:#f7f8f9;
-  text-align:right;
+  background-position:center!important;
+  background-repeat:no-repeat!important;
+  color:#f8fafc;
+  text-align:center!important;
   cursor:pointer;
   transition:filter .2s ease;
 }
-.media .play-overlay:hover{filter:brightness(1.12);}
-.media .podcast-player .play-overlay{
-  background-image:linear-gradient(180deg,rgba(9,12,16,.04) 0%,rgba(9,12,16,.1) 46%,rgba(9,12,16,.91) 100%),url('assets/video-previews/martin-podcast-styled.webp')!important;
-}
-.media .archive-video:first-child .play-overlay{
-  background-image:linear-gradient(180deg,rgba(9,12,16,.13) 0%,rgba(9,12,16,.18) 42%,rgba(9,12,16,.94) 100%),url('assets/video-previews/yorini-hongkong-cover.webp')!important;
-}
-.media .archive-video:last-child .play-overlay{
-  background-image:linear-gradient(180deg,rgba(9,12,16,.13) 0%,rgba(9,12,16,.18) 42%,rgba(9,12,16,.94) 100%),url('assets/video-previews/yorini-tv-cover.webp')!important;
-}
-.media .cover-kicker{
+#media .play-overlay::before,
+#media .play-overlay::after {
+  content:"";
+  display:block;
   position:absolute;
-  top:24px;
-  right:26px;
-  display:inline-flex;
-  align-items:center;
-  gap:12px;
-  padding:7px 12px;
-  border:1px solid rgba(215,226,233,.45);
-  background:rgba(9,12,16,.68);
-  font-size:clamp(12px,1.05vw,14px);
-  line-height:1.4;
-  font-weight:700;
-  letter-spacing:0;
-  color:#e4ecf0;
-  backdrop-filter:blur(3px);
-  -webkit-backdrop-filter:blur(3px);
-}
-.media .play-symbol{
-  position:absolute;
-  top:50%;
+  width:min(60%,400px);
+  height:1px;
   left:50%;
-  transform:translate(-50%,-50%);
+  transform:translateX(-50%);
+  background:linear-gradient(90deg,transparent,rgba(193,210,218,.28),transparent);
+  pointer-events:none;
+}
+#media .play-overlay::before { top:11% }
+#media .play-overlay::after { bottom:11% }
+#media .play-overlay:hover { filter:brightness(1.13) }
+#media .cover-kicker {
+  position:static!important;
+  display:block;
+  padding:0;
+  margin:0;
+  color:#bdc7d0;
+  border:0;
+  background:transparent;
+  box-shadow:none;
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+  font-size:clamp(12px,1.1vw,15px);
+  font-weight:550;
+  line-height:1.35;
+  letter-spacing:0;
+  text-align:center;
+}
+#media .play-caption {
+  display:block;
+  position:static!important;
+  margin:0 auto;
+  padding:0;
+  max-width:32ch;
+  color:#fff;
+  font-size:clamp(22px,2.6vw,38px);
+  line-height:1.22;
+  letter-spacing:-.03em;
+  font-weight:800;
+  text-shadow:none;
+  text-align:center!important;
+  white-space:normal;
+  text-wrap:balance;
+}
+#media .archive-player .play-caption {
+  font-size:clamp(19px,2.05vw,29px);
+  max-width:23ch;
+}
+#media .play-symbol {
   display:grid;
   place-items:center;
+  position:static!important;
+  transform:none!important;
   flex:none;
-  width:80px;
-  height:80px;
-  border:1px solid rgba(242,248,252,.85);
+  width:clamp(60px,6.2vw,83px);
+  height:clamp(60px,6.2vw,83px);
+  padding:0 0 0 4px;
+  margin:clamp(2px,1.4vw,10px) 0 0;
+  border:0;
   border-radius:50%;
-  padding:0 3px 0 0;
-  background:rgba(8,12,16,.64);
+  background:#e50914;
   color:#fff;
+  box-shadow:none;
+  font-size:clamp(24px,2.55vw,32px);
   line-height:1;
-  font-size:25px;
-  box-shadow:0 4px 25px rgba(0,0,0,.26);
-  backdrop-filter:blur(4px);
-  -webkit-backdrop-filter:blur(4px);
-  transition:background .2s ease,border-color .2s ease,transform .2s ease;
+  direction:ltr;
+  transition:background .2s ease,scale .2s ease;
 }
-.media .play-overlay:hover .play-symbol{
-  background:rgba(193,210,218,.28);
-  border-color:#fff;
-  transform:translate(-50%,-50%) scale(1.07);
+#media .play-overlay:hover .play-symbol {
+  transform:none!important;
+  scale:1.06;
+  background:#f20e1a;
 }
-.media .play-caption{
-  position:absolute;
-  right:26px;
-  left:26px;
-  bottom:23px;
-  display:block;
-  max-width:none;
-  color:#f8fafb;
-  font-size:clamp(18px,1.8vw,25px);
-  font-weight:800;
-  line-height:1.4;
-  text-shadow:0 2px 10px rgba(0,0,0,.78);
-  text-align:right;
+@media(max-width:760px) {
+  #media .play-overlay{gap:7px;padding:12px 14px}
+  #media .cover-kicker{font-size:11px}
+  #media .play-caption{font-size:clamp(17px,5vw,24px);line-height:1.18;max-width:24ch}
+  #media .archive-player .play-caption{font-size:clamp(16px,4.7vw,22px);max-width:22ch}
+  #media .play-symbol{width:52px;height:52px;font-size:22px;margin:4px 0 0}
 }
-@media(max-width:760px){
-  .media .cover-kicker{top:13px;right:13px;padding:5px 9px;font-size:11px}
-  .media .play-symbol{width:57px;height:57px;font-size:18px}
-  .media .play-caption{right:13px;left:13px;bottom:12px;font-size:clamp(15px,4.3vw,21px)}
-}
-@media(prefers-reduced-motion:reduce){
-  .media .play-symbol{transition:none!important}
+@media(prefers-reduced-motion:reduce) {
+  #media .play-overlay,#media .play-symbol {transition:none!important}
 }
