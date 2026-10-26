@@ -61,3 +61,5 @@ jobs:
           retention-days: 2
 
 # Review run after typography / fade / anchor corrections (2026-10-26)
+
+# Final audit: duplicated video headings removed, fade-only and anchors verified.
