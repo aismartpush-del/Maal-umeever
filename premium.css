@@ -316,7 +316,7 @@ img,svg{max-width:100%}
 /* 2026-10-26 Approved hero photograph — image supplied and approved for the first screen.
    The approved stage image replaces the original interior photo on all breakpoints. */
 .hero-frame .visual-hero .duo-hero-photo{
-  background-image:url("assets/hero-approved.webp")!important;
+  background-image:url("assets/hero-approved-hq.webp")!important;
   background-color:#090b0e!important;
   background-repeat:no-repeat!important;
   background-size:cover!important;
