@@ -234,3 +234,15 @@ img,svg{max-width:100%}
  .visual-hero{height:800px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+/* Photo-specific editorial backdrop: original people, dark abstract studio. */
+.duo-hero-photo{inset:0!important;height:100%!important;background-image:url("assets/hero-stage.svg")!important;background-size:cover!important;background-position:center center!important;background-repeat:no-repeat!important;opacity:1!important;filter:none!important;-webkit-mask-image:none!important;mask-image:none!important}
+.visual-hero::after{background:linear-gradient(180deg,rgba(8,10,13,.30) 0%,transparent 25%,transparent 69%,#090b0e 100%)!important}
+.portrait{filter:grayscale(1) contrast(1.16) brightness(.88)!important}
+.whatsapp-mini{opacity:.5;cursor:default;pointer-events:none}
+.person .copy p{margin-bottom:19px;max-width:69ch}
+@media(max-width:760px){
+.duo-hero-photo{inset:0!important;height:100%!important;background-image:url("assets/hero-stage-mobile.svg")!important;background-size:cover!important;background-position:center top!important;filter:none!important;opacity:1!important;-webkit-mask-image:none!important;mask-image:none!important}
+.visual-hero::after{background:linear-gradient(180deg,rgba(9,11,14,.30) 0%,transparent 27%,rgba(9,11,14,.12) 43%,rgba(9,11,14,.65) 64%,#090b0e 92%)!important}
+.intro{padding-bottom:clamp(31px,6vh,56px)!important}
+.brand-text .brand-name-nowrap{white-space:normal}
+}
