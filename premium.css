@@ -377,7 +377,7 @@ img,svg{max-width:100%}
 
 
 /* 2026-10-26: final user-approved, minimal 3-cover system.
-   All captions + red play controls are real centered HTML (no photos or AI artwork).
+   All captions + single-accent play controls are real centered HTML (no photos or AI artwork).
    Original video links and playback remain unchanged. */
 #media .podcast-player,
 #media .archive-player {
@@ -482,7 +482,7 @@ img,svg{max-width:100%}
   margin:clamp(2px,1.4vw,10px) 0 0;
   border:0;
   border-radius:50%;
-  background:#e50914;
+  background:var(--accent);
   color:#fff;
   box-shadow:none;
   font-size:clamp(24px,2.55vw,32px);
@@ -493,7 +493,7 @@ img,svg{max-width:100%}
 #media .play-overlay:hover .play-symbol {
   transform:none!important;
   scale:1.06;
-  background:#f20e1a;
+  background:#e0e9ed;
 }
 @media(max-width:760px) {
   #media .play-overlay{gap:7px;padding:12px 14px}
@@ -514,7 +514,7 @@ img,svg{max-width:100%}
   font-size:0!important;
   font-family:Arial,sans-serif;
   line-height:0!important;
-  background-color:#e50914!important;
+  background-color:var(--accent)!important;
   color:transparent!important;
   box-shadow:0 0 0 1px rgba(255,255,255,.02)!important;
 }
@@ -527,12 +527,12 @@ img,svg{max-width:100%}
   left:52%;
   top:50%;
   transform:translate(-50%,-50%);
-  background:#fff;
+  background:#090b0e;
   clip-path:polygon(0 0,100% 50%,0 100%);
   pointer-events:none;
 }
 #media .play-overlay:hover .play-symbol {
-  background-color:#f20e1a!important;
+  background-color:#e0e9ed!important;
 }
 
 
