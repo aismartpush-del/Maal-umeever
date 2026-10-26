@@ -1,0 +1,39 @@
+name: Improve approved hero image quality
+on:
+  push:
+    paths:
+      - '.github/workflows/enhance-approved-hero.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  enhance-hero:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Upscale approved photo without changing its content
+        run: |
+          python -m pip install --quiet Pillow
+          python - <<'PY'
+          from PIL import Image, ImageFilter
+          source='assets/hero-approved.webp'
+          dest='assets/hero-approved-hq.webp'
+          with Image.open(source) as photo:
+              im=photo.convert('RGB')
+              im=im.resize((2400,1800),Image.Resampling.LANCZOS)
+              im=im.filter(ImageFilter.UnsharpMask(radius=1.15, percent=115, threshold=3))
+              im.save(dest,'WEBP',quality=94,method=6)
+              print(f'{source} -> {dest}, {im.size}')
+          PY
+      - name: Commit enhanced derivative
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/hero-approved-hq.webp
+          if ! git diff --cached --quiet; then
+            git commit -m "Add enhanced higher-resolution version of approved stage hero"
+            git push
+          fi
