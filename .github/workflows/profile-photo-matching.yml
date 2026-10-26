@@ -44,25 +44,30 @@ jobs:
           ]
           for who,source,target in configs:
               photo=Image.open(source).convert('RGB')
-              if who=='yorini':
-                  # Only recolor highly saturated orange garment pixels, no face edits.
-                  arr=np.asarray(photo).copy()
-                  hsv=cv2.cvtColor(arr,cv2.COLOR_RGB2HSV)
-                  y=np.indices(hsv.shape[:2])[0]
-                  orange=(hsv[:,:,0]>=3)&(hsv[:,:,0]<=21)&(hsv[:,:,1]>133)&(hsv[:,:,2]>75)&(y>160)
-                  # Gentle feather at mask edges to preserve knit detail.
-                  mask=cv2.GaussianBlur((orange.astype('uint8')*255),(5,5),.9).astype('float32')/255.
-                  # Keep natural knit shading, replace only hue/chroma with cool charcoal.
-                  luminance=cv2.cvtColor(arr,cv2.COLOR_RGB2GRAY).astype('float32')
-                  neutral=np.stack([12+.19*luminance,16+.2*luminance,21+.22*luminance],axis=-1)
-                  arr=np.uint8(np.clip(arr*(1-mask[:,:,None])+neutral*mask[:,:,None],0,255))
-                  photo=Image.fromarray(arr,'RGB')
-              # Remove studio backdrop, keep the original photographic pixels for face and hair.
+              # Segment with the ORIGINAL colors before recoloring any fabric,
+              # keeping skin and facial features untouched.
               foreground=remove(photo,session=session,alpha_matting=False,post_process_mask=True).convert('RGBA')
+              if who=='yorini':
+                  data=np.asarray(foreground).copy()
+                  src_rgb=data[:,:,:3]
+                  hsv=cv2.cvtColor(src_rgb,cv2.COLOR_RGB2HSV)
+                  yy=np.indices(hsv.shape[:2])[0]
+                  # The photo shows only an orange sweater below the neck.
+                  # A safe geometric clothing mask starts BELOW the chin.
+                  body=(yy>=224)
+                  # Color-key just the orange collar above the garment boundary,
+                  # rejecting all skin using the blue channel and saturation.
+                  collar=(yy>=166)&(yy<224)&(hsv[:,:,1]>152)&(src_rgb[:,:,0]>145)&(src_rgb[:,:,2]<78)&(src_rgb[:,:,0]>src_rgb[:,:,1]*1.36)
+                  strength=np.where(body|collar,1.,0.).astype('float32')
+                  strength=cv2.GaussianBlur(strength,(5,5),.85)
+                  luminance=cv2.cvtColor(src_rgb,cv2.COLOR_RGB2GRAY).astype('float32')
+                  charcoal=np.stack((9+.18*luminance,12+.19*luminance,17+.21*luminance),axis=-1)
+                  data[:,:,:3]=np.clip(src_rgb*(1-strength[:,:,None])+charcoal*strength[:,:,None],0,255).astype('uint8')
+                  foreground=Image.fromarray(data,'RGBA')
               # Frame both on a consistent professional vertical portrait.
               if who=='yorini':
-                  scaled_w=950
-                  offset_y=18
+                  scaled_w=1040
+                  offset_y=-8
               else:
                   scaled_w=880
                   offset_y=-40
