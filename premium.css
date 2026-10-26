@@ -583,3 +583,22 @@ html{scroll-padding-top:132px;}
     text-shadow:0 3px 20px rgba(0,0,0,.62);
   }
 }
+
+/* 2026-10-26: second client-request correction — unified photographic color grade. */
+/* Preserve approved originals, natural skin tones and authentic clothing colors.
+   Apply the same soft cinematic color correction across the hero and both profiles. */
+.hero-frame .visual-hero .duo-hero-photo,
+#who-we-are .portrait{
+  filter:saturate(.78) contrast(1.055) brightness(.965)!important;
+}
+#who-we-are .portrait{
+  position:relative;
+  overflow:hidden;
+}
+#who-we-are .portrait::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(180deg,rgba(10,19,28,.025),rgba(10,19,28,.105));
+}
