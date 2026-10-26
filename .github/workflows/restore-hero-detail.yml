@@ -1,0 +1,56 @@
+name: Restore hero photo detail with AI super-resolution
+on:
+  push:
+    paths:
+      - '.github/workflows/restore-hero-detail.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  detail:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pretrained image restoration tools
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install realesrgan basicsr pillow opencv-contrib-python-headless "numpy<2"
+      - name: Restore detail from original approved photograph
+        run: |
+          curl --fail --location --retry 3 https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.5.0/realesr-general-x4v3.pth --output /tmp/realesr-general-x4v3.pth
+          python - <<'PY'
+          import sys, types, cv2, os
+          from PIL import Image, ImageFilter
+          from torchvision.transforms import functional as F
+          compat=types.ModuleType('torchvision.transforms.functional_tensor')
+          compat.rgb_to_grayscale=F.rgb_to_grayscale
+          sys.modules['torchvision.transforms.functional_tensor']=compat
+          from realesrgan import RealESRGANer
+          from realesrgan.archs.srvgg_arch import SRVGGNetCompact
+          src='assets/hero-approved.webp'
+          dest='assets/hero-approved-restored.webp'
+          model=SRVGGNetCompact(num_in_ch=3,num_out_ch=3,num_feat=64,num_conv=32,upscale=4,act_type='prelu')
+          up=RealESRGANer(scale=4,model_path='/tmp/realesr-general-x4v3.pth',model=model,
+                          tile=192,tile_pad=12,pre_pad=0,half=False,gpu_id=None)
+          img=cv2.imread(src,cv2.IMREAD_COLOR)
+          assert img is not None and img.shape[:2]==(720,960), 'Expected approved hero image, 960x720'
+          restored,_=up.enhance(img,outscale=3)
+          restored=cv2.cvtColor(restored,cv2.COLOR_BGR2RGB)
+          im=Image.fromarray(restored)
+          im.save(dest,'WEBP',quality=96,method=6)
+          print('AI restored',src,'->',dest,im.size,os.path.getsize(dest),'bytes')
+          PY
+      - name: Commit restored hero without touching layout
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/hero-approved-restored.webp
+          if ! git diff --cached --quiet; then
+            git commit -m "Add AI-restored higher-detail approved hero photograph"
+            git push
+          fi
