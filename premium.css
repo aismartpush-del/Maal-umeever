@@ -603,14 +603,40 @@ html{scroll-padding-top:132px;}
   background:linear-gradient(180deg,rgba(10,19,28,.025),rgba(10,19,28,.105));
 }
 
-/* Mobile heading layout tune */
-@media(max-width:760px){.hero-frame .intro h1{font-size:7.2vw!important;white-space:nowrap!important}.hero-frame .intro h1 .hero-title-top,.hero-frame .intro h1 .hero-title-bottom{display:inline!important}}
 
-/* Mobile heading grouping, visual balance and hero photo placement. */
+/* 2026-10-26: mobile title readability.
+   Keep the show title on one line and long H2 headings in balanced semantic groups. */
 @media(max-width:760px){
-.hero-frame .intro{margin-top:clamp(-70px,-13vw,-47px)!important}
-.hero-frame .intro h1{font-size:clamp(22px,7.2vw,40px)!important;line-height:1.09!important;letter-spacing:-.055em!important;white-space:nowrap!important;overflow-wrap:normal!important}
-.hero-frame .intro h1 .brand-name-nowrap{white-space:nowrap!important}
-.section h2{font-size:clamp(30px,8.75vw,56px)!important;text-wrap:balance;word-break:normal}
-.section h2 .brand-name-nowrap{white-space:normal!important}
+  .hero-frame .intro h1{
+    font-size:clamp(21px,6.75vw,29px)!important;
+    line-height:1.2!important;
+    letter-spacing:-.055em!important;
+    white-space:nowrap!important;
+    overflow-wrap:normal!important;
+    word-break:normal!important;
+  }
+  .hero-frame .intro h1 .brand-name-nowrap,
+  .hero-frame .intro h1 .hero-title-top,
+  .hero-frame .intro h1 .hero-title-bottom{
+    display:inline!important;
+    white-space:nowrap!important;
+  }
+  .section h2{
+    font-size:clamp(30px,8.1vw,39px)!important;
+    line-height:1.2!important;
+    text-wrap:balance;
+    overflow-wrap:normal;
+    word-break:normal;
+  }
+  .section h2 .headline-phrase,
+  .section h2 .why-heading-line{
+    display:block;
+  }
+  .section h2 .brand-name-nowrap{
+    display:block;
+    white-space:nowrap!important;
+    font-size:clamp(19px,6.5vw,28px);
+    line-height:1.33;
+    letter-spacing:-.045em;
+  }
 }
