@@ -1,4 +1,4 @@
-name: Generate authentic archive video preview frames
+name: Build unified actual-video covers
 on:
   push:
     paths:
@@ -7,43 +7,59 @@ on:
 permissions:
   contents: write
 jobs:
-  frames:
+  covers:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-      - name: Build one contact sheet for each archive recording
+      - name: Install video frame extraction
         run: |
-          set -e
-          mkdir -p assets/video-previews
           sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
-          python3 -m pip install --quiet Pillow
+          python3 -m pip install --quiet Pillow requests
+      - name: Export authentic video frames and official podcast thumbnail
+        run: |
           python3 - <<'PY'
-          import subprocess,os,math
-          from PIL import Image,ImageOps,ImageDraw
-          videos={'hongkong':'assets/yorini-hongkong.mp4','tv':'assets/yorini-tv.mp4'}
+          import os,subprocess,io,requests
+          from PIL import Image, ImageEnhance
           os.makedirs('assets/video-previews',exist_ok=True)
-          for key,path in videos.items():
-              meta=subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration','-of','default=noprint_wrappers=1:nokey=1',path],text=True).strip()
-              duration=float(meta)
-              print(key,'duration',duration)
-              times=[max(0,duration*f) for f in (.04,.14,.28,.48,.72,.88)]
-              sheet=Image.new('RGB',(3*480,2*306),(18,22,27))
-              draw=ImageDraw.Draw(sheet)
-              for i,t in enumerate(times):
-                  outfile=f'/tmp/{key}{i}.jpg'
-                  subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-y','-ss',str(t),'-i',path,'-frames:v','1','-vf','scale=480:270:force_original_aspect_ratio=decrease,pad=480:270:(ow-iw)/2:(oh-ih)/2:color=black','-q:v','3',outfile],check=True)
-                  im=Image.open(outfile).convert('RGB')
-                  sheet.paste(im,((i%3)*480,(i//3)*306))
-                  draw.text(((i%3)*480+10,(i//3)*306+274),f'{key} {i}: {t:.1f}s',fill='white')
-              sheet.save(f'assets/video-previews/{key}-contact-sheet.jpg',quality=83,optimize=True)
+          # The chosen positions were visually reviewed in 6-frame contact sheets of the actual source videos.
+          selections=[
+              ('yorini-hongkong.mp4','yorini-hongkong-cover.webp',187.3),
+              ('yorini-tv.mp4','yorini-tv-cover.webp',226.0),
+          ]
+          for src,out,seconds in selections:
+              inputfile=f'assets/{src}'
+              outputfile=f'assets/video-previews/{out}'
+              tmp='/tmp/'+out.replace('.webp','.png')
+              subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-y','-ss',str(seconds),'-i',inputfile,'-frames:v','1','-vf','scale=1280:720:force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2:color=black',tmp],check=True)
+              im=Image.open(tmp).convert('RGB')
+              im.save(outputfile,'WEBP',quality=93,method=6)
+              print(outputfile,im.size,os.path.getsize(outputfile))
+          # The real Youtube video artwork (not an AI substitute), locally cached to avoid hotlink changes.
+          yt='SaRoqLR8QxE'
+          for res in ('maxresdefault','hqdefault'):
+              try:
+                  response=requests.get(f'https://i.ytimg.com/vi/{yt}/{res}.jpg',timeout=18,headers={'User-Agent':'Mozilla/5.0'})
+                  response.raise_for_status()
+                  im=Image.open(io.BytesIO(response.content)).convert('RGB')
+                  if im.width<300: continue
+                  if im.width<1280:
+                      im=im.resize((1280,round(im.height*1280/im.width)),Image.Resampling.LANCZOS)
+                  from PIL import ImageOps
+                  im=ImageOps.fit(im,(1280,720),method=Image.Resampling.LANCZOS,centering=(.5,.5))
+                  out='assets/video-previews/martin-podcast-cover.webp'
+                  im.save(out,'WEBP',quality=92,method=6)
+                  print(out,im.size,os.path.getsize(out))
+                  break
+              except Exception as e:
+                  print('thumbnail source issue:',res,str(e)[:150])
           PY
-      - name: Commit low-size proof sheets
+      - name: Commit new actual-video cover images
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/video-previews/*.jpg
+          git add assets/video-previews/*-cover.webp
           if ! git diff --cached --quiet; then
-            git commit -m "Add proof sheets to select authentic archive cover frames"
+            git commit -m "Add actual footage thumbnails for three unified video covers"
             git push
           fi
