@@ -1676,3 +1676,146 @@ body{background:#030303;color:#f6f5f3;}
   .hero-frame .intro .description{font-size:clamp(14px,1.42vw,17px)!important;}
   .topbar .brand-text{font-size:13px;}
 }
+
+/* 2026-10-26: desktop header readability and verified photo rendering. */
+/* Scoped to desktop: mobile styling and interaction remain untouched. */
+@media(min-width:980px){
+  .topbar{
+    display:grid;
+    grid-template-columns:max-content minmax(0,1fr) max-content;
+    align-items:center;
+    column-gap:clamp(15px,1.6vw,30px);
+    min-height:clamp(130px,10.5vw,152px);
+    padding:8px clamp(17px,2.4vw,49px);
+    background:rgba(0,0,0,.96);
+  }
+  .topbar .brand{
+    grid-column:1;
+    grid-row:1;
+    min-width:0;
+    flex:initial;
+    display:flex;
+    align-items:center;
+    gap:clamp(12px,1.2vw,21px);
+    white-space:nowrap;
+  }
+  .topbar .brand-logo{
+    flex:0 0 auto;
+    width:clamp(112px,9.6vw,134px);
+    height:clamp(112px,9.6vw,134px);
+    transform:scale(1.1)!important;
+    transform-origin:center;
+    object-fit:contain;
+  }
+  .topbar .brand-text,
+  .topbar .brand-text .brand-name-nowrap{
+    display:inline!important;
+    width:auto;
+    max-width:none;
+    font-size:clamp(17px,1.52vw,23px)!important;
+    font-weight:650!important;
+    letter-spacing:-.015em;
+    line-height:1.25!important;
+    white-space:nowrap!important;
+  }
+  .topbar .desktop-nav{
+    grid-column:2;
+    grid-row:1;
+    display:flex!important;
+    justify-content:space-evenly!important;
+    align-items:center!important;
+    flex:initial;
+    width:100%;
+    min-width:0;
+    gap:clamp(8px,1.15vw,23px);
+  }
+  .topbar .desktop-nav a{
+    font-size:clamp(17px,1.35vw,21px)!important;
+    font-weight:600!important;
+    line-height:1.3;
+    white-space:nowrap;
+    padding-block:16px;
+  }
+  .topbar .top-controls{
+    grid-column:3;
+    grid-row:1;
+    justify-self:end;
+    min-width:0;
+    gap:0;
+  }
+  .topbar .persistent-actions-desktop{
+    gap:9px!important;
+    flex-wrap:nowrap!important;
+  }
+  .topbar .persistent-actions-desktop .persistent-book{
+    min-height:49px;
+    padding:11px clamp(14px,1.25vw,22px);
+    font-size:clamp(15px,1.19vw,18px);
+  }
+  .topbar .persistent-actions-desktop .persistent-wa svg{
+    width:29px;
+    height:29px;
+  }
+  .topbar .menu-lines{display:none!important;}
+  html{scroll-padding-top:165px;}
+  .section[id]{scroll-margin-top:165px;}
+  /* The hero uses the actual approved 2880×2160 WebP source, with
+     gentle rendering adjustments only: no fake sharpening or upscale. */
+  .hero-frame .visual-hero .duo-hero-photo{
+    background-image:url("assets/hero-approved-restored.webp")!important;
+    filter:saturate(.93) contrast(1.05) brightness(.97)!important;
+    opacity:1!important;
+    image-rendering:auto;
+  }
+  .hero-frame .visual-hero::after{
+    background:
+      linear-gradient(90deg,rgba(0,0,0,.035) 0%,rgba(0,0,0,.09) 31%,rgba(0,0,0,.74) 61%,#030303 93%),
+      linear-gradient(180deg,rgba(0,0,0,.20),transparent 26%,rgba(0,0,0,.10) 70%,#030303 100%)!important;
+  }
+}
+/* Keep generously sized navigation usable even on compact laptops. */
+@media(min-width:980px) and (max-width:1199px){
+  .topbar{
+    column-gap:12px;
+    padding-inline:14px;
+    min-height:130px;
+  }
+  .topbar .brand{gap:11px;}
+  .topbar .brand-logo{
+    width:111px;
+    height:111px;
+    transform:scale(1.06)!important;
+  }
+  .topbar .brand-text,
+  .topbar .brand-text .brand-name-nowrap{
+    font-size:16px!important;
+    font-weight:650!important;
+  }
+  .topbar .desktop-nav{gap:9px;}
+  .topbar .desktop-nav a{font-size:16px!important;}
+  .topbar .persistent-actions-desktop .persistent-book{
+    min-height:46px;
+    font-size:15px;
+    padding-inline:13px;
+  }
+  .topbar .persistent-actions-desktop .persistent-wa{
+    width:32px;
+  }
+  .topbar .persistent-actions-desktop .persistent-wa svg{
+    width:25px;
+    height:25px;
+  }
+  html{scroll-padding-top:142px;}
+  .section[id]{scroll-margin-top:142px;}
+}
+@media(min-width:1200px){
+  .topbar .brand-logo{
+    width:clamp(122px,9.6vw,146px);
+    height:clamp(122px,9.6vw,146px);
+    transform:scale(1.08)!important;
+  }
+  .topbar{min-height:154px;}
+  .hero-frame .intro{
+    padding-top:145px!important;
+  }
+}
