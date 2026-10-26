@@ -504,3 +504,32 @@ img,svg{max-width:100%}
 @media(prefers-reduced-motion:reduce) {
   #media .play-overlay,#media .play-symbol {transition:none!important}
 }
+
+
+/* True vector play symbol — never use an emoji glyph or platform-dependent icon. */
+#media .play-overlay .play-symbol {
+  position:relative!important;
+  padding:0!important;
+  font-size:0!important;
+  font-family:Arial,sans-serif;
+  line-height:0!important;
+  background-color:#e50914!important;
+  color:transparent!important;
+  box-shadow:0 0 0 1px rgba(255,255,255,.02)!important;
+}
+#media .play-overlay .play-symbol::before {
+  content:"";
+  display:block;
+  position:absolute;
+  width:34%;
+  height:42%;
+  left:52%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  background:#fff;
+  clip-path:polygon(0 0,100% 50%,0 100%);
+  pointer-events:none;
+}
+#media .play-overlay:hover .play-symbol {
+  background-color:#f20e1a!important;
+}
