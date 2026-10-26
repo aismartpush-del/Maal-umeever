@@ -746,3 +746,75 @@ html{scroll-padding-top:132px;}
   .hero-frame .intro{padding-inline:18px!important;}
   .hero-frame .intro h1{font-size:clamp(19px,6.6vw,24px)!important;}
 }
+
+/* 2026-10-26: mobile header in page flow — no photo obscured during touch scroll. */
+@media (max-width:760px) {
+  /* On phones, the header is part of the page, not a fixed overlay.
+     Scrolling up naturally reveals it, then the entire photograph. */
+  .topbar {
+    position:relative!important;
+    top:auto!important;
+    inset-block-start:auto!important;
+    inset-inline:auto!important;
+    width:100%!important;
+    min-height:90px!important;
+  }
+  .first-screen {
+    padding-top:0!important;
+  }
+  .hero-frame {
+    position:relative!important;
+    height:auto!important;
+    min-height:0!important;
+    overflow:visible!important;
+  }
+  .hero-frame .visual-hero {
+    display:block!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    aspect-ratio:4 / 3!important;
+    overflow:hidden!important;
+  }
+  .hero-frame .hero-media-space,
+  .hero-frame .visual-hero .duo-hero-photo {
+    position:absolute!important;
+    inset:0!important;
+    width:100%!important;
+    height:100%!important;
+  }
+  .hero-frame .visual-hero .duo-hero-photo {
+    background-size:contain!important;
+    background-position:center top!important;
+    background-repeat:no-repeat!important;
+  }
+  .hero-frame .intro {
+    display:block!important;
+    position:relative!important;
+    inset:auto!important;
+    height:auto!important;
+    max-height:none!important;
+    margin:0!important;
+    padding:0 22px 58px!important;
+    text-align:right!important;
+  }
+  .hero-frame .intro-inner {
+    display:flow-root!important;
+    width:100%!important;
+  }
+  .hero-frame .intro h1 {
+    display:block!important;
+    margin:calc(-1 * clamp(32px,10vw,42px)) 0 26px!important;
+    position:relative!important;
+    font-size:clamp(21px,6.7vw,29px)!important;
+    line-height:1.2!important;
+    white-space:nowrap!important;
+  }
+}
+@media (max-width:365px) {
+  .topbar{min-height:79px!important;}
+  .first-screen{padding-top:0!important;}
+  .hero-frame .intro{padding-inline:18px!important;}
+  .hero-frame .intro h1{font-size:clamp(19px,6.6vw,24px)!important;}
+}
