@@ -35,8 +35,8 @@ img,svg{max-width:100%}
 .visual-hero{position:relative;width:100%;height:min(940px,100svh);min-height:730px;overflow:hidden;isolation:isolate;background:#090b0e}
 .visual-hero::before{content:"";position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 42% 63% at 28% 42%,#2b3338 0%,transparent 77%),linear-gradient(100deg,#171b20 0%,#0b0e12 64%,#090b0e 100%)}
 .hero-media-space{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
-.duo-hero-photo{position:absolute;inset:0;background-image:url('assets/hero-stage.svg');background-repeat:no-repeat;background-size:cover;background-position:center;opacity:1;filter:none}
-.visual-hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(9,11,14,.35),transparent 28%,transparent 68%,#090b0e 100%)}
+.duo-hero-photo{position:absolute;inset:0;background-image:url('assets/hero-duo.webp');background-repeat:no-repeat;background-size:cover;background-position:center 40%;opacity:.83;filter:contrast(1.04) brightness(.69)}
+.visual-hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(9,11,14,.98) 0%,rgba(9,11,14,.73) 40%,rgba(9,11,14,.15) 77%),linear-gradient(180deg,rgba(9,11,14,.25),transparent 25%,transparent 65%,#090b0e 100%)}
 .beam,.stage-horizon,.hero-footer{display:none}
 .intro{position:absolute;inset:0;z-index:2;display:flex;flex-direction:row;align-items:center;justify-content:flex-start;padding:130px clamp(26px,7.4vw,135px) 75px;pointer-events:none;text-align:right}
 .intro-inner{width:min(600px,50vw);margin:0;pointer-events:auto}
@@ -94,7 +94,7 @@ img,svg{max-width:100%}
 .people{background:#101419}
 .profiles-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(30px,5.4vw,86px)}
 .person{display:flex;flex-direction:column;gap:0;margin:0;min-width:0}
-.portrait{width:100%;aspect-ratio:4/4.55;background-color:#232930;background-size:cover;background-position:center 23%;filter:grayscale(1) contrast(1.16) brightness(.88);border:0;box-shadow:none}
+.portrait{width:100%;aspect-ratio:4/4.55;background-color:#232930;background-size:cover;background-position:center 23%;filter:none;border:0;box-shadow:none}
 .yorini-portrait{background-image:url('assets/yorini-portrait-approved.webp')}
 .or-pinto-portrait{background-image:url('assets/or-pinto-approved.webp')}
 .person>div:last-child{padding-top:32px}
@@ -179,8 +179,8 @@ img,svg{max-width:100%}
  .site-nav{inset-inline-end:14px;width:calc(100vw - 28px)}
  .visual-hero{height:max(775px,100svh);min-height:0}
  .visual-hero::before{background:radial-gradient(ellipse 80% 40% at 50% 29%,#2b3339 0%,transparent 85%),#090b0e}
- .duo-hero-photo{inset:0;height:100%;background-image:url('assets/hero-stage-mobile.svg');background-size:cover;background-position:center top;opacity:1;filter:none}
- .visual-hero::after{background:linear-gradient(180deg,rgba(9,11,14,.32) 0%,transparent 29%,rgba(9,11,14,.12) 43%,rgba(9,11,14,.68) 67%,#090b0e 95%)}
+ .duo-hero-photo{inset:0;height:100%;background-image:url('assets/hero-duo.webp');background-size:auto 52%;background-repeat:no-repeat;background-position:center 10%;opacity:.78;filter:contrast(1.06) brightness(.64)}
+ .visual-hero::after{background:linear-gradient(180deg,rgba(9,11,14,.25) 0%,rgba(9,11,14,.09) 29%,rgba(9,11,14,.49) 45%,rgba(9,11,14,.97) 70%,#090b0e 97%)}
  .intro{inset:0;padding:100px 22px 39px;align-items:flex-end;justify-content:flex-start}
  .intro-inner{width:100%;max-width:550px}
  .intro h1{font-size:clamp(40px,10.4vw,58px);line-height:1.04;margin-bottom:14px;letter-spacing:-.065em}
@@ -236,7 +236,32 @@ img,svg{max-width:100%}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
 
 /* Quiet editorial image interlude between unchanged paragraphs */
-.editorial-interlude{position:relative;max-width:760px;height:clamp(190px,24vw,300px);margin:4px 0 10px;overflow:hidden;background:#12171c url('assets/hero-stage.svg') center 45%/cover no-repeat}
+.editorial-interlude{position:relative;max-width:760px;height:clamp(190px,24vw,300px);margin:4px 0 10px;overflow:hidden;background:#12171c url('assets/hero-duo.webp') center 45%/cover no-repeat}
 .editorial-interlude::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(9,11,14,.28))}
 .brand{cursor:pointer}
 @media(max-width:760px){.editorial-interlude{height:185px;background-position:center}.intro{padding-bottom:clamp(38px,7vh,67px)}}
+
+
+/* 2026-10-26: Structural correction. Hero is the ONLY positioning parent.
+   Previously intro absolute inset:0 was attached to .first-screen,
+   covering the separate quote section and causing text collisions. */
+.hero-frame{position:relative;isolation:isolate;min-height:0;}
+.hero-frame .visual-hero{display:block;}
+.hero-frame .intro{position:absolute;inset:0;z-index:3;}
+.first-screen>.quote-section{position:relative;z-index:1;clear:both;}
+.first-screen>.quote-section blockquote{overflow-wrap:break-word;}
+.intro h1,.intro p{overflow-wrap:break-word;}
+/* Do not turn authorized photography or the official logo monochrome. */
+.brand-logo{filter:none!important;}
+.people .portrait{filter:none!important;}
+/* Never add a stand-in image into approved copy. */
+.editorial-interlude{display:none!important;}
+@media(max-width:760px){
+ .hero-frame{height:auto;min-height:0;}
+ .hero-frame .visual-hero{height:clamp(755px,100svh,940px);}
+ .hero-frame .intro{height:100%;max-height:100%;}
+ .hero-frame .intro-inner{max-width:100%;min-width:0;}
+ .hero-frame .intro h1{font-size:clamp(34px,8.9vw,43px);line-height:1.12;}
+ .first-screen>.quote-section{margin:0;padding:80px 22px;clear:both;}
+ .first-screen>.quote-section blockquote{font-size:clamp(24px,6vw,34px);line-height:1.55;}
+}
