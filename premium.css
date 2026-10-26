@@ -807,3 +807,93 @@ html{scroll-padding-top:132px;}
   .hero-frame .whatsapp-mini{width:22px;height:22px;}
   .hero-frame .whatsapp-mini svg{width:20px;height:20px;}
 }
+
+/* 2026-10-26: approved persistent booking + subtle green WhatsApp pair. */
+.persistent-actions{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:nowrap;
+  gap:12px;
+}
+.persistent-actions .persistent-book{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:44px;
+  padding:10px 22px;
+  border:1px solid var(--accent);
+  border-radius:3px;
+  color:#090b0e;
+  background:var(--accent);
+  font-size:15px;
+  font-weight:800;
+  line-height:1.25;
+  white-space:nowrap;
+  text-decoration:none;
+  box-shadow:none;
+  transition:background .2s ease,border-color .2s ease;
+}
+.persistent-actions .persistent-book:hover,
+.persistent-actions .persistent-book:focus-visible{
+  background:#e0e9ed;
+  border-color:#e0e9ed;
+  transform:none;
+}
+.persistent-actions .persistent-wa{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 auto;
+  width:37px;
+  height:42px;
+  padding:6px;
+  background:transparent;
+  border:0;
+  color:#25D366;
+  opacity:1!important;
+  box-shadow:none;
+}
+.persistent-actions .persistent-wa svg{
+  width:26px;
+  height:26px;
+  display:block;
+  fill:none;
+}
+.persistent-actions .persistent-wa:disabled{
+  color:#25D366;
+  opacity:1!important;
+  cursor:default;
+}
+.topbar .persistent-actions-desktop{display:inline-flex;gap:10px;}
+.persistent-cta-mobile{display:none;}
+@media(max-width:760px){
+  .topbar .persistent-actions-desktop{display:none!important;}
+  .persistent-cta-mobile{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:fixed;
+    bottom:calc(12px + env(safe-area-inset-bottom,0px));
+    left:50%;
+    transform:translateX(-50%);
+    z-index:1100;
+    width:max-content;
+    max-width:calc(100vw - 24px);
+    padding:8px 11px;
+    border:1px solid rgba(215,226,233,.2);
+    border-radius:11px;
+    background:rgba(9,11,14,.95);
+    box-shadow:0 9px 30px rgba(0,0,0,.32);
+    -webkit-backdrop-filter:blur(10px);
+    backdrop-filter:blur(10px);
+  }
+  .persistent-cta-mobile .persistent-actions{gap:12px;}
+  .persistent-cta-mobile .persistent-book{
+    min-height:43px;
+    padding:10px 23px;
+    font-size:15px;
+  }
+  .persistent-cta-mobile .persistent-wa{width:36px;height:43px;}
+  body{padding-bottom:calc(85px + env(safe-area-inset-bottom,0px));}
+}
