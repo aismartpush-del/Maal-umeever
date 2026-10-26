@@ -641,69 +641,56 @@ html{scroll-padding-top:132px;}
   }
 }
 
-/* 2026-10-26 typography review 4: editorial quote hierarchy. */
-.first-screen>.quote-section{
-  background:#0c0f12;
-  text-align:center;
-}
-.first-screen>.quote-section blockquote{
-  max-width:940px!important;
-  margin:0 auto 36px!important;
-  font-family:Heebo,Arial,sans-serif;
-  line-height:1.45;
-  letter-spacing:-.025em;
-}
-.quote-section .quote-lead{
-  display:block;
-  color:var(--white);
-  font-size:clamp(47px,5.7vw,78px);
-  line-height:1.2;
-  letter-spacing:-.065em;
-  font-weight:900;
-  text-wrap:balance;
-  margin-bottom:33px;
-}
-.quote-section .quote-middle{
-  display:block;
-  font-size:clamp(23px,2.55vw,34px);
-  line-height:1.65;
-  font-weight:400;
-  letter-spacing:-.015em;
-  color:var(--copy);
-  margin-bottom:35px;
-}
-.quote-section .quote-finale{
-  display:block;
-  color:var(--accent);
-  font-size:clamp(32px,3.55vw,49px);
-  line-height:1.32;
-  font-weight:850;
-  letter-spacing:-.038em;
-  text-wrap:balance;
-}
-.first-screen>.quote-section .byline{
-  display:inline-block!important;
-  border-top:1px solid var(--rule);
-  padding-top:20px;
-  font-size:15px;
-  letter-spacing:0;
-  line-height:1.65;
-}
+/* 2026-10-26: stable mobile hero composition. */
 @media(max-width:760px){
-  .first-screen>.quote-section blockquote{max-width:100%!important;margin-bottom:28px!important}
-  .quote-section .quote-lead{
-    font-size:clamp(36px,9.3vw,48px);
-    line-height:1.25;
-    margin-bottom:23px;
+  /* Fixed menu sits above a full 4:3 photograph; do not crop or zoom it. */
+  .first-screen{padding-top:90px!important;}
+  .hero-frame{height:auto!important;min-height:0!important;overflow:visible!important;}
+  .hero-frame .visual-hero{
+    width:100%!important;
+    height:auto!important;
+    aspect-ratio:4 / 3!important;
+    min-height:0!important;
+    max-height:none!important;
+    overflow:hidden!important;
   }
-  .quote-section .quote-middle{
-    font-size:clamp(19px,5.1vw,23px);
-    line-height:1.75;
-    margin-bottom:24px;
+  .hero-frame .visual-hero .duo-hero-photo{
+    inset:0!important;
+    width:100%!important;
+    height:100%!important;
+    background-size:contain!important;
+    background-position:center top!important;
+    background-repeat:no-repeat!important;
   }
-  .quote-section .quote-finale{
-    font-size:clamp(26px,7.1vw,36px);
-    line-height:1.38;
+  .hero-frame .visual-hero::after{
+    background:linear-gradient(180deg,transparent 45%,rgba(9,11,14,.18) 64%,rgba(9,11,14,.78) 88%,#090b0e 100%)!important;
   }
-  .first-screen>.quote-section .byline{font-size:14px;padding-top:16px}
+  .hero-frame .intro{
+    position:relative!important;
+    inset:auto!important;
+    height:auto!important;
+    margin-top:-46px!important;
+    padding:0 22px 58px!important;
+    background:transparent!important;
+    text-align:right!important;
+  }
+  /* The complete brand remains on the dark bottom edge of the photo. */
+  .hero-frame .intro h1{
+    display:block!important;
+    position:relative!important;
+    font-size:clamp(21px,6.7vw,29px)!important;
+    font-weight:900!important;
+    line-height:1.23!important;
+    letter-spacing:-.05em!important;
+    white-space:nowrap!important;
+    margin:0 0 27px!important;
+    text-shadow:0 2px 16px rgba(0,0,0,.9)!important;
+  }
+  .hero-frame .intro .subheading{margin:0 0 17px!important;}
+  .hero-frame .intro .description{margin:0 0 27px!important;}
+}
+@media(max-width:365px){
+  .first-screen{padding-top:79px!important;}
+  .hero-frame .intro{padding-inline:18px!important;}
+  .hero-frame .intro h1{font-size:clamp(19px,6.65vw,24px)!important;}
 }
