@@ -9,10 +9,11 @@
 <title>מעל ומעבר – המנטליסטים | מופע מנטליזם לאירועי חברה וערבי גיבוש</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="premium.css?v=20261026-sticky-photo-2">
+<link rel="stylesheet" href="premium.css?v=20261026-mobile-photo-snap-3">
 
 </head>
 <body>
+  <div id="mobile-top-snap" aria-hidden="true"></div>
   <header class="topbar">
     <a class="brand" href="#top" aria-label="מעל ומעבר – חזרה לראש העמוד">
       <img class="brand-logo" src="assets/official-logo.webp" width="100" height="100" alt="לוגו מעל ומעבר – המנטליסטים">
@@ -164,6 +165,23 @@
     }
     button.remove();
   }));
+
+  // On upward finger-scrolling into the hero, settle at the true top.
+  // This keeps the complete image below the sticky menu without any tap.
+  let previousTop=window.scrollY;
+  let upwardScroll=false;
+  window.addEventListener('scroll',()=>{
+    const nextTop=window.scrollY;
+    if(Math.abs(nextTop-previousTop)>2) upwardScroll=nextTop<previousTop;
+    previousTop=nextTop;
+  },{passive:true});
+  window.addEventListener('scrollend',()=>{
+    if(window.innerWidth>760||!upwardScroll) return;
+    const offset=window.scrollY;
+    if(offset>0 && offset<Math.min(300,window.innerWidth*.8)){
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+  },{passive:true});
 
   // Only one archival recording should play at a time.
   const archiveVideos=[...document.querySelectorAll('.archive-player video')];
