@@ -928,3 +928,12 @@ html{scroll-padding-top:132px;}
   .persistent-cta-mobile .persistent-wa{width:36px;height:43px;}
   body{padding-bottom:calc(85px + env(safe-area-inset-bottom,0px));}
 }
+
+/* Client revision #7: visually enlarge the logo without changing sticky header geometry. */
+.topbar .brand-logo{
+  transform:scale(1.1);
+  transform-origin:center;
+}
+@media(max-width:760px){
+  .topbar .brand-logo{transform:scale(1.06);}
+}
