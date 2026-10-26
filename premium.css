@@ -697,3 +697,52 @@ html{scroll-padding-top:132px;}
 
 /* Martin's quote uses one consistent type treatment, as requested. */
 .first-screen>.quote-section .quote-finale{color:inherit!important}
+
+/* 2026-10-26: photo fully framed; title anchored to dark photo footer. */
+@media(max-width:760px){
+  .first-screen{padding-top:90px!important;}
+  .hero-frame{position:relative!important;overflow:visible!important;height:auto!important;}
+  .hero-frame .visual-hero{
+    position:relative!important;
+    width:100%!important;
+    height:auto!important;
+    aspect-ratio:4 / 3!important;
+    min-height:0!important;
+    overflow:hidden!important;
+  }
+  .hero-frame .visual-hero .duo-hero-photo{
+    inset:0!important;
+    height:100%!important;
+    width:100%!important;
+    background-size:contain!important;
+    background-position:center top!important;
+  }
+  .hero-frame .visual-hero::after{
+    background:linear-gradient(180deg,transparent 55%,rgba(9,11,14,.14) 67%,rgba(9,11,14,.74) 89%,#090b0e 100%)!important;
+  }
+  .hero-frame .intro{
+    display:block!important;
+    position:relative!important;
+    inset:auto!important;
+    margin:0!important;
+    padding:1px 22px 58px!important;
+    height:auto!important;
+    overflow:visible!important;
+  }
+  .hero-frame .intro-inner{display:flow-root!important;}
+  .hero-frame .intro h1{
+    position:relative!important;
+    margin:-60px 0 32px!important;
+    font-size:clamp(21px,6.7vw,29px)!important;
+    line-height:1.2!important;
+    white-space:nowrap!important;
+    text-shadow:0 2px 15px #000!important;
+  }
+  .hero-frame .intro .subheading{margin:0 0 17px!important;}
+  .hero-frame .intro .description{margin:0 0 26px!important;}
+}
+@media(max-width:365px){
+  .first-screen{padding-top:79px!important;}
+  .hero-frame .intro{padding-inline:18px!important;}
+  .hero-frame .intro h1{font-size:clamp(19px,6.6vw,24px)!important;}
+}
