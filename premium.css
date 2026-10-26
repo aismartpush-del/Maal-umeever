@@ -694,3 +694,6 @@ html{scroll-padding-top:132px;}
   .hero-frame .intro{padding-inline:18px!important;}
   .hero-frame .intro h1{font-size:clamp(19px,6.65vw,24px)!important;}
 }
+
+/* Martin's quote uses one consistent type treatment, as requested. */
+.first-screen>.quote-section .quote-finale{color:inherit!important}
