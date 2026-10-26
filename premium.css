@@ -1419,3 +1419,46 @@ body{background:#030303;color:#f6f5f3;}
   #events .audience-label{font-size:15px;}
   .hero-mobile-photo-title{font-size:clamp(20px,6vw,24px)!important;}
 }
+
+/* Restore original header wording alongside the logo on mobile. */
+.topbar .brand-text{display:block;flex:0 1 auto;white-space:normal;}
+@media(max-width:760px){
+  .topbar .brand{
+    gap:13px!important;
+    max-width:calc(100% - 50px);
+    min-width:0;
+    align-items:center;
+  }
+  .topbar .brand-text{
+    display:block!important;
+    flex:0 1 auto;
+    width:clamp(110px,34vw,157px);
+    min-width:0;
+    max-width:none!important;
+    color:#f5f5f5;
+    font-size:clamp(12px,3.6vw,15px)!important;
+    line-height:1.32;
+    font-weight:700!important;
+    letter-spacing:-.02em;
+    text-align:right;
+    white-space:normal!important;
+  }
+  .topbar .brand-text .brand-name-nowrap{
+    display:block;
+    white-space:normal!important;
+    text-wrap:pretty;
+    overflow-wrap:normal;
+  }
+  .topbar .brand-logo{
+    width:80px!important;
+    height:80px!important;
+    transform:scale(1.14)!important;
+    transform-origin:center;
+  }
+  .topbar .top-controls{flex:0 0 auto;}
+}
+@media(max-width:365px){
+  .topbar .brand{gap:9px!important;}
+  .topbar .brand-logo{width:70px!important;height:70px!important;transform:scale(1.12)!important;}
+  .topbar .brand-text{width:clamp(98px,35vw,125px);font-size:clamp(11px,3.5vw,12px)!important;}
+}
